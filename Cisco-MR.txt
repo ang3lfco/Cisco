@@ -1,0 +1,102 @@
+﻿Institutos(
+        id : entero(PK),
+        nombre : texto(50)
+        siglas : texto(12)
+)
+
+
+Laboratorios(
+        id : entero(PK),
+        nombre : texto(30),
+        horaInicio : Hora,
+        horaFin : Hora,
+        contraseña : texto(50),
+        idInstituto : entero
+)
+
+
+idInstituto pertenece a Institutos
+
+
+HorarioEspecial(
+id : entero(PK),
+        horaInicio : Hora,
+        horaFin : Hora,
+        idLaboratorio : entero
+)
+
+
+idLaboratorio pertenece a Laboratorios
+
+
+Computadoras(
+        id : entero(PK),
+        número : entero,
+        estado : bit(0)
+        direccionIP : texto(20),
+        idLaboratorio : entero
+)
+
+
+idLaboratorio pertenece a Laboratorios
+
+
+Softwares(
+        id : entero(PK),
+        nombre : (50)
+        versión : texto(20),
+)
+
+
+SoftwaresEnComputadoras(
+        id ; entero(PK),
+        idComputadora : entero,
+        idSoftware : entero
+)
+
+
+idComputadora pertenece a Computadoras
+idSoftware pertenece a Softwares
+
+
+Reservas(
+        id : entero(PK),
+        horaFechaInicio : FechaHora,
+        horaFechaFin : FechaHora
+        idEstudiante : entero,
+        idComputadora : entero
+)
+
+
+idEstudiante pertenece a Estudiantes
+idComputadora pertenece a Computadoras
+
+
+Estudiantes(
+        id : entero(PK),
+        idEstudiante : entero,
+        nombre : texto (50),
+        apellidoPaterno : texto(50),
+        apellidoMaterno : text(50),
+        contraseña : texto(50),
+        estado : bit(0),
+        idCarrera : entero
+)
+
+
+idCarrera pertenece a Carreras
+
+
+Bloqueos(
+        id : entero(PK),
+        fechaHoraBloqueo: FechaHora,
+        fechaHoraDesbloqueo : FechaHora,
+        motivo : texto(200),
+        idEstudiante : entero
+)
+idEstudiante pertenece a Estudiantes
+Carreras(
+        id : entero(PK),
+        nombre : texto (50),
+         tiempoDiario : entero
+)
