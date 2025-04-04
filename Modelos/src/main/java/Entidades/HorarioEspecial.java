@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @author ReneEzequiel23
  */
 @Entity
-@Table(name = "horarioEspecial")
+@Table(name = "horariosEspeciales")
 public class HorarioEspecial implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
