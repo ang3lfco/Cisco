@@ -21,8 +21,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "computadoras")
 public class Computadora implements Serializable {
-
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -34,8 +32,8 @@ public class Computadora implements Serializable {
     @Column(name="estado", nullable=false)
     private boolean estado;
     
-    @Column(name="direccionIP", length=20, nullable=false)
-    private String direccionIP;
+    @Column(name="direccionIp", length=20, nullable=false)
+    private String direccionIp;
 
     @ManyToOne
     @JoinColumn(name = "idLaboratorio", nullable=false)
@@ -44,25 +42,23 @@ public class Computadora implements Serializable {
     public Computadora() {
     }
 
-    public Computadora(int numero, boolean estado, String direccionIP) {
+    public Computadora(int numero, boolean estado, String direccionIp, Laboratorio laboratorio) {
         this.numero = numero;
         this.estado = estado;
-        this.direccionIP = direccionIP;
+        this.direccionIp = direccionIp;
+        this.laboratorio = laboratorio;
     }
 
-    public Computadora(Long id, int numero, boolean estado, String direccionIP) {
+    public Computadora(Long id, int numero, boolean estado, String direccionIp, Laboratorio laboratorio) {
         this.id = id;
         this.numero = numero;
         this.estado = estado;
-        this.direccionIP = direccionIP;
-    }
-
-    public Laboratorio getLaboratorio() {
-        return laboratorio;
-    }
-
-    public void setLaboratorio(Laboratorio laboratorio) {
+        this.direccionIp = direccionIp;
         this.laboratorio = laboratorio;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public int getNumero() {
@@ -81,28 +77,24 @@ public class Computadora implements Serializable {
         this.estado = estado;
     }
 
-    public String getDireccionIP() {
-        return direccionIP;
+    public String getDireccionIp() {
+        return direccionIp;
     }
 
-    public void setDireccionIP(String direccionIP) {
-        this.direccionIP = direccionIP;
+    public void setDireccionIp(String direccionIp) {
+        this.direccionIp = direccionIp;
     }
 
-    
-    public Long getId() {
-        return id;
+    public Laboratorio getLaboratorio() {
+        return laboratorio;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLaboratorio(Laboratorio laboratorio) {
+        this.laboratorio = laboratorio;
     }
 
     @Override
     public String toString() {
-        return "Computadora{" + "id=" + id + ", numero=" + numero + ", estado=" + estado + ", direccionIP=" + direccionIP + '}';
+        return "Computadora{" + "id=" + id + ", numero=" + numero + ", estado=" + estado + ", direccionIp=" + direccionIp + ", laboratorio=" + laboratorio + '}';
     }
-
-   
-    
 }

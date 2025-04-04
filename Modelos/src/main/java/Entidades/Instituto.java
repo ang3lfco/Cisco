@@ -21,8 +21,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "institutos")
 public class Instituto implements Serializable {
-
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -40,15 +38,21 @@ public class Instituto implements Serializable {
     public Instituto() {
     }
 
-    public Instituto(Long id, String nombre, String siglas) {
+    public Instituto(String nombre, String siglas, List<Laboratorio> laboratorios) {
+        this.nombre = nombre;
+        this.siglas = siglas;
+        this.laboratorios = laboratorios;
+    }
+
+    public Instituto(Long id, String nombre, String siglas, List<Laboratorio> laboratorios) {
         this.id = id;
         this.nombre = nombre;
         this.siglas = siglas;
+        this.laboratorios = laboratorios;
     }
 
-    public Instituto(String nombre, String siglas) {
-        this.nombre = nombre;
-        this.siglas = siglas;
+    public Long getId() {
+        return id;
     }
 
     public String getNombre() {
@@ -67,20 +71,16 @@ public class Instituto implements Serializable {
         this.siglas = siglas;
     }
 
+    public List<Laboratorio> getLaboratorios() {
+        return laboratorios;
+    }
+
+    public void setLaboratorios(List<Laboratorio> laboratorios) {
+        this.laboratorios = laboratorios;
+    }
     
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
-        return "Instituto{" + "id=" + id + ", nombre=" + nombre + ", siglas=" + siglas + '}';
+        return "Instituto{" + "id=" + id + ", nombre=" + nombre + ", siglas=" + siglas + ", laboratorios=" + laboratorios + '}';
     }
-
-    
-    
 }
