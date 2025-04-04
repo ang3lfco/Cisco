@@ -7,6 +7,10 @@
     <class>Entidades.Computadora</class>
     <class>Entidades.HorarioEspecial</class>
     <class>Entidades.Laboratorio</class>
+    <class>Entidades.Carrera</class>
+    <class>Entidades.Bloqueo</class>
+    <class>Entidades.Software</class>
+    <class>Entidades.Reserva</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cisco?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
