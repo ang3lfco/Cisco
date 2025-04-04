@@ -50,10 +50,10 @@ public class Estudiante implements Serializable {
     @JoinColumn(name = "idCarrera", nullable = false)
     private Carrera carrera;
     
-    @OneToMany(mappedBy = "idEstudiante")
+    @OneToMany(mappedBy = "estudiante")
     private List<Bloqueo> bloqueos;
     
-    @OneToMany(mappedBy = "idEstudiante")
+    @OneToMany(mappedBy = "estudiante")
     private List<Reserva> reservas;
 
     public Estudiante() {

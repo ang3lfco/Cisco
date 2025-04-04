@@ -21,7 +21,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "carreras")
 public class Carrera implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -33,7 +32,7 @@ public class Carrera implements Serializable {
     @Column(name = "tiempoDiario", nullable = false)
     private int tiempoDiario;
     
-    @OneToMany(mappedBy = "idCarrera")
+    @OneToMany(mappedBy = "carrera")
     private List<Estudiante> estudiantes;
 
     public Carrera() {
