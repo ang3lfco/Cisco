@@ -1,11 +1,12 @@
+com\mycompany\modelos\Pruebas.class
 Entidades\Computadora.class
-Entidades\Bloqueo.class
-Entidades\Reserva.class
 com\mycompany\modelos\Modelos.class
 Entidades\Instituto.class
+Entidades\Carrera.class
+Entidades\Estudiante.class
+Entidades\Bloqueo.class
+Entidades\Reserva.class
 Dtos\EstudianteDTO.class
 Entidades\HorarioEspecial.class
-Entidades\Carrera.class
 Entidades\Laboratorio.class
-Entidades\Estudiante.class
 Entidades\Software.class
