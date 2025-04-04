@@ -6,6 +6,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Instituto implements Serializable {
     @Column(name="siglas", length = 12, nullable = false)
     private String siglas;
 
-    @OneToMany(mappedBy = "instituto")
+    @OneToMany(mappedBy = "instituto", cascade = CascadeType.PERSIST)
     private List<Laboratorio> laboratorios;
     
     public Instituto() {
@@ -42,6 +43,11 @@ public class Instituto implements Serializable {
         this.nombre = nombre;
         this.siglas = siglas;
         this.laboratorios = laboratorios;
+    }
+
+    public Instituto(String nombre, String siglas) {
+        this.nombre = nombre;
+        this.siglas = siglas;
     }
 
     public Instituto(Long id, String nombre, String siglas, List<Laboratorio> laboratorios) {
