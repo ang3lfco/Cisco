@@ -51,9 +51,10 @@ public class Computadora implements Serializable {
     @JoinTable(
         name = "instalaciones",
         joinColumns = @JoinColumn(name = "idComputadora"),
-        inverseJoinColumns = @JoinColumn(name = "isSoftware")
+        inverseJoinColumns = @JoinColumn(name = "idSoftware")
     )
     private List<Software> instalaciones;
+    
     public Computadora() {
     }
 
