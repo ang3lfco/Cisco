@@ -4,11 +4,11 @@
  */
 package daos;
 
+import Entidades.HorarioEspecial;
 import Entidades.Instituto;
-import Entidades.Laboratorio;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
-import interfaces.ILaboratorioDAO;
+import interfaces.IHorarioEspecialDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -16,15 +16,15 @@ import javax.persistence.EntityTransaction;
  *
  * @author ReneEzequiel23
  */
-public class LaboratorioDAO implements ILaboratorioDAO{
+public class HorarioEspecialDAO implements IHorarioEspecialDAO{
     private IConexionBD conexionBD;
 
-    public LaboratorioDAO(IConexionBD conexionBD) {
+    public HorarioEspecialDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
     
     @Override
-    public void agregarLaboratorio(Laboratorio laboratorio) throws PersistenciaException {
+    public void agregarHorarioEspecial(HorarioEspecial he) throws PersistenciaException {
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
 
@@ -33,14 +33,14 @@ public class LaboratorioDAO implements ILaboratorioDAO{
             entityTransaction = entityManager.getTransaction();
 
             entityTransaction.begin();
-            entityManager.persist(laboratorio);
+            entityManager.persist(he);
             entityTransaction.commit();
 
         } catch (Exception e) {
             if (entityTransaction != null && entityTransaction.isActive()) {
                 entityTransaction.rollback(); // Revertir en caso de error
             }
-            throw new PersistenciaException("Error al agregar el laboratorio", e); // Encapsular excepción
+            throw new PersistenciaException("Error al agregar el horario especial", e); // Encapsular excepción
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close(); // Cerrar siempre el EntityManager
@@ -49,7 +49,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     }
 
     @Override
-    public void eliminarLaboratorio(Long id) throws PersistenciaException {
+    public void eliminarHorarioEspecial(Long id) throws PersistenciaException {
 
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
@@ -60,9 +60,9 @@ public class LaboratorioDAO implements ILaboratorioDAO{
 
             entityTransaction.begin();
             
-            Laboratorio laboratorio = entityManager.find(Laboratorio.class, id);
-            if (laboratorio != null) {
-                entityManager.remove(laboratorio);
+            HorarioEspecial he = entityManager.find(HorarioEspecial.class, id);
+            if (he != null) {
+                entityManager.remove(he);
             }
             entityTransaction.commit();
 
@@ -70,7 +70,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
             if (entityTransaction != null && entityTransaction.isActive()) {
                 entityTransaction.rollback(); // Revertir en caso de error
             }
-            throw new PersistenciaException("Error al eliminar el laboratorio", e); // Encapsular excepción
+            throw new PersistenciaException("Error al eliminar el horario especial", e); // Encapsular excepción
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close(); // Cerrar siempre el EntityManager
@@ -79,7 +79,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     }
 
     @Override
-    public void editarLaboratorio(Laboratorio laboratorio) throws PersistenciaException {
+    public void editarHorarioEspecial(HorarioEspecial he) throws PersistenciaException {
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
 
@@ -88,14 +88,14 @@ public class LaboratorioDAO implements ILaboratorioDAO{
             entityTransaction = entityManager.getTransaction();
 
             entityTransaction.begin();
-            entityManager.merge(laboratorio);
+            entityManager.merge(he);
             entityTransaction.commit();
 
         } catch (Exception e) {
             if (entityTransaction != null && entityTransaction.isActive()) {
                 entityTransaction.rollback(); // Revertir en caso de error
             }
-            throw new PersistenciaException("Error al editar el laboratorio, e"); // Encapsular excepción
+            throw new PersistenciaException("Error al editar el Horario especial", e); // Encapsular excepción
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close(); // Cerrar siempre el EntityManager

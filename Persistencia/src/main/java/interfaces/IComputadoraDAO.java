@@ -4,15 +4,15 @@
  */
 package interfaces;
 
-import Entidades.Laboratorio;
+import Entidades.Computadora;
 import excepciones.PersistenciaException;
 
 /**
  *
  * @author ReneEzequiel23
  */
-public interface ILaboratorioDAO {
-    void agregarLaboratorio(Laboratorio laboratorio) throws PersistenciaException;
-    void eliminarLaboratorio(Long id) throws PersistenciaException;
-    void editarLaboratorio(Laboratorio laboratorio) throws PersistenciaException;
+public interface IComputadoraDAO {
+    void agregarComputadora(Computadora computadora) throws PersistenciaException;
+    void eliminarComputadora(Long id) throws PersistenciaException;
+    void editarComputadora(Computadora computadora) throws PersistenciaException;
 }

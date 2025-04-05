@@ -4,11 +4,11 @@
  */
 package daos;
 
-import Entidades.Instituto;
-import Entidades.Laboratorio;
+import Entidades.Computadora;
+import Entidades.HorarioEspecial;
 import excepciones.PersistenciaException;
+import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
-import interfaces.ILaboratorioDAO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -16,15 +16,15 @@ import javax.persistence.EntityTransaction;
  *
  * @author ReneEzequiel23
  */
-public class LaboratorioDAO implements ILaboratorioDAO{
+public class ComputadoraDAO implements IComputadoraDAO{
     private IConexionBD conexionBD;
 
-    public LaboratorioDAO(IConexionBD conexionBD) {
+    public ComputadoraDAO(IConexionBD conexionBD) {
         this.conexionBD = conexionBD;
     }
     
     @Override
-    public void agregarLaboratorio(Laboratorio laboratorio) throws PersistenciaException {
+    public void agregarComputadora(Computadora computadora) throws PersistenciaException {
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
 
@@ -33,14 +33,14 @@ public class LaboratorioDAO implements ILaboratorioDAO{
             entityTransaction = entityManager.getTransaction();
 
             entityTransaction.begin();
-            entityManager.persist(laboratorio);
+            entityManager.persist(computadora);
             entityTransaction.commit();
 
         } catch (Exception e) {
             if (entityTransaction != null && entityTransaction.isActive()) {
                 entityTransaction.rollback(); // Revertir en caso de error
             }
-            throw new PersistenciaException("Error al agregar el laboratorio", e); // Encapsular excepción
+            throw new PersistenciaException("Error al agregar la Computadora", e); // Encapsular excepción
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close(); // Cerrar siempre el EntityManager
@@ -49,7 +49,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     }
 
     @Override
-    public void eliminarLaboratorio(Long id) throws PersistenciaException {
+    public void eliminarComputadora(Long id) throws PersistenciaException {
 
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
@@ -60,9 +60,9 @@ public class LaboratorioDAO implements ILaboratorioDAO{
 
             entityTransaction.begin();
             
-            Laboratorio laboratorio = entityManager.find(Laboratorio.class, id);
-            if (laboratorio != null) {
-                entityManager.remove(laboratorio);
+            Computadora pc = entityManager.find(Computadora.class, id);
+            if (pc != null) {
+                entityManager.remove(pc);
             }
             entityTransaction.commit();
 
@@ -70,7 +70,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
             if (entityTransaction != null && entityTransaction.isActive()) {
                 entityTransaction.rollback(); // Revertir en caso de error
             }
-            throw new PersistenciaException("Error al eliminar el laboratorio", e); // Encapsular excepción
+            throw new PersistenciaException("Error al eliminar la computadora", e); // Encapsular excepción
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close(); // Cerrar siempre el EntityManager
@@ -79,7 +79,7 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     }
 
     @Override
-    public void editarLaboratorio(Laboratorio laboratorio) throws PersistenciaException {
+    public void editarComputadora(Computadora computadora) throws PersistenciaException {
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
 
@@ -88,14 +88,14 @@ public class LaboratorioDAO implements ILaboratorioDAO{
             entityTransaction = entityManager.getTransaction();
 
             entityTransaction.begin();
-            entityManager.merge(laboratorio);
+            entityManager.merge(computadora);
             entityTransaction.commit();
 
         } catch (Exception e) {
             if (entityTransaction != null && entityTransaction.isActive()) {
                 entityTransaction.rollback(); // Revertir en caso de error
             }
-            throw new PersistenciaException("Error al editar el laboratorio, e"); // Encapsular excepción
+            throw new PersistenciaException("Error al editar la computadora", e); // Encapsular excepción
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close(); // Cerrar siempre el EntityManager
