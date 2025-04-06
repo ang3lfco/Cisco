@@ -4,19 +4,70 @@
  */
 package daos;
 
+import Entidades.Software;
 import excepciones.PersistenciaException;
+import interfaces.IConexionBD;
+import javax.persistence.EntityManager;
 
 /**
  *
  * @author ang3lfco
  */
 public class SoftwareDAO {
-    public void agregar() throws PersistenciaException{
+    private IConexionBD conexionBD;
+    
+    public SoftwareDAO(IConexionBD conexionBD){
+        this.conexionBD = conexionBD;
     }
     
-    public void eliminar() throws PersistenciaException{
+    public void agregar(Software software) throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            em.getTransaction().begin();
+            em.persist(software);
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error. " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
     }
     
-    public void editar() throws PersistenciaException{
+    public void eliminar(Long id) throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            em.getTransaction().begin();
+            Software software = em.find(Software.class, id);
+            if(software != null){
+                em.remove(software);
+            }
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error. " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
+    
+    public void editar(Software software) throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            em.getTransaction().begin();
+            em.merge(software);
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error. " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
     }
 }
