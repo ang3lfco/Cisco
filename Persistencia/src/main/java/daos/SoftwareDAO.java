@@ -7,19 +7,21 @@ package daos;
 import Entidades.Software;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
+import interfaces.ISoftwareDAO;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author ang3lfco
  */
-public class SoftwareDAO {
+public class SoftwareDAO implements ISoftwareDAO{
     private IConexionBD conexionBD;
     
     public SoftwareDAO(IConexionBD conexionBD){
         this.conexionBD = conexionBD;
     }
     
+    @Override
     public void agregar(Software software) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
@@ -36,6 +38,7 @@ public class SoftwareDAO {
         }
     }
     
+    @Override
     public void eliminar(Long id) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
@@ -55,6 +58,7 @@ public class SoftwareDAO {
         }
     }
     
+    @Override
     public void editar(Software software) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{

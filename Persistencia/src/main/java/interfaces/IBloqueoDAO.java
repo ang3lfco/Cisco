@@ -4,15 +4,15 @@
  */
 package interfaces;
 
-import Entidades.Estudiante;
+import Entidades.Bloqueo;
 import excepciones.PersistenciaException;
 
 /**
  *
  * @author ang3lfco
  */
-public interface IEstudianteDAO {
-    void agregar(Estudiante estudiante) throws PersistenciaException;
+public interface IBloqueoDAO {
+    void agregar(Bloqueo bloqueo) throws PersistenciaException;
     void eliminar(Long id) throws PersistenciaException;
-    void editar(Estudiante estudiante) throws PersistenciaException;
+    void editar(Bloqueo bloqueo) throws PersistenciaException;
 }

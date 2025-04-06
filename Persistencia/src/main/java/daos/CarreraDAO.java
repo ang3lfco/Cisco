@@ -7,6 +7,7 @@ package daos;
 import Entidades.Carrera;
 import Entidades.Software;
 import excepciones.PersistenciaException;
+import interfaces.ICarreraDAO;
 import interfaces.IConexionBD;
 import javax.persistence.EntityManager;
 
@@ -14,13 +15,14 @@ import javax.persistence.EntityManager;
  *
  * @author ang3lfco
  */
-public class CarreraDAO {
+public class CarreraDAO implements ICarreraDAO{
     private IConexionBD conexionBD;
     
     public CarreraDAO(IConexionBD conexionBD){
         this.conexionBD = conexionBD;
     }
     
+    @Override
     public void agregar(Carrera carrera) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
@@ -37,6 +39,7 @@ public class CarreraDAO {
         }
     }
     
+    @Override
     public void eliminar(Long id) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
@@ -56,6 +59,7 @@ public class CarreraDAO {
         }
     }
     
+    @Override
     public void editar(Carrera carrera) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{

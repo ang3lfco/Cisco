@@ -7,6 +7,7 @@ package daos;
 import Entidades.Bloqueo;
 import Entidades.Software;
 import excepciones.PersistenciaException;
+import interfaces.IBloqueoDAO;
 import interfaces.IConexionBD;
 import javax.persistence.EntityManager;
 
@@ -14,13 +15,14 @@ import javax.persistence.EntityManager;
  *
  * @author ang3lfco
  */
-public class BloqueoDAO {
+public class BloqueoDAO implements IBloqueoDAO{
     private IConexionBD conexionBD;
     
     public BloqueoDAO(IConexionBD conexionBD){
         this.conexionBD = conexionBD;
     }
     
+    @Override
     public void agregar(Bloqueo bloqueo) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
@@ -37,6 +39,7 @@ public class BloqueoDAO {
         }
     }
     
+    @Override
     public void eliminar(Long id) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
@@ -56,6 +59,7 @@ public class BloqueoDAO {
         }
     }
     
+    @Override
     public void editar(Bloqueo bloqueo) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
