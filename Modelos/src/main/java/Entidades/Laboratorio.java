@@ -7,6 +7,7 @@ package Entidades;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,7 @@ public class Laboratorio implements Serializable {
     @JoinColumn(name = "idInstituto", nullable=false)
     private Instituto instituto;
     
-    @OneToMany(mappedBy = "laboratorio")
+    @OneToMany(mappedBy = "laboratorio", cascade = CascadeType.PERSIST)
     private List<Computadora> computadoras;
     
     @OneToMany(mappedBy = "laboratorio")
