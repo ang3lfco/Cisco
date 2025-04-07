@@ -27,7 +27,7 @@ public class frmAgregarEquipo extends javax.swing.JFrame {
     public frmAgregarEquipo() {
         conexionBD = new ConexionBD();
         computadoraDAO = new ComputadoraDAO(conexionBD);
-        adminNegocio = new AdministrativoNegocio(computadoraDAO);
+//        adminNegocio = new AdministrativoNegocio(computadoraDAO);
         initComponents();
     }
     

@@ -5,12 +5,19 @@
 package negocio_administrativo;
 
 import Dtos.ComputadoraDTO;
+import Dtos.HorarioEspecialDTO;
+import Dtos.InstitutoDTO;
 import Dtos.LaboratorioDTO;
 import Entidades.Computadora;
+import Entidades.HorarioEspecial;
+import Entidades.Instituto;
+import Entidades.Laboratorio;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IAdministrativoNegocio;
 import interfaces.IComputadoraDAO;
+import interfaces.ILaboratorioDAO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,23 +26,15 @@ import java.util.List;
  */
 public class AdministrativoNegocio implements IAdministrativoNegocio{
     private IComputadoraDAO computadoraDAO;
+    private ILaboratorioDAO laboratorioDAO;
     
-    public AdministrativoNegocio(IComputadoraDAO computadoraDAO){
+    public AdministrativoNegocio(IComputadoraDAO computadoraDAO, ILaboratorioDAO laboratorioDAO){
         this.computadoraDAO = computadoraDAO;
+        this.laboratorioDAO = laboratorioDAO;
     }
     
     @Override
     public void agregarEquipo(ComputadoraDTO computadoraDTO) throws NegocioException{
-        try{
-            Computadora equipo = new Computadora(computadoraDTO.getNumero(), computadoraDTO.isEstado(), computadoraDTO.getDireccionIp(), computadoraDTO.getLaboratorio());
-            computadoraDAO.agregarComputadora(equipo);
-        }
-        catch(PersistenciaException e){
-            throw new NegocioException("Error. " + e.getMessage());
-        }
-    }
-    
-    public List<LaboratorioDTO> getLaboratorios(){
-        return null;
+        
     }
 }
