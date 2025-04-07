@@ -28,17 +28,6 @@ public class Negocio {
     public static void main(String[] args) {
         IConexionBD conexion = new ConexionBD();
         IReservaDAO reservaDAO = new ReservaDAO(conexion);
-        IReservacionNegocio reservacion = new ReservacionNegocio(reservaDAO);
-        ComputadoraDTO pc = new ComputadoraDTO();
-        EstudianteDTO es = new EstudianteDTO();
-        pc.setId(1L);
-        es.setId(1L);
-        ReservaDTO r = new ReservaDTO(5L,LocalDate.now(), LocalTime.now(), LocalTime.now().plusMinutes(20L),pc,es);
         
-        try {
-            reservacion.editarReserva(r);
-        } catch (NegocioException ex) {
-            Logger.getLogger(Negocio.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }

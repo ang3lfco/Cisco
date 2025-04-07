@@ -12,8 +12,12 @@ import Entidades.Estudiante;
 import Entidades.Reserva;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import interfaces.IComputadoraDAO;
 import interfaces.IReservaDAO;
 import interfaces.IReservacionNegocio;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,11 +26,13 @@ import interfaces.IReservacionNegocio;
 public class ReservacionNegocio implements IReservacionNegocio {
 
     private IReservaDAO reservaDAO;
+    private IComputadoraDAO computadoraDAO;
 
-    public ReservacionNegocio(IReservaDAO reservaDAO) {
+    public ReservacionNegocio(IReservaDAO reservaDAO, IComputadoraDAO computadoraDAO) {
         this.reservaDAO = reservaDAO;
+        this.computadoraDAO = computadoraDAO;
     }
-
+    
     @Override
     public void agregarReserva(ReservaDTO reserva) throws NegocioException {
         try {
@@ -46,6 +52,17 @@ public class ReservacionNegocio implements IReservacionNegocio {
             reservaDAO.editarReserva(reservaEntidad);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public List<ComputadoraDTO> numeroComputadorasDTO() throws NegocioException{
+        try {
+            List<ComputadoraDTO> lista = computadoraDAO.consultarNumeroComputadoras();
+            
+            return lista;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
         }
     }
 

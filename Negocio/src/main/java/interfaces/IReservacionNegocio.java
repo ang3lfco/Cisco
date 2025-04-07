@@ -4,8 +4,10 @@
  */
 package interfaces;
 
+import Dtos.ComputadoraDTO;
 import Dtos.ReservaDTO;
 import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -14,4 +16,5 @@ import excepciones.NegocioException;
 public interface IReservacionNegocio {
     void agregarReserva(ReservaDTO reserva) throws NegocioException;
     void editarReserva(ReservaDTO reserva) throws NegocioException;
+    List<ComputadoraDTO> numeroComputadorasDTO() throws NegocioException;
 }

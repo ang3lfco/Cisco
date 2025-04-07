@@ -39,6 +39,13 @@ public class ReservaDTO {
         this.estudiante = estudiante;
     }
 
+    public ReservaDTO(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) {
+        this.id = id;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+    }
+
     public Long getId() {
         return id;
     }

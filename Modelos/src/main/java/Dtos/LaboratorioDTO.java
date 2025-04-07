@@ -45,6 +45,10 @@ public class LaboratorioDTO {
         this.horariosEspeciales = horariosEspeciales;
     }
 
+    public LaboratorioDTO(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

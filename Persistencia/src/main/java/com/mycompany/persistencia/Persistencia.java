@@ -4,6 +4,8 @@
 
 package com.mycompany.persistencia;
 
+import Dtos.ComputadoraDTO;
+import Dtos.ReservaDTO;
 import Entidades.Computadora;
 import Entidades.Estudiante;
 import Entidades.HorarioEspecial;
@@ -64,7 +66,11 @@ public class Persistencia {
         Reserva r = new Reserva(1L,LocalDate.now(),LocalTime.now(),LocalTime.now().plusMinutes(20L), compu, e);
         
         try {
-            reserva.agregarReserva(r);
+            List<ComputadoraDTO> lista = pc.consultarNumeroComputadoras();
+            
+            for (int i = 0; i < lista.size(); i++) {
+                System.out.println(lista.get(i).getNumero());
+            }
             
             
         } catch (PersistenciaException ex) {

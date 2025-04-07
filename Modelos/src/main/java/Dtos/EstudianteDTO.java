@@ -50,6 +50,16 @@ public class EstudianteDTO {
         this.reservas = reservas;
     }
 
+    public EstudianteDTO(Long id, String idEstudiante, String nombre, String apellidoPaterno, String apellidoMaterno, String contraseña) {
+        this.id = id;
+        this.idEstudiante = idEstudiante;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.contraseña = contraseña;
+    }
+
+    
     public Long getId() {
         return id;
     }

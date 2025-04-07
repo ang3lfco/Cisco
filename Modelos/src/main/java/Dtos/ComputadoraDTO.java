@@ -41,6 +41,21 @@ public class ComputadoraDTO {
         this.instalaciones = instalaciones;
     }
 
+    public ComputadoraDTO(Long id, int numero, boolean estado, String direccionIp) {
+        this.id = id;
+        this.numero = numero;
+        this.estado = estado;
+        this.direccionIp = direccionIp;
+    }
+
+    public ComputadoraDTO(Long id, int numero, boolean estado, String direccionIp, LaboratorioDTO laboratorio) {
+        this.id = id;
+        this.numero = numero;
+        this.estado = estado;
+        this.direccionIp = direccionIp;
+        this.laboratorio = laboratorio;
+    }
+
     public Long getId() {
         return id;
     }
