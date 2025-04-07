@@ -4,10 +4,32 @@
  */
 package negocio_administrativo;
 
+import Dtos.ComputadoraDTO;
+import Entidades.Computadora;
+import excepciones.NegocioException;
+import excepciones.PersistenciaException;
+import interfaces.IAdministrativoNegocio;
+import interfaces.IComputadoraDAO;
+
 /**
  *
  * @author ang3lfco
  */
-public class AdministrativoNegocio {
+public class AdministrativoNegocio implements IAdministrativoNegocio{
+    private IComputadoraDAO computadoraDAO;
     
+    public AdministrativoNegocio(IComputadoraDAO computadoraDAO){
+        this.computadoraDAO = computadoraDAO;
+    }
+    
+    @Override
+    public void agregarEquipo(ComputadoraDTO computadoraDTO) throws NegocioException{
+        try{
+            Computadora equipo = new Computadora(computadoraDTO.getNumero(), computadoraDTO.isEstado(), computadoraDTO.getDireccionIp(), computadoraDTO.getLaboratorio());
+            computadoraDAO.agregarComputadora(equipo);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
 }
