@@ -4,7 +4,7 @@
  */
 package Dtos;
 
-import Entidades.Laboratorio;
+import java.util.List;
 
 /**
  *
@@ -15,24 +15,30 @@ public class ComputadoraDTO {
     private int numero;
     private boolean estado;
     private String direccionIp;
-    private Laboratorio laboratorio;
+    private LaboratorioDTO laboratorio;
+    private List<ReservaDTO> reservas;
+    private List<SoftwareDTO> instalaciones;
 
     public ComputadoraDTO() {
     }
-    
-    public ComputadoraDTO(int numero, boolean estado, String direccionIp, Laboratorio laboratorio) {
+
+    public ComputadoraDTO(int numero, boolean estado, String direccionIp, LaboratorioDTO laboratorio, List<ReservaDTO> reservas, List<SoftwareDTO> instalaciones) {
         this.numero = numero;
         this.estado = estado;
         this.direccionIp = direccionIp;
         this.laboratorio = laboratorio;
+        this.reservas = reservas;
+        this.instalaciones = instalaciones;
     }
 
-    public ComputadoraDTO(Long id, int numero, boolean estado, String direccionIp, Laboratorio laboratorio) {
+    public ComputadoraDTO(Long id, int numero, boolean estado, String direccionIp, LaboratorioDTO laboratorio, List<ReservaDTO> reservas, List<SoftwareDTO> instalaciones) {
         this.id = id;
         this.numero = numero;
         this.estado = estado;
         this.direccionIp = direccionIp;
         this.laboratorio = laboratorio;
+        this.reservas = reservas;
+        this.instalaciones = instalaciones;
     }
 
     public Long getId() {
@@ -67,11 +73,27 @@ public class ComputadoraDTO {
         this.direccionIp = direccionIp;
     }
 
-    public Laboratorio getLaboratorio() {
+    public LaboratorioDTO getLaboratorio() {
         return laboratorio;
     }
 
-    public void setLaboratorio(Laboratorio laboratorio) {
+    public void setLaboratorio(LaboratorioDTO laboratorio) {
         this.laboratorio = laboratorio;
+    }
+
+    public List<ReservaDTO> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<ReservaDTO> reservas) {
+        this.reservas = reservas;
+    }
+
+    public List<SoftwareDTO> getInstalaciones() {
+        return instalaciones;
+    }
+
+    public void setInstalaciones(List<SoftwareDTO> instalaciones) {
+        this.instalaciones = instalaciones;
     }
 }
