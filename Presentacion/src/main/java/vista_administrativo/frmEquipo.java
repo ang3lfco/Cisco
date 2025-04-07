@@ -16,7 +16,7 @@ import negocio_administrativo.AdministrativoNegocio;
  *
  * @author ang3lfco
  */
-public class frmAgregarEquipo extends javax.swing.JFrame {
+public class frmEquipo extends javax.swing.JFrame {
     private IAdministrativoNegocio adminNegocio;
     private IComputadoraDAO computadoraDAO;
     private IConexionBD conexionBD;
@@ -24,7 +24,7 @@ public class frmAgregarEquipo extends javax.swing.JFrame {
     /**
      * Creates new form frmAgregarEquipo
      */
-    public frmAgregarEquipo() {
+    public frmEquipo() {
         conexionBD = new ConexionBD();
         computadoraDAO = new ComputadoraDAO(conexionBD);
 //        adminNegocio = new AdministrativoNegocio(computadoraDAO);
@@ -133,20 +133,21 @@ public class frmAgregarEquipo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmAgregarEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmAgregarEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmAgregarEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmAgregarEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmAgregarEquipo().setVisible(true);
+                new frmEquipo().setVisible(true);
             }
         });
     }
