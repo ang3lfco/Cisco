@@ -4,17 +4,36 @@
  */
 package vista_administrativo;
 
+import Dtos.ComputadoraDTO;
+import daos.ComputadoraDAO;
+import daos.ConexionBD;
+import interfaces.IAdministrativoNegocio;
+import interfaces.IComputadoraDAO;
+import interfaces.IConexionBD;
+import negocio_administrativo.AdministrativoNegocio;
+
 /**
  *
  * @author ang3lfco
  */
 public class frmAgregarEquipo extends javax.swing.JFrame {
-
+    private IAdministrativoNegocio adminNegocio;
+    private IComputadoraDAO computadoraDAO;
+    private IConexionBD conexionBD;
+    
     /**
      * Creates new form frmAgregarEquipo
      */
     public frmAgregarEquipo() {
+        conexionBD = new ConexionBD();
+        computadoraDAO = new ComputadoraDAO(conexionBD);
+        adminNegocio = new AdministrativoNegocio(computadoraDAO);
         initComponents();
+    }
+    
+    
+    
+    public void lol(){
     }
 
     /**
@@ -31,7 +50,7 @@ public class frmAgregarEquipo extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jTextField2 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,7 +65,12 @@ public class frmAgregarEquipo extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca" }));
 
-        jButton1.setText("Aceptar");
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAceptarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,7 +79,7 @@ public class frmAgregarEquipo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(btnAceptar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel1)
                         .addComponent(jTextField1)
@@ -77,13 +101,20 @@ public class frmAgregarEquipo extends javax.swing.JFrame {
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jButton1)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addGap(75, 75, 75)
+                .addComponent(btnAceptar)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
+        // TODO add your handling code here:
+//        Laboratorio 
+//        ComputadoraDTO equipo = new ComputadoraDTO();
+//        adminNegocio.agregarEquipo(computadoraDTO);
+    }//GEN-LAST:event_btnAceptarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -121,7 +152,7 @@ public class frmAgregarEquipo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;

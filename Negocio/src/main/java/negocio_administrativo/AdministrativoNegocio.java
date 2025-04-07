@@ -5,11 +5,13 @@
 package negocio_administrativo;
 
 import Dtos.ComputadoraDTO;
+import Dtos.LaboratorioDTO;
 import Entidades.Computadora;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IAdministrativoNegocio;
 import interfaces.IComputadoraDAO;
+import java.util.List;
 
 /**
  *
@@ -31,5 +33,9 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());
         }
+    }
+    
+    public List<LaboratorioDTO> getLaboratorios(){
+        return null;
     }
 }

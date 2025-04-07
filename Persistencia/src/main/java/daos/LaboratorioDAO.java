@@ -9,6 +9,7 @@ import Entidades.Laboratorio;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
 import interfaces.ILaboratorioDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -101,6 +102,19 @@ public class LaboratorioDAO implements ILaboratorioDAO{
                 entityManager.close(); // Cerrar siempre el EntityManager
             }
         }
-
+    }
+    
+    @Override
+    public List<Laboratorio> getLaboratorios() throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            return em.createQuery("SELECT l from Laboratorio l", Laboratorio.class).getResultList();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
     }
 }
