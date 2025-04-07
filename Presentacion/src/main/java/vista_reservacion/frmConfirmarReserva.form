@@ -35,11 +35,11 @@
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblNumeroEquipo" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblNumeroEquipo1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                  <Component id="numeroEquipoLabel" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAnterior" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="61" max="32767" attributes="0"/>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="alumnoLabel" min="-2" max="-2" attributes="0"/>
                   <Component id="horaFinalLabel" min="-2" max="-2" attributes="0"/>
@@ -60,7 +60,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="alumnoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblNumeroEquipo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="numeroEquipoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -186,7 +186,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="lblNumeroEquipo1">
+    <Component class="javax.swing.JLabel" name="numeroEquipoLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="0"/>

@@ -6,13 +6,18 @@ package com.mycompany.presentacion;
 
 import daos.ComputadoraDAO;
 import daos.ConexionBD;
+import daos.EstudianteDAO;
 import daos.ReservaDAO;
 import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
+import interfaces.IEstudianteDAO;
 import interfaces.IReservaDAO;
 import interfaces.IReservacionNegocio;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import negocio_reservacion.ReservacionNegocio;
 import vista_reservacion.frmMenuComputadoras;
+import vista_reservacion.frmReservacion;
 
 /**
  *
@@ -25,9 +30,21 @@ public class Presentacion {
         IConexionBD conexion = new ConexionBD();
         IReservaDAO rDAO = new ReservaDAO(conexion);
         IComputadoraDAO cDAO = new ComputadoraDAO(conexion);
-        IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO);
-        frmMenuComputadoras compus = new frmMenuComputadoras(rNegocio,1L);
+        IEstudianteDAO eDAO = new EstudianteDAO(conexion);
         
-        compus.setVisible(true);
+        IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO,eDAO);
+        frmReservacion reservacion = new frmReservacion(rNegocio);
+        
+        reservacion.setVisible(true);
+        
+        try {
+            InetAddress direccion = InetAddress.getLocalHost();
+            String ip = direccion.getHostAddress();
+            System.out.println("La dirección IP de este equipo es: " + ip);
+        } catch (UnknownHostException e) {
+            System.err.println("No se pudo obtener la IP.");
+            e.printStackTrace();
+        }
+
     }
 }

@@ -4,11 +4,21 @@
  */
 package daos;
 
+import Dtos.ComputadoraDTO;
+import Dtos.EstudianteIngresaDTO;
+import Dtos.LaboratorioDTO;
+import Entidades.Computadora;
 import Entidades.Estudiante;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
 import interfaces.IEstudianteDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -72,5 +82,41 @@ public class EstudianteDAO implements IEstudianteDAO{
         }
         finally{
         }
+    }
+    
+    public EstudianteIngresaDTO buscarPorIDAlumno(String id) throws PersistenciaException{
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
+
+        entityManager = conexionBD.obtenerEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<EstudianteIngresaDTO> criteriaQuery = criteriaBuilder.createQuery(EstudianteIngresaDTO.class);
+
+        Root<Estudiante> root = criteriaQuery.from(Estudiante.class);
+
+        criteriaQuery.select(
+                criteriaBuilder.construct(EstudianteIngresaDTO.class,
+                        root.get("id"),
+                        root.get("idEstudiante"),
+                        root.get("nombre"),
+                        root.get("apellidoPaterno"),
+                        root.get("apellidoMaterno"),
+                        root.get("estado"),
+                        root.get("contraseña"),
+                        root.get("carrera").get("tiempoDiario")
+                )
+        ).where(criteriaBuilder.equal(root.get("idEstudiante"), id));
+
+        TypedQuery<EstudianteIngresaDTO> query = entityManager.createQuery(criteriaQuery);
+
+        EstudianteIngresaDTO estudianteDTO = query.getSingleResult();
+        if (entityManager != null && entityManager.isOpen()) {
+            entityManager.close(); // Cerrar siempre el EntityManager
+        }
+
+        return estudianteDTO;
     }
 }

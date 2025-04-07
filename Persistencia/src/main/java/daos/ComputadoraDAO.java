@@ -118,7 +118,7 @@ public class ComputadoraDAO implements IComputadoraDAO {
     }
 
     @Override
-    public List<ComputadoraDTO> consultarNumeroComputadoras() throws PersistenciaException {
+    public List<ComputadoraDTO> consultarNumeroComputadorasPorLaboratorio(Long id) throws PersistenciaException {
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
 
@@ -138,9 +138,10 @@ public class ComputadoraDAO implements IComputadoraDAO {
                         root.get("estado"),
                         root.get("direccionIp"),
                         criteriaBuilder.construct(LaboratorioDTO.class,
-                         root.get("laboratorio").get("id")
+                        root.get("laboratorio").get("id")
                 ))
-        );
+        ).where(criteriaBuilder.equal(root.get("laboratorio").get("id"), id))
+                .orderBy(criteriaBuilder.asc(root.get("numero")));
 
         TypedQuery<ComputadoraDTO> query = entityManager.createQuery(criteriaQuery);
 

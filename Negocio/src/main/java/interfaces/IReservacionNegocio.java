@@ -5,6 +5,7 @@
 package interfaces;
 
 import Dtos.ComputadoraDTO;
+import Dtos.EstudianteIngresaDTO;
 import Dtos.ReservaDTO;
 import excepciones.NegocioException;
 import java.util.List;
@@ -16,5 +17,6 @@ import java.util.List;
 public interface IReservacionNegocio {
     void agregarReserva(ReservaDTO reserva) throws NegocioException;
     void editarReserva(ReservaDTO reserva) throws NegocioException;
-    List<ComputadoraDTO> numeroComputadorasDTO() throws NegocioException;
+    List<ComputadoraDTO> numeroComputadorasDTO(Long id) throws NegocioException;
+    EstudianteIngresaDTO buscarIDEstudiante(String id) throws NegocioException;
 }

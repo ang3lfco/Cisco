@@ -17,5 +17,5 @@ public interface IComputadoraDAO {
     void agregarComputadora(Computadora computadora) throws PersistenciaException;
     void eliminarComputadora(Long id) throws PersistenciaException;
     void editarComputadora(Computadora computadora) throws PersistenciaException;
-    List<ComputadoraDTO> consultarNumeroComputadoras() throws PersistenciaException;
+    List<ComputadoraDTO> consultarNumeroComputadorasPorLaboratorio(Long id) throws PersistenciaException;
 }

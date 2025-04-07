@@ -6,6 +6,7 @@ package vista_reservacion;
 
 import Dtos.ComputadoraDTO;
 import Dtos.EstudianteDTO;
+import Dtos.EstudianteIngresaDTO;
 import Dtos.ReservaDTO;
 import excepciones.NegocioException;
 import interfaces.IReservacionNegocio;
@@ -30,24 +31,31 @@ import negocio_reservacion.ReservacionNegocio;
 public class frmMenuComputadoras extends javax.swing.JFrame {
 
     IReservacionNegocio reservacionNegocio;
-    Long idEstudiante;
-    ReservaDTO reserva;
+    EstudianteIngresaDTO estudiante;
 
     /**
      * Creates new form frmMenuComputadoras
      */
-    public frmMenuComputadoras(IReservacionNegocio reservacionNegocio, Long idEstudiante) {
+    public frmMenuComputadoras(IReservacionNegocio reservacionNegocio, EstudianteIngresaDTO estudiante) {
         this.reservacionNegocio = reservacionNegocio;
-        this.idEstudiante = idEstudiante;
+        this.estudiante = estudiante;
         initComponents();
         this.agregarBotones();
-
+        this.llenarDatosEnPantalla();
     }
 
+    public void llenarDatosEnPantalla(){
+        lblNombreEstudiante.setText(estudiante.getNombre() + " " + 
+                estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
+        
+        lblMinutos.setText(Integer.toString(estudiante.getTiempoDiario()));
+    }
+    
+    
     private void agregarBotones() {
         List<ComputadoraDTO> computadoras = null;
         try {
-            computadoras = reservacionNegocio.numeroComputadorasDTO();
+            computadoras = reservacionNegocio.numeroComputadorasDTO(3L);
         } catch (NegocioException ex) {
             Logger.getLogger(frmMenuComputadoras.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,17 +71,18 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
             // Aquí puedes personalizar el botón (icono, acción, etc.)
 
             int numeroBoton = i;
-
+            ComputadoraDTO equipo = computadoras.get(numeroBoton-1);
+            
             boton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-                    JOptionPane.showMessageDialog(null, "boton ");
+                    frmConfirmarReserva confirmacion = new frmConfirmarReserva(reservacionNegocio,estudiante,equipo);
+                    confirmacion.setVisible(true);
+                    
                 }
             });
             jPanel.add(boton);
         }
-
     }
 
     /**

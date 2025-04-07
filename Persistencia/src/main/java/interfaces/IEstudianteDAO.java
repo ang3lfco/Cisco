@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import Dtos.EstudianteIngresaDTO;
 import Entidades.Estudiante;
 import excepciones.PersistenciaException;
 
@@ -15,4 +16,5 @@ public interface IEstudianteDAO {
     void agregar(Estudiante estudiante) throws PersistenciaException;
     void eliminar(Long id) throws PersistenciaException;
     void editar(Estudiante estudiante) throws PersistenciaException;
+    EstudianteIngresaDTO buscarPorIDAlumno(String id) throws PersistenciaException;
 }

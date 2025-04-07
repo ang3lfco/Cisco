@@ -6,6 +6,7 @@ package negocio_reservacion;
 
 import Dtos.ComputadoraDTO;
 import Dtos.EstudianteDTO;
+import Dtos.EstudianteIngresaDTO;
 import Dtos.ReservaDTO;
 import Entidades.Computadora;
 import Entidades.Estudiante;
@@ -13,6 +14,7 @@ import Entidades.Reserva;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IComputadoraDAO;
+import interfaces.IEstudianteDAO;
 import interfaces.IReservaDAO;
 import interfaces.IReservacionNegocio;
 import java.util.List;
@@ -27,10 +29,12 @@ public class ReservacionNegocio implements IReservacionNegocio {
 
     private IReservaDAO reservaDAO;
     private IComputadoraDAO computadoraDAO;
+    private IEstudianteDAO estudianteDAO;
 
-    public ReservacionNegocio(IReservaDAO reservaDAO, IComputadoraDAO computadoraDAO) {
+    public ReservacionNegocio(IReservaDAO reservaDAO, IComputadoraDAO computadoraDAO, IEstudianteDAO estudianteDAO) {
         this.reservaDAO = reservaDAO;
         this.computadoraDAO = computadoraDAO;
+        this.estudianteDAO = estudianteDAO;
     }
     
     @Override
@@ -56,11 +60,21 @@ public class ReservacionNegocio implements IReservacionNegocio {
     }
     
     @Override
-    public List<ComputadoraDTO> numeroComputadorasDTO() throws NegocioException{
+    public List<ComputadoraDTO> numeroComputadorasDTO(Long id) throws NegocioException{
         try {
-            List<ComputadoraDTO> lista = computadoraDAO.consultarNumeroComputadoras();
+            List<ComputadoraDTO> lista = computadoraDAO.consultarNumeroComputadorasPorLaboratorio(id);
             
             return lista;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
+        }
+    }
+    
+    @Override
+    public EstudianteIngresaDTO buscarIDEstudiante(String id) throws NegocioException{
+        try {
+            EstudianteIngresaDTO estudiante = estudianteDAO.buscarPorIDAlumno(id);
+            return estudiante;
         } catch (PersistenciaException ex) {
             throw new NegocioException("Error. " + ex.getMessage());
         }
