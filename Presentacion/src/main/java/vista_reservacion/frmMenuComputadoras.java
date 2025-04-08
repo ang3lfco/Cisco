@@ -72,7 +72,7 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
 
             int numeroBoton = i;
             ComputadoraDTO equipo = computadoras.get(numeroBoton-1);
-            
+            lblLaboratorio.setText(equipo.getLaboratorio().getNombre());
             boton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

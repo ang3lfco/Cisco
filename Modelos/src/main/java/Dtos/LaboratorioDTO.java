@@ -50,6 +50,11 @@ public class LaboratorioDTO {
         this.id = id;
     }
 
+    public LaboratorioDTO(Long id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     public Long getId() {
         return id;
     }

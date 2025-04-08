@@ -171,5 +171,60 @@ public class ReservaDAO implements IReservaDAO {
         return reservas;
 
     }
+    
+    @Override
+    public ReservaDTO consultarReserva(String ip) throws PersistenciaException {
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
+
+        entityManager = conexionBD.obtenerEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<ReservaDTO> criteriaQuery = criteriaBuilder.createQuery(ReservaDTO.class);
+
+        Root<Reserva> root = criteriaQuery.from(Reserva.class);
+        Join<Reserva, Computadora> joinComputadora = root.join("computadora");
+        Join<Reserva, Estudiante> joinEstudiante = root.join("estudiante");
+
+        criteriaQuery.select(
+                criteriaBuilder.construct(ReservaDTO.class,
+                        root.get("id"),
+                        root.get("fecha"),
+                        root.get("horaInicio"),
+                        root.get("horaFin"),
+                        criteriaBuilder.construct(ComputadoraDTO.class,
+                                joinComputadora.get("id"),
+                                joinComputadora.get("numero"),
+                                joinComputadora.get("estado"),
+                                joinComputadora.get("direccionIp"),
+                                
+                                criteriaBuilder.construct(LaboratorioDTO.class,
+                                joinComputadora.get("laboratorio").get("id"))
+                        ),
+                        criteriaBuilder.construct(EstudianteDTO.class,
+                                joinEstudiante.get("id"),
+                                joinEstudiante.get("idEstudiante"),
+                                joinEstudiante.get("nombre"),
+                                joinEstudiante.get("apellidoPaterno"),
+                                joinEstudiante.get("apellidoMaterno"),
+                                joinEstudiante.get("contraseña")
+                        )
+                )
+        ).where(
+        criteriaBuilder.equal(joinComputadora.get("direccionIp"), ip));
+
+        TypedQuery<ReservaDTO> query = entityManager.createQuery(criteriaQuery);
+
+        List<ReservaDTO> reservas = query.getResultList();
+        ReservaDTO reserva = reservas.getLast();
+        if (entityManager != null && entityManager.isOpen()) {
+            entityManager.close(); // Cerrar siempre el EntityManager
+        }
+        
+        return reserva;
+
+    }
 }
 

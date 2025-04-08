@@ -54,9 +54,9 @@ public class Computadora implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "idSoftware")
     )
     private List<Software> instalaciones;
-    
+        
     public Computadora() {
-    }
+    }   
 
     public Computadora(int numero, boolean estado, String direccionIp, Laboratorio laboratorio) {
         this.numero = numero;

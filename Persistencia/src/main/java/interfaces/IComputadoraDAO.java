@@ -5,6 +5,7 @@
 package interfaces;
 
 import Dtos.ComputadoraDTO;
+import Dtos.SoftwareDTO;
 import Entidades.Computadora;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -18,4 +19,6 @@ public interface IComputadoraDAO {
     void eliminarComputadora(Long id) throws PersistenciaException;
     void editarComputadora(Computadora computadora) throws PersistenciaException;
     List<ComputadoraDTO> consultarNumeroComputadorasPorLaboratorio(Long id) throws PersistenciaException;
+    ComputadoraDTO consultarComputadorasPorIP(String ip) throws PersistenciaException;
+    List<SoftwareDTO> consultarSoftwareDeComputadoras(String ip) throws PersistenciaException;
 }

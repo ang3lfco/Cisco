@@ -4,8 +4,10 @@
  */
 package interfaces;
 
+import Dtos.SoftwareDTO;
 import Entidades.Software;
 import excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  *

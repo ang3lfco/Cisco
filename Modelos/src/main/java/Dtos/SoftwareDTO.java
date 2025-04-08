@@ -32,6 +32,11 @@ public class SoftwareDTO {
         this.computadoras = computadoras;
     }
 
+    public SoftwareDTO(String nombre, String version) {
+        this.nombre = nombre;
+        this.version = version;
+    }
+
     public Long getId() {
         return id;
     }

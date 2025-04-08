@@ -18,4 +18,5 @@ public interface IReservaDAO {
     void eliminarReserva(Long id) throws PersistenciaException;
     void editarReserva(Reserva reserva) throws PersistenciaException;
     List<ReservaDTO> consultarReservas() throws PersistenciaException;
+    ReservaDTO consultarReserva(String ip) throws PersistenciaException;
 }

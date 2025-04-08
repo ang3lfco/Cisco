@@ -9,13 +9,16 @@ import daos.ConexionBD;
 import daos.EstudianteDAO;
 import daos.ReservaDAO;
 import interfaces.IComputadoraDAO;
+import interfaces.IComputadoraNegocio;
 import interfaces.IConexionBD;
 import interfaces.IEstudianteDAO;
 import interfaces.IReservaDAO;
 import interfaces.IReservacionNegocio;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import negocio_computadora.ComputadoraNegocio;
 import negocio_reservacion.ReservacionNegocio;
+import vista_computadora.frmComputadora;
 import vista_reservacion.frmMenuComputadoras;
 import vista_reservacion.frmReservacion;
 
@@ -34,6 +37,11 @@ public class Presentacion {
         
         IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO,eDAO);
         frmReservacion reservacion = new frmReservacion(rNegocio);
+        
+        IComputadoraNegocio cNegocio = new ComputadoraNegocio(cDAO,rDAO);
+        frmComputadora computadora = new frmComputadora(cNegocio);
+        
+//        computadora.setVisible(true);
         
         reservacion.setVisible(true);
         

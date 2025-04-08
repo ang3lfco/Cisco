@@ -8,12 +8,15 @@ import Dtos.ComputadoraDTO;
 import Dtos.EstudianteDTO;
 import Dtos.EstudianteIngresaDTO;
 import Dtos.ReservaDTO;
+import Dtos.SoftwareDTO;
 import excepciones.NegocioException;
 import interfaces.IReservacionNegocio;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,6 +53,22 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         LocalTime fin = LocalTime.now().plusMinutes(extra);
         
         horaFinalLabel.setText(fin.getHour() + ":" + fin.getMinute());
+        
+        List<SoftwareDTO> softwares;
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        
+        try {
+            softwares = reservacionNegocio.softareDeComputadoraDTO(pc.getDireccionIp());
+            
+            for (int i = 0; i < softwares.size(); i++) {
+            modelo.addElement(softwares.get(i).getNombre());
+        }
+            jListSoftware.setModel(modelo);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 
     /**
@@ -71,7 +90,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         btnAnterior = new javax.swing.JButton();
         lblNumeroEquipo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jListSoftware = new javax.swing.JList<>();
         numeroEquipoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,12 +130,12 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         lblNumeroEquipo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNumeroEquipo.setText("programas");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jListSoftware.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jListSoftware);
 
         numeroEquipoLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         numeroEquipoLabel.setText("Equipo 2");
@@ -200,7 +219,11 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         );
         
             reservacionNegocio.agregarReserva(reserva);
+            pc = reservacionNegocio.computadoraPorIp(this.pc.getDireccionIp());
             
+            pc.setEstado(true);
+            
+            reservacionNegocio.editarComputadora(pc);
             JOptionPane.showMessageDialog(null, "Reservacion realizada");
         } catch (NegocioException ex) {
             Logger.getLogger(frmConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
@@ -253,7 +276,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
     private javax.swing.JLabel cantidadMinutosLabel;
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JLabel horaFinalLabel;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jListSoftware;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNumeroEquipo;
     private javax.swing.JLabel numeroEquipoLabel;

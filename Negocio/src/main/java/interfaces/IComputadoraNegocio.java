@@ -5,7 +5,6 @@
 package interfaces;
 
 import Dtos.ComputadoraDTO;
-import Dtos.EstudianteIngresaDTO;
 import Dtos.ReservaDTO;
 import Dtos.SoftwareDTO;
 import excepciones.NegocioException;
@@ -15,12 +14,8 @@ import java.util.List;
  *
  * @author ReneEzequiel23
  */
-public interface IReservacionNegocio {
-    void agregarReserva(ReservaDTO reserva) throws NegocioException;
-    void editarReserva(ReservaDTO reserva) throws NegocioException;
-    List<ComputadoraDTO> numeroComputadorasDTO(Long id) throws NegocioException;
-    EstudianteIngresaDTO buscarIDEstudiante(String id) throws NegocioException;
+public interface IComputadoraNegocio {
     ComputadoraDTO computadoraPorIp(String ip) throws NegocioException;
-    List<SoftwareDTO> softareDeComputadoraDTO(String ip) throws NegocioException;
+    ReservaDTO reservaPorComputadora(String ip) throws NegocioException;
     void editarComputadora(ComputadoraDTO pc) throws NegocioException;
 }

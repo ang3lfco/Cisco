@@ -4,20 +4,111 @@
  */
 package vista_computadora;
 
+import Dtos.ComputadoraDTO;
+import Dtos.ReservaDTO;
+import excepciones.NegocioException;
+import excepciones.PersistenciaException;
+import exceptiones.PresentacionException;
+import interfaces.IComputadoraNegocio;
+import interfaces.IEstudianteNegocio;
+import java.awt.event.ActionEvent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Timer;
+
 /**
  *
  * @author ang3lfco
  */
 public class frmComputadora extends javax.swing.JFrame {
 
+    IComputadoraNegocio computadoraNegocio;
+
     /**
      * Creates new form frmComputadora
      */
-    public frmComputadora() {
+    public frmComputadora(IComputadoraNegocio computadora) {
+        this.computadoraNegocio = computadora;
         initComponents();
         setLocationRelativeTo(null);
+
+        iniciarActualizacionCadaMinuto(); // ⏱️ Iniciar el Timer
     }
-    
+
+    private void actualizarPantalla(ReservaDTO reserva) {
+        jLabel7.setText("Apartada");
+        jLabel3.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
+    }
+
+    private void iniciarActualizacionCadaMinuto() {
+        int delay = 10_000; // 60 segundos
+        String ip = null;
+        try {
+            ip = this.obtenerIpDelEquipo();
+        } catch (PresentacionException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ReservaDTO reserva = this.obtenerReserva(ip);
+        Timer timer = new Timer(delay, (ActionEvent e) -> {
+
+            if (this.obtenerEquipo(reserva.getComputadora().getDireccionIp()).isEstado()) {
+                this.actualizarPantalla(reserva);
+            }
+        });
+
+        timer.start();
+    }
+
+    public ComputadoraDTO obtenerEquipo(String ip) {
+        ComputadoraDTO pc = null;
+        try {
+            pc = this.computadoraNegocio.computadoraPorIp(ip);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pc;
+    }
+
+    public ReservaDTO obtenerReserva(String ip) {
+        ReservaDTO reserva = null;
+        try {
+            reserva = computadoraNegocio.reservaPorComputadora(ip);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return reserva;
+    }
+
+    public String obtenerIpDelEquipo() throws PresentacionException {
+        try {
+            InetAddress direccion = InetAddress.getLocalHost();
+            String ip = direccion.getHostAddress();
+
+            return ip;
+        } catch (UnknownHostException e) {
+            throw new PresentacionException("Error. " + e.getMessage());
+        }
+    }
+
+    public boolean validarPassword(String contraseña) throws PersistenciaException {
+        try {
+            ReservaDTO reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
+
+            if (!reserva.getEstudiante().getContraseña().equals(contraseña)) {
+                return false;
+            }
+
+        } catch (PresentacionException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,8 +121,9 @@ public class frmComputadora extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        txtPassword = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        btnDesbloquear = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -47,37 +139,52 @@ public class frmComputadora extends javax.swing.JFrame {
 
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 352, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Desbloquear");
+        btnDesbloquear.setText("Desbloquear");
+        btnDesbloquear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesbloquearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(32, 32, 32)
+                .addComponent(btnDesbloquear)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addComponent(btnDesbloquear)
                 .addContainerGap())
         );
 
@@ -162,51 +269,70 @@ public class frmComputadora extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void btnDesbloquearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesbloquearActionPerformed
+        try {
+            // TODO add your handling code here:
+            if (this.validarPassword(txtPassword.getText())) {
+
+                frmLiberar liberar = new frmLiberar(this.computadoraNegocio);
+                liberar.setVisible(rootPaneCheckingEnabled);
+                this.dispose();
+            }
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDesbloquearActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmComputadora().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(frmComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(frmComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(frmComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(frmComputadora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new frmComputadora().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDesbloquear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

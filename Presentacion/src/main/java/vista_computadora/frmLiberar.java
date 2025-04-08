@@ -4,19 +4,72 @@
  */
 package vista_computadora;
 
+import Dtos.ComputadoraDTO;
+import Dtos.ReservaDTO;
+import excepciones.NegocioException;
+import exceptiones.PresentacionException;
+import interfaces.IComputadoraNegocio;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ReneEzequiel23
  */
 public class frmLiberar extends javax.swing.JFrame {
-
+    IComputadoraNegocio computadoraNegocio;
     /**
      * Creates new form frmLiberar
      */
-    public frmLiberar() {
+    public frmLiberar(IComputadoraNegocio computadora) {
+        this.computadoraNegocio = computadora;
         initComponents();
+        actualizarPantalla();
     }
 
+    private void actualizarPantalla() {
+        ReservaDTO reserva = null;
+        
+        try {
+            reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
+        } catch (PresentacionException ex) {
+            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jLabel6.setText("equipo :" + reserva.getComputadora().getNumero());
+        
+        jLabel4.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
+        
+        System.out.println(reserva.getHoraInicio());
+        System.out.println(reserva.getHoraFin());
+        
+        Long tiempo = Duration.between(reserva.getHoraInicio(), reserva.getHoraFin()).toMinutes();
+        jLabel7.setText(tiempo + " min");
+    }
+    
+    public ReservaDTO obtenerReserva(String ip){
+        ReservaDTO reserva = null;
+        try {
+            reserva = computadoraNegocio.reservaPorComputadora(ip);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return reserva;
+    }
+    
+    public String obtenerIpDelEquipo() throws PresentacionException{
+        try {
+            InetAddress direccion = InetAddress.getLocalHost();
+            String ip = direccion.getHostAddress();
+            
+            return ip;
+        } catch (UnknownHostException e) {
+            throw new PresentacionException("Error. " + e.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,42 +190,59 @@ public class frmLiberar extends javax.swing.JFrame {
 
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
         // TODO add your handling code here:
+        ReservaDTO reserva = null;
+        ComputadoraDTO pc = new ComputadoraDTO();
+        try {
+            reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
+        } catch (PresentacionException ex) {
+            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            pc = computadoraNegocio.computadoraPorIp(reserva.getComputadora().getDireccionIp());
+            
+            pc.setEstado(false);
+            
+            computadoraNegocio.editarComputadora(pc);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLiberarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmLiberar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmLiberar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmLiberar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmLiberar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmLiberar().setVisible(true);
-            }
-        });
-    }
+////    public static void main(String args[]) {
+////        /* Set the Nimbus look and feel */
+////        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+////        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+////         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+////         */
+////        try {
+////            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+////                if ("Nimbus".equals(info.getName())) {
+////                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+////                    break;
+////                }
+////            }
+////        } catch (ClassNotFoundException ex) {
+////            java.util.logging.Logger.getLogger(frmLiberar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (InstantiationException ex) {
+////            java.util.logging.Logger.getLogger(frmLiberar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (IllegalAccessException ex) {
+////            java.util.logging.Logger.getLogger(frmLiberar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+////            java.util.logging.Logger.getLogger(frmLiberar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        }
+////        //</editor-fold>
+////
+////        /* Create and display the form */
+////        java.awt.EventQueue.invokeLater(new Runnable() {
+////            public void run() {
+////                new frmLiberar().setVisible(true);
+////            }
+////        });
+////    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLiberar;

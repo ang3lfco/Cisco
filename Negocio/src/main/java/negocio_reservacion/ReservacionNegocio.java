@@ -8,9 +8,11 @@ import Dtos.ComputadoraDTO;
 import Dtos.EstudianteDTO;
 import Dtos.EstudianteIngresaDTO;
 import Dtos.ReservaDTO;
+import Dtos.SoftwareDTO;
 import Entidades.Computadora;
 import Entidades.Estudiante;
 import Entidades.Reserva;
+import static conversiones.Conversiones.convertirComputadoraDTOAComputadora;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IComputadoraDAO;
@@ -60,9 +62,42 @@ public class ReservacionNegocio implements IReservacionNegocio {
     }
     
     @Override
+    public void editarComputadora(ComputadoraDTO pc) throws NegocioException {
+        try {
+            Computadora entidad = convertirComputadoraDTOAComputadora(pc);
+
+            computadoraDAO.editarComputadora(entidad);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
     public List<ComputadoraDTO> numeroComputadorasDTO(Long id) throws NegocioException{
         try {
             List<ComputadoraDTO> lista = computadoraDAO.consultarNumeroComputadorasPorLaboratorio(id);
+            
+            return lista;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
+        }
+    }
+    
+    @Override
+    public List<SoftwareDTO> softareDeComputadoraDTO(String ip) throws NegocioException{
+        try {
+            List<SoftwareDTO> lista = computadoraDAO.consultarSoftwareDeComputadoras(ip);
+            
+            return lista;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
+        }
+    }
+    
+    @Override
+    public ComputadoraDTO computadoraPorIp(String ip) throws NegocioException{
+        try {
+            ComputadoraDTO lista = computadoraDAO.consultarComputadorasPorIP(ip);
             
             return lista;
         } catch (PersistenciaException ex) {
