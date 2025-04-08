@@ -6,6 +6,7 @@ package negocio_administrativo;
 
 import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
+import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.HorarioEspecialDTO;
@@ -25,10 +26,13 @@ import interfaces.IAdministrativoNegocio;
 import interfaces.IBloqueoDAO;
 import interfaces.IComputadoraDAO;
 import interfaces.IEstudianteDAO;
+import interfaces.IHorarioEspecialDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,13 +44,15 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
     private ISoftwareDAO softwareDAO;
     private IBloqueoDAO bloqueoDAO;
     private IEstudianteDAO estudianteDAO;
+    private IHorarioEspecialDAO horarioEspecialDAO;
     
-    public AdministrativoNegocio(IComputadoraDAO computadoraDAO, ILaboratorioDAO laboratorioDAO, ISoftwareDAO softwareDAO, IBloqueoDAO bloqueoDAO, IEstudianteDAO estudianteDAO){
+    public AdministrativoNegocio(IComputadoraDAO computadoraDAO, ILaboratorioDAO laboratorioDAO, ISoftwareDAO softwareDAO, IBloqueoDAO bloqueoDAO, IEstudianteDAO estudianteDAO, IHorarioEspecialDAO horarioEspecialDAO){
         this.computadoraDAO = computadoraDAO;
         this.laboratorioDAO = laboratorioDAO;
         this.softwareDAO = softwareDAO;
         this.bloqueoDAO = bloqueoDAO;
         this.estudianteDAO = estudianteDAO;
+        this.horarioEspecialDAO = horarioEspecialDAO;
     }
     
     @Override
@@ -90,6 +96,17 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             bloqueoDAO.desbloquear(idEstudiante);
         }
         catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void agregarHorarioEspecial(AgregarHorarioEspecialDTO horarioEspecialDTO, String nombreLab) throws NegocioException {
+        try {
+            Laboratorio lab = laboratorioDAO.getLaboratorioPorNombre(nombreLab);
+            HorarioEspecial horario = Conversiones.horarioEspecialDTOEnEntidad(horarioEspecialDTO, lab);
+            horarioEspecialDAO.agregarHorarioEspecial(horario);
+        } catch (PersistenciaException e) {
             throw new NegocioException("Error. " + e.getMessage());
         }
     }

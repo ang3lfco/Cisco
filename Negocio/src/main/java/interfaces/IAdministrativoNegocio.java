@@ -6,6 +6,7 @@ package interfaces;
 
 import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
+import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import excepciones.NegocioException;
@@ -19,4 +20,5 @@ public interface IAdministrativoNegocio {
     void agregarSoftware(AgregarSoftwareDTO softwareDTO) throws NegocioException;
     void agregarBloqueo(AgregarBloqueoDTO bloqueoDTO) throws NegocioException;
     void desbloquear(String idEstudiante) throws NegocioException;
+    void agregarHorarioEspecial(AgregarHorarioEspecialDTO horarioEspecialDTO, String nombreLab) throws NegocioException;
 }

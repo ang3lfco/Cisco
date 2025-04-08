@@ -5,11 +5,11 @@
 package vista_administrativo;
 
 import Dtos.AgregarBloqueoDTO;
-import Dtos.AgregarComputadoraDTO;
 import daos.BloqueoDAO;
 import daos.ComputadoraDAO;
 import daos.ConexionBD;
 import daos.EstudianteDAO;
+import daos.HorarioEspecialDAO;
 import daos.LaboratorioDAO;
 import daos.SoftwareDAO;
 import excepciones.NegocioException;
@@ -18,6 +18,7 @@ import interfaces.IBloqueoDAO;
 import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
 import interfaces.IEstudianteDAO;
+import interfaces.IHorarioEspecialDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.time.LocalDateTime;
@@ -41,7 +42,8 @@ public class frmBloqueo extends javax.swing.JFrame {
         ISoftwareDAO softwareDAO = new SoftwareDAO(conexion);
         IBloqueoDAO bloqueoDAO = new BloqueoDAO(conexion);
         IEstudianteDAO estudianteDAO = new EstudianteDAO(conexion);
-        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO);
+        IHorarioEspecialDAO horarioEspecialDAO = new HorarioEspecialDAO(conexion);
+        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO);
         initComponents();
     }
 

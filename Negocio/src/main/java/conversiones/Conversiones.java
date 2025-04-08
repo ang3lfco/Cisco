@@ -6,6 +6,7 @@ package conversiones;
 
 import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
+import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.BloqueoDTO;
 import Dtos.CarreraDTO;
@@ -469,5 +470,13 @@ public class Conversiones {
         }
         Bloqueo bloqueo = new Bloqueo(bloqueoDTO.getFechaHoraBloqueo(), null, bloqueoDTO.getMotivo(), estudiante);
         return bloqueo;
+    }
+    
+    public static HorarioEspecial horarioEspecialDTOEnEntidad(AgregarHorarioEspecialDTO horarioEspecialDTO, Laboratorio lab){
+        if(horarioEspecialDTO == null || lab == null){
+            return null;
+        }
+        HorarioEspecial horario = new HorarioEspecial(horarioEspecialDTO.getFecha(), horarioEspecialDTO.getHoraInicio(), horarioEspecialDTO.getHoraFin(), lab);
+        return horario;
     }
 }
