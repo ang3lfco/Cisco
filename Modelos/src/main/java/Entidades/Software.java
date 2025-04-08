@@ -32,7 +32,7 @@ public class Software implements Serializable {
     @Column(name = "version", length = 10, nullable = true)
     private String version;
     
-    @ManyToMany(mappedBy = "instalaciones")
+    @ManyToMany(mappedBy = "softwares")
     private List<Computadora> computadoras;
 
     public Software() {

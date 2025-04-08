@@ -50,8 +50,8 @@ public class Conversiones {
 
         // Convertir software instalado si existe
         List<SoftwareDTO> instalacionesDTO = new ArrayList<>();
-        if (computadora.getInstalaciones()!= null) {
-            for (Software software : computadora.getInstalaciones()) {
+        if (computadora.getSoftwares()!= null) {
+            for (Software software : computadora.getSoftwares()) {
                 instalacionesDTO.add(convertirSoftwareASoftwareDTO(software));
             }
         }
@@ -479,4 +479,6 @@ public class Conversiones {
         HorarioEspecial horario = new HorarioEspecial(horarioEspecialDTO.getFecha(), horarioEspecialDTO.getHoraInicio(), horarioEspecialDTO.getHoraFin(), lab);
         return horario;
     }
+    
+    
 }

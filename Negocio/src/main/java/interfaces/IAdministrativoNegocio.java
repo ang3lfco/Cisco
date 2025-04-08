@@ -21,4 +21,5 @@ public interface IAdministrativoNegocio {
     void agregarBloqueo(AgregarBloqueoDTO bloqueoDTO) throws NegocioException;
     void desbloquear(String idEstudiante) throws NegocioException;
     void agregarHorarioEspecial(AgregarHorarioEspecialDTO horarioEspecialDTO, String nombreLab) throws NegocioException;
+    void agregarInstalacion(int numeroComputadora, String nombreSoftware) throws NegocioException;
 }

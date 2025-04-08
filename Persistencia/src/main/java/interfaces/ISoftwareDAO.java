@@ -17,4 +17,5 @@ public interface ISoftwareDAO {
     void agregar(Software software) throws PersistenciaException;
     void eliminar(Long id) throws PersistenciaException;
     void editar(Software software) throws PersistenciaException;
+    Software getSoftwarePorNombre(String nombre) throws PersistenciaException;
 }

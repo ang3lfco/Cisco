@@ -17,6 +17,7 @@ Dtos\InstitutoDTO.class
 Entidades\Instituto.class
 Dtos\ComputadoraDTO.class
 Dtos\SoftwareDTO.class
+Dtos\AgregarInstalacionDTO.class
 Dtos\AgregarComputadoraDTO.class
 Entidades\Carrera.class
 Dtos\AgregarHorarioEspecialDTO.class

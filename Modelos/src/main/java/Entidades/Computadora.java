@@ -53,7 +53,7 @@ public class Computadora implements Serializable {
         joinColumns = @JoinColumn(name = "idComputadora"),
         inverseJoinColumns = @JoinColumn(name = "idSoftware")
     )
-    private List<Software> instalaciones;
+    private List<Software> softwares;
         
     public Computadora() {
     }   
@@ -73,13 +73,13 @@ public class Computadora implements Serializable {
         this.laboratorio = laboratorio;
     }
 
-    public Computadora(int numero, boolean estado, String direccionIp, Laboratorio laboratorio, List<Reserva> reservas, List<Software> instalaciones) {
+    public Computadora(int numero, boolean estado, String direccionIp, Laboratorio laboratorio, List<Reserva> reservas, List<Software> softwares) {
         this.numero = numero;
         this.estado = estado;
         this.direccionIp = direccionIp;
         this.laboratorio = laboratorio;
         this.reservas = reservas;
-        this.instalaciones = instalaciones;
+        this.softwares = softwares;
     }
 
     public Long getId() {
@@ -130,12 +130,12 @@ public class Computadora implements Serializable {
         this.reservas = reservas;
     }
 
-    public List<Software> getInstalaciones() {
-        return instalaciones;
+    public List<Software> getSoftwares() {
+        return softwares;
     }
 
-    public void setInstalaciones(List<Software> instalaciones) {
-        this.instalaciones = instalaciones;
+    public void setSoftwares(List<Software> softwares) {
+        this.softwares = softwares;
     }
 
     @Override

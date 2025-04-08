@@ -7,6 +7,7 @@ package negocio_administrativo;
 import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
 import Dtos.AgregarHorarioEspecialDTO;
+import Dtos.AgregarInstalacionDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.HorarioEspecialDTO;
@@ -106,7 +107,22 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             Laboratorio lab = laboratorioDAO.getLaboratorioPorNombre(nombreLab);
             HorarioEspecial horario = Conversiones.horarioEspecialDTOEnEntidad(horarioEspecialDTO, lab);
             horarioEspecialDAO.agregarHorarioEspecial(horario);
-        } catch (PersistenciaException e) {
+        } 
+        catch (PersistenciaException e) {
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void agregarInstalacion(int numeroComputadora, String nombreSoftware) throws NegocioException {
+        try{
+            Computadora c = computadoraDAO.getComputadoraPorNumero(numeroComputadora);
+            Software s = softwareDAO.getSoftwarePorNombre(nombreSoftware);
+            
+            c.getSoftwares().add(s);
+            computadoraDAO.editarComputadora(c);
+        }
+        catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());
         }
     }

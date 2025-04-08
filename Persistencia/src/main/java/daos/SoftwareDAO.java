@@ -8,6 +8,7 @@ import Dtos.ComputadoraDTO;
 import Dtos.LaboratorioDTO;
 import Dtos.SoftwareDTO;
 import Entidades.Computadora;
+import Entidades.Laboratorio;
 import Entidades.Software;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
@@ -77,6 +78,24 @@ public class SoftwareDAO implements ISoftwareDAO {
             em.getTransaction().rollback();
             throw new PersistenciaException("Error. " + e.getMessage());
         } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public Software getSoftwarePorNombre(String nombre) throws PersistenciaException {
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Software> query = builder.createQuery(Software.class);
+            Root<Software> root = query.from(Software.class);
+            query.select(root).where(builder.equal(root.get("nombre"), nombre));
+            return em.createQuery(query).getSingleResult();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+        finally{
             em.close();
         }
     }

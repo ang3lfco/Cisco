@@ -221,4 +221,22 @@ public class ComputadoraDAO implements IComputadoraDAO {
 
         return pcs;
     }
+    
+    @Override
+    public Computadora getComputadoraPorNumero(int numero) throws PersistenciaException {
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Computadora> query = builder.createQuery(Computadora.class);
+            Root<Computadora> root = query.from(Computadora.class);
+            query.select(root).where(builder.equal(root.get("numero"), numero));
+            return em.createQuery(query).getSingleResult();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
 }
