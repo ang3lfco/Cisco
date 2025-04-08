@@ -73,6 +73,15 @@ public class Computadora implements Serializable {
         this.laboratorio = laboratorio;
     }
 
+    public Computadora(int numero, boolean estado, String direccionIp, Laboratorio laboratorio, List<Reserva> reservas, List<Software> instalaciones) {
+        this.numero = numero;
+        this.estado = estado;
+        this.direccionIp = direccionIp;
+        this.laboratorio = laboratorio;
+        this.reservas = reservas;
+        this.instalaciones = instalaciones;
+    }
+
     public Long getId() {
         return id;
     }
@@ -111,6 +120,22 @@ public class Computadora implements Serializable {
 
     public void setLaboratorio(Laboratorio laboratorio) {
         this.laboratorio = laboratorio;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+    public List<Software> getInstalaciones() {
+        return instalaciones;
+    }
+
+    public void setInstalaciones(List<Software> instalaciones) {
+        this.instalaciones = instalaciones;
     }
 
     @Override

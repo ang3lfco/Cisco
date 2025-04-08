@@ -55,6 +55,8 @@ public class ComputadoraDTO {
         this.direccionIp = direccionIp;
         this.laboratorio = laboratorio;
     }
+    
+    
 
     public Long getId() {
         return id;

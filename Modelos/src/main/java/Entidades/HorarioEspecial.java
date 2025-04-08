@@ -63,6 +63,10 @@ public class HorarioEspecial implements Serializable {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public LocalDate getFecha() {
         return fecha;
     }

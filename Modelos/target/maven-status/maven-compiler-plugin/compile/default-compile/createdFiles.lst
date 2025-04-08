@@ -1,6 +1,7 @@
 com\mycompany\modelos\Pruebas.class
 Entidades\Computadora.class
 Dtos\CarreraDTO.class
+Dtos\EstudianteIngresaDTO.class
 Dtos\InstitutoDTO.class
 com\mycompany\modelos\Modelos.class
 Entidades\Instituto.class
