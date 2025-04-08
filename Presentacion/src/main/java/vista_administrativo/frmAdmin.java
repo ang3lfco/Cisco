@@ -4,12 +4,15 @@
  */
 package vista_administrativo;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 /**
  *
@@ -23,11 +26,25 @@ public class frmAdmin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        efectoBoton(jPanel2);
-        efectoBoton(jPanel3);
-        efectoBoton(jPanel4);
-        efectoBoton(jPanel5);
-        efectoBoton(jPanel6);
+        
+        efectoBoton(pnlAgregarEquipo);
+        efectoBoton(pnlBloquear);
+        efectoBoton(pnlAgregarSoftware);
+        efectoBoton(pnlDesbloquear);
+        efectoBoton(pnlAgregarHorario);
+        efectoBoton(pnlInstalaciones);
+        
+        // Agregar un listener para el cambio de tamaño de la ventana
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                // Si la ventana está maximizada
+                if (getExtendedState() == MAXIMIZED_BOTH) {
+                    maximizarPantalla(); // Llamar al método para maximizar
+                } else {
+//                    restaurarPantalla(); // Restaurar el layout cuando no está maximizada
+                }
+            }
+        });
     }
     
     private void efectoBoton(JPanel panel) {
@@ -43,6 +60,74 @@ public class frmAdmin extends javax.swing.JFrame {
             }
         });
     }
+    
+    // Método para ajustar el layout cuando la ventana está maximizada
+    public void maximizarPantalla() {
+        // Limpiar los componentes del contenedor actual
+        jPanel1.removeAll();
+        
+        // Contenedor principal con BorderLayout
+        jPanel1.setLayout(new BorderLayout());
+        
+        // Añadir el jLabel11 en la parte superior
+        jPanel1.add(jLabel11, BorderLayout.NORTH);
+
+        // Crear un panel central para contener los paneles laterales
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout(1, 2, 10, 10)); // Dos columnas, espacio de 10px entre ellos
+        jPanel1.add(centerPanel, BorderLayout.CENTER);
+        
+        // Panel izquierdo
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 filas en columna, con separación
+        leftPanel.add(pnlAgregarEquipo);
+        leftPanel.add(pnlBloquear);
+        leftPanel.add(pnlAgregarSoftware);
+        
+        // Panel derecho
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 filas en columna, con separación
+        rightPanel.add(pnlDesbloquear);
+        rightPanel.add(pnlAgregarHorario);
+        rightPanel.add(pnlInstalaciones);
+        
+        // Añadir los paneles izquierdo y derecho al panel central
+        centerPanel.add(leftPanel);
+        centerPanel.add(rightPanel);
+
+        // Forzar revalidación y repintura para aplicar cambios
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }
+
+    // Método para restaurar el layout cuando la ventana no está maximizada
+    public void restaurarPantalla() {
+        // Limpiar los componentes del contenedor actual
+        jPanel1.removeAll();
+        
+        // Restaurar el layout a una estructura más simple cuando la ventana no está maximizada
+        jPanel1.setLayout(new BorderLayout());
+        
+        // Añadir el jLabel11 en la parte superior
+        jPanel1.add(jLabel11, BorderLayout.NORTH);
+
+        // Crear un panel central sin cambios cuando no está maximizada
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Centrado simple
+        jPanel1.add(centerPanel, BorderLayout.CENTER);
+        
+        // Añadir los paneles a la vista
+        centerPanel.add(pnlAgregarEquipo);
+        centerPanel.add(pnlBloquear);
+        centerPanel.add(pnlAgregarSoftware);
+        centerPanel.add(pnlDesbloquear);
+        centerPanel.add(pnlAgregarHorario);
+        centerPanel.add(pnlInstalaciones);
+
+        // Forzar revalidación y repintura para aplicar cambios
+        jPanel1.revalidate();
+        jPanel1.repaint();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,29 +139,37 @@ public class frmAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pnlAgregarEquipo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        pnlBloquear = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        pnlAgregarSoftware = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        pnlDesbloquear = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        pnlAgregarHorario = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        pnlInstalaciones = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(1, 93, 170));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlAgregarEquipo.setBackground(new java.awt.Color(255, 255, 255));
+        pnlAgregarEquipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlAgregarEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlAgregarEquipoMouseClicked(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ordenador-personal.png"))); // NOI18N
 
@@ -84,31 +177,36 @@ public class frmAdmin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(1, 93, 170));
         jLabel2.setText("Agregar Equipo");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAgregarEquipoLayout = new javax.swing.GroupLayout(pnlAgregarEquipo);
+        pnlAgregarEquipo.setLayout(pnlAgregarEquipoLayout);
+        pnlAgregarEquipoLayout.setHorizontalGroup(
+            pnlAgregarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAgregarEquipoLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
                 .addGap(58, 58, 58)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+        pnlAgregarEquipoLayout.setVerticalGroup(
+            pnlAgregarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgregarEquipoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(17, 17, 17))
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(pnlAgregarEquipoLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlBloquear.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBloquear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlBloquear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlBloquearMouseClicked(evt);
+            }
+        });
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bloqueo-web.png"))); // NOI18N
 
@@ -116,63 +214,73 @@ public class frmAdmin extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(1, 93, 170));
         jLabel4.setText("Bloquear Acceso");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBloquearLayout = new javax.swing.GroupLayout(pnlBloquear);
+        pnlBloquear.setLayout(pnlBloquearLayout);
+        pnlBloquearLayout.setHorizontalGroup(
+            pnlBloquearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBloquearLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel3)
                 .addGap(58, 58, 58)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        pnlBloquearLayout.setVerticalGroup(
+            pnlBloquearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBloquearLayout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(17, 17, 17))
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(pnlBloquearLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlAgregarSoftware.setBackground(new java.awt.Color(255, 255, 255));
+        pnlAgregarSoftware.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlAgregarSoftware.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlAgregarSoftwareMouseClicked(evt);
+            }
+        });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/descargar.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar-servidor.png"))); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(1, 93, 170));
         jLabel6.setText("Agregar Software");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAgregarSoftwareLayout = new javax.swing.GroupLayout(pnlAgregarSoftware);
+        pnlAgregarSoftware.setLayout(pnlAgregarSoftwareLayout);
+        pnlAgregarSoftwareLayout.setHorizontalGroup(
+            pnlAgregarSoftwareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAgregarSoftwareLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel5)
                 .addGap(58, 58, 58)
                 .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        pnlAgregarSoftwareLayout.setVerticalGroup(
+            pnlAgregarSoftwareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgregarSoftwareLayout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(17, 17, 17))
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(pnlAgregarSoftwareLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlDesbloquear.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDesbloquear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlDesbloquear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlDesbloquearMouseClicked(evt);
+            }
+        });
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desbloqueado.png"))); // NOI18N
 
@@ -180,56 +288,61 @@ public class frmAdmin extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(1, 93, 170));
         jLabel8.setText("Permitir Acceso");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlDesbloquearLayout = new javax.swing.GroupLayout(pnlDesbloquear);
+        pnlDesbloquear.setLayout(pnlDesbloquearLayout);
+        pnlDesbloquearLayout.setHorizontalGroup(
+            pnlDesbloquearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDesbloquearLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel7)
                 .addGap(58, 58, 58)
                 .addComponent(jLabel8)
                 .addContainerGap(63, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+        pnlDesbloquearLayout.setVerticalGroup(
+            pnlDesbloquearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDesbloquearLayout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(17, 17, 17))
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(pnlDesbloquearLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel8)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlAgregarHorario.setBackground(new java.awt.Color(255, 255, 255));
+        pnlAgregarHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlAgregarHorario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlAgregarHorarioMouseClicked(evt);
+            }
+        });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/horario-de-trabajo.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cambio.png"))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(1, 93, 170));
         jLabel10.setText("Horarios Especiales");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAgregarHorarioLayout = new javax.swing.GroupLayout(pnlAgregarHorario);
+        pnlAgregarHorario.setLayout(pnlAgregarHorarioLayout);
+        pnlAgregarHorarioLayout.setHorizontalGroup(
+            pnlAgregarHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAgregarHorarioLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel9)
                 .addGap(58, 58, 58)
                 .addComponent(jLabel10)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+        pnlAgregarHorarioLayout.setVerticalGroup(
+            pnlAgregarHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgregarHorarioLayout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(17, 17, 17))
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(pnlAgregarHorarioLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel10)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -237,6 +350,43 @@ public class frmAdmin extends javax.swing.JFrame {
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo2.png"))); // NOI18N
+
+        pnlInstalaciones.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInstalaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlInstalaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlInstalacionesMouseClicked(evt);
+            }
+        });
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/configuracion (1).png"))); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(1, 93, 170));
+        jLabel13.setText("Instalaciones");
+
+        javax.swing.GroupLayout pnlInstalacionesLayout = new javax.swing.GroupLayout(pnlInstalaciones);
+        pnlInstalaciones.setLayout(pnlInstalacionesLayout);
+        pnlInstalacionesLayout.setHorizontalGroup(
+            pnlInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInstalacionesLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel12)
+                .addGap(58, 58, 58)
+                .addComponent(jLabel13)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlInstalacionesLayout.setVerticalGroup(
+            pnlInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInstalacionesLayout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(jLabel12)
+                .addGap(17, 17, 17))
+            .addGroup(pnlInstalacionesLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel13)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -246,30 +396,35 @@ public class frmAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlAgregarHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlAgregarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlInstalaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pnlBloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlDesbloquear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlAgregarSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pnlBloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlAgregarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlDesbloquear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlAgregarHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlAgregarSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlInstalaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -285,6 +440,40 @@ public class frmAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pnlAgregarEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAgregarEquipoMouseClicked
+        // TODO add your handling code here:
+        frmEquipo equipo = new frmEquipo();
+        equipo.setVisible(true);
+    }//GEN-LAST:event_pnlAgregarEquipoMouseClicked
+
+    private void pnlBloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBloquearMouseClicked
+        // TODO add your handling code here:
+        frmBloqueo bloqueo = new frmBloqueo();
+        bloqueo.setVisible(true);
+    }//GEN-LAST:event_pnlBloquearMouseClicked
+
+    private void pnlAgregarSoftwareMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAgregarSoftwareMouseClicked
+        // TODO add your handling code here:
+        frmSoftware software = new frmSoftware();
+        software.setVisible(true);
+    }//GEN-LAST:event_pnlAgregarSoftwareMouseClicked
+
+    private void pnlDesbloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlDesbloquearMouseClicked
+        // TODO add your handling code here:
+        frmDesbloqueo desbloqueo = new frmDesbloqueo();
+        desbloqueo.setVisible(true);
+    }//GEN-LAST:event_pnlDesbloquearMouseClicked
+
+    private void pnlAgregarHorarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAgregarHorarioMouseClicked
+        // TODO add your handling code here:
+        frmHorario horario = new frmHorario();
+        horario.setVisible(true);
+    }//GEN-LAST:event_pnlAgregarHorarioMouseClicked
+
+    private void pnlInstalacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInstalacionesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlInstalacionesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -325,6 +514,8 @@ public class frmAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -334,10 +525,11 @@ public class frmAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel pnlAgregarEquipo;
+    private javax.swing.JPanel pnlAgregarHorario;
+    private javax.swing.JPanel pnlAgregarSoftware;
+    private javax.swing.JPanel pnlBloquear;
+    private javax.swing.JPanel pnlDesbloquear;
+    private javax.swing.JPanel pnlInstalaciones;
     // End of variables declaration//GEN-END:variables
 }

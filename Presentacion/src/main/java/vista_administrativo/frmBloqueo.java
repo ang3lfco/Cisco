@@ -24,6 +24,7 @@ import interfaces.ISoftwareDAO;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -45,6 +46,8 @@ public class frmBloqueo extends javax.swing.JFrame {
         IHorarioEspecialDAO horarioEspecialDAO = new HorarioEspecialDAO(conexion);
         adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO);
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -66,14 +69,25 @@ public class frmBloqueo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(1, 93, 170));
+
         txaMotivo.setColumns(20);
         txaMotivo.setRows(5);
         jScrollPane1.setViewportView(txaMotivo);
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Motivo del bloqueo:");
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Estudiante a bloquear:");
 
+        txfID.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        txfID.setText("ID de estudiante");
+
+        btnBloquear.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnBloquear.setForeground(new java.awt.Color(1, 93, 170));
         btnBloquear.setText("Bloquear");
         btnBloquear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -103,7 +117,7 @@ public class frmBloqueo extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

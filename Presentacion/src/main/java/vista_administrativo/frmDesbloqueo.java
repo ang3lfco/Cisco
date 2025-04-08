@@ -22,6 +22,7 @@ import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -43,6 +44,8 @@ public class frmDesbloqueo extends javax.swing.JFrame {
         IHorarioEspecialDAO horarioEspecialDAO = new HorarioEspecialDAO(conexion);
         adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO);
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -61,10 +64,17 @@ public class frmDesbloqueo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(1, 93, 170));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Estudiante a desbloquear:");
 
+        txfID.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfID.setText("ID de estudiante");
 
+        btnDesbloquear.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        btnDesbloquear.setForeground(new java.awt.Color(1, 93, 170));
         btnDesbloquear.setText("Desbloquear");
         btnDesbloquear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -94,7 +104,7 @@ public class frmDesbloqueo extends javax.swing.JFrame {
                 .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDesbloquear)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
