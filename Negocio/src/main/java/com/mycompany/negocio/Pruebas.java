@@ -43,7 +43,7 @@ public class Pruebas {
 //        LaboratorioDTO labDTO = Conversiones.convertirLaboratorioALaboratorioDTO(cisco);
         List<ReservaDTO> reservas = new ArrayList<>();
         List<SoftwareDTO> instalaciones = new ArrayList<>();
-        AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(3, true, "192.168.0.103", "Cisco");
+        AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(4, true, "192.168.0.104", "Cisco");
         adminNegocio.agregarEquipo(equipo);
         em.close();
         conexionBD.cerrarEntityManagerFactory();

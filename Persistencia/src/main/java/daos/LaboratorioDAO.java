@@ -12,6 +12,9 @@ import interfaces.ILaboratorioDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -122,10 +125,11 @@ public class LaboratorioDAO implements ILaboratorioDAO{
     public Laboratorio getLaboratorioPorNombre(String nombre) throws PersistenciaException{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
-            Laboratorio lab = em.createQuery("SELECT l FROM Laboratorio l WHERE l.nombre = :nombre", Laboratorio.class)
-                        .setParameter("nombre", nombre)
-                        .getSingleResult();
-            return lab;
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Laboratorio> query = builder.createQuery(Laboratorio.class);
+            Root<Laboratorio> root = query.from(Laboratorio.class);
+            query.select(root).where(builder.equal(root.get("nombre"), nombre));
+            return em.createQuery(query).getSingleResult();
         }
         catch(Exception e){
             throw new PersistenciaException("Error: " + e.getMessage());
