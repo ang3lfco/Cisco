@@ -12,6 +12,7 @@ import Entidades.Computadora;
 import Entidades.HorarioEspecial;
 import Entidades.Instituto;
 import Entidades.Laboratorio;
+import conversiones.Conversiones;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IAdministrativoNegocio;
@@ -35,6 +36,12 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
     
     @Override
     public void agregarEquipo(ComputadoraDTO computadoraDTO) throws NegocioException{
-        
+        try{
+            Computadora equipo = Conversiones.convertirComputadoraDTOAComputadora(computadoraDTO);
+            computadoraDAO.agregarComputadora(equipo);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
     }
 }
