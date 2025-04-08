@@ -33,7 +33,7 @@ public class Pruebas {
         IConexionBD conexionBD = new ConexionBD();
         IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexionBD);
         ILaboratorioDAO laboratorioDAO = new LaboratorioDAO(conexionBD);
-        IAdministrativoNegocio adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO);
+//        IAdministrativoNegocio adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO);
         
         EntityManager em = conexionBD.obtenerEntityManager();
 //        Laboratorio cisco = em.createQuery("SELECT l FROM Laboratorio l WHERE l.nombre = :nombre", Laboratorio.class)
@@ -44,7 +44,7 @@ public class Pruebas {
         List<ReservaDTO> reservas = new ArrayList<>();
         List<SoftwareDTO> instalaciones = new ArrayList<>();
         AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(4, true, "192.168.0.104", "Cisco");
-        adminNegocio.agregarEquipo(equipo);
+//        adminNegocio.agregarEquipo(equipo);
         em.close();
         conexionBD.cerrarEntityManagerFactory();
     }

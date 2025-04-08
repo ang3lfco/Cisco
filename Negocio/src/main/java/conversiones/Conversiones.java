@@ -5,6 +5,7 @@
 package conversiones;
 
 import Dtos.AgregarComputadoraDTO;
+import Dtos.AgregarSoftwareDTO;
 import Dtos.BloqueoDTO;
 import Dtos.CarreraDTO;
 import Dtos.ComputadoraDTO;
@@ -451,5 +452,13 @@ public class Conversiones {
         computadora.setLaboratorio(lab);
 
         return computadora;
+    }
+    
+    public static Software softwareDTOEnEntidad(AgregarSoftwareDTO softwareDTO){
+        if(softwareDTO == null){
+            return null;
+        }
+        Software software = new Software(softwareDTO.getNombre(), softwareDTO.getVersion(), new ArrayList<>());
+        return software;
     }
 }

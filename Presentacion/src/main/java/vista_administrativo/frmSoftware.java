@@ -4,16 +4,36 @@
  */
 package vista_administrativo;
 
+import Dtos.AgregarSoftwareDTO;
+import daos.ComputadoraDAO;
+import daos.ConexionBD;
+import daos.LaboratorioDAO;
+import daos.SoftwareDAO;
+import excepciones.NegocioException;
+import interfaces.IAdministrativoNegocio;
+import interfaces.IComputadoraDAO;
+import interfaces.IConexionBD;
+import interfaces.ILaboratorioDAO;
+import interfaces.ISoftwareDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import negocio_administrativo.AdministrativoNegocio;
+
 /**
  *
  * @author ang3lfco
  */
 public class frmSoftware extends javax.swing.JFrame {
-
+    private IAdministrativoNegocio adminNegocio;
     /**
      * Creates new form frmSoftware
      */
     public frmSoftware() {
+        IConexionBD conexion = new ConexionBD();
+        IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexion);
+        ILaboratorioDAO laboratorioDAO = new LaboratorioDAO(conexion);
+        ISoftwareDAO softwareDAO = new SoftwareDAO(conexion);
+        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO);
         initComponents();
     }
 
@@ -27,23 +47,28 @@ public class frmSoftware extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txfVersion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txfNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField2.setText("version");
+        txfVersion.setText("version");
 
         jLabel2.setText("Version:");
 
-        jTextField1.setText("software");
+        txfNombre.setText("software");
 
         jLabel1.setText("Nombre del Software:");
 
-        jButton1.setText("Agregar");
+        btnAgregar.setText("Agregar");
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -54,12 +79,12 @@ public class frmSoftware extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txfNombre)
+                    .addComponent(txfVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnAgregar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -68,13 +93,13 @@ public class frmSoftware extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfVersion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnAgregar)
                 .addContainerGap())
         );
 
@@ -91,6 +116,16 @@ public class frmSoftware extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        // TODO add your handling code here:
+        try {
+            AgregarSoftwareDTO software = new AgregarSoftwareDTO(txfNombre.getText(), txfVersion.getText());
+            adminNegocio.agregarSoftware(software);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmSoftware.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAgregarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -128,11 +163,11 @@ public class frmSoftware extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txfNombre;
+    private javax.swing.JTextField txfVersion;
     // End of variables declaration//GEN-END:variables
 }

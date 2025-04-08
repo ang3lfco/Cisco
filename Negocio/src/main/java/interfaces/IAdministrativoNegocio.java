@@ -5,6 +5,7 @@
 package interfaces;
 
 import Dtos.AgregarComputadoraDTO;
+import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import excepciones.NegocioException;
 
@@ -14,4 +15,5 @@ import excepciones.NegocioException;
  */
 public interface IAdministrativoNegocio {
     void agregarEquipo(AgregarComputadoraDTO computadoraDTO) throws NegocioException;
+    void agregarSoftware(AgregarSoftwareDTO softwareDTO) throws NegocioException;
 }

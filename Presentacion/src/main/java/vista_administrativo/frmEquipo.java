@@ -4,12 +4,20 @@
  */
 package vista_administrativo;
 
+import Dtos.AgregarComputadoraDTO;
 import Dtos.ComputadoraDTO;
 import daos.ComputadoraDAO;
 import daos.ConexionBD;
+import daos.LaboratorioDAO;
+import daos.SoftwareDAO;
+import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
 import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
+import interfaces.ILaboratorioDAO;
+import interfaces.ISoftwareDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -18,23 +26,19 @@ import negocio_administrativo.AdministrativoNegocio;
  */
 public class frmEquipo extends javax.swing.JFrame {
     private IAdministrativoNegocio adminNegocio;
-    private IComputadoraDAO computadoraDAO;
-    private IConexionBD conexionBD;
     
     /**
      * Creates new form frmAgregarEquipo
      */
     public frmEquipo() {
-        conexionBD = new ConexionBD();
-        computadoraDAO = new ComputadoraDAO(conexionBD);
-//        adminNegocio = new AdministrativoNegocio(computadoraDAO);
+        IConexionBD conexion = new ConexionBD();
+        IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexion);
+        ILaboratorioDAO laboratorioDAO = new LaboratorioDAO(conexion);
+        ISoftwareDAO softwareDAO = new SoftwareDAO(conexion);
+        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO);
         initComponents();
     }
     
-    
-    
-    public void lol(){
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,24 +50,25 @@ public class frmEquipo extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txfNumeroEquipo = new javax.swing.JTextField();
+        cmbEstado = new javax.swing.JComboBox<>();
+        txfIp = new javax.swing.JTextField();
+        cmbLaboratorio = new javax.swing.JComboBox<>();
         btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Agregar equipo");
 
-        jTextField1.setText("Numero de Equipo");
+        txfNumeroEquipo.setText("Numero de Equipo");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Ocupado" }));
-        jComboBox2.setEnabled(false);
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Ocupado" }));
+        cmbEstado.setEnabled(false);
 
-        jTextField2.setText("Direccion ip del equipo:");
+        txfIp.setText("Direccion ip del equipo:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca" }));
+        cmbLaboratorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca" }));
+        cmbLaboratorio.setEnabled(false);
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -82,10 +87,10 @@ public class frmEquipo extends javax.swing.JFrame {
                     .addComponent(btnAceptar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel1)
-                        .addComponent(jTextField1)
-                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txfNumeroEquipo)
+                        .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txfIp, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                        .addComponent(cmbLaboratorio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,13 +99,13 @@ public class frmEquipo extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jLabel1)
                 .addGap(37, 37, 37)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfNumeroEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75)
                 .addComponent(btnAceptar)
                 .addContainerGap(83, Short.MAX_VALUE))
@@ -111,9 +116,12 @@ public class frmEquipo extends javax.swing.JFrame {
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         // TODO add your handling code here:
-//        Laboratorio 
-//        ComputadoraDTO equipo = new ComputadoraDTO();
-//        adminNegocio.agregarEquipo(computadoraDTO);
+        try {
+            AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfIp.getText(), cmbLaboratorio.getSelectedItem().toString());
+            adminNegocio.agregarEquipo(equipo);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     /**
@@ -154,10 +162,10 @@ public class frmEquipo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JComboBox<String> cmbLaboratorio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txfIp;
+    private javax.swing.JTextField txfNumeroEquipo;
     // End of variables declaration//GEN-END:variables
 }

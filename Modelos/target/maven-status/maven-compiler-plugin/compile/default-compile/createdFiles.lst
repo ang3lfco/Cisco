@@ -14,6 +14,7 @@ Entidades\Estudiante.class
 Dtos\HorarioEspecialDTO.class
 Entidades\Bloqueo.class
 Entidades\Reserva.class
+Dtos\AgregarSoftwareDTO.class
 Dtos\EstudianteDTO.class
 Entidades\HorarioEspecial.class
 Entidades\Laboratorio.class
