@@ -4,6 +4,7 @@
  */
 package conversiones;
 
+import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.BloqueoDTO;
@@ -460,5 +461,13 @@ public class Conversiones {
         }
         Software software = new Software(softwareDTO.getNombre(), softwareDTO.getVersion(), new ArrayList<>());
         return software;
+    }
+    
+    public static Bloqueo bloqueoDTOEnEntidad(AgregarBloqueoDTO bloqueoDTO, Estudiante estudiante){
+        if(bloqueoDTO == null){
+            return null;
+        }
+        Bloqueo bloqueo = new Bloqueo(bloqueoDTO.getFechaHoraBloqueo(), null, bloqueoDTO.getMotivo(), estudiante);
+        return bloqueo;
     }
 }

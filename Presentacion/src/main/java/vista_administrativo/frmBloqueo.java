@@ -4,16 +4,44 @@
  */
 package vista_administrativo;
 
+import Dtos.AgregarBloqueoDTO;
+import Dtos.AgregarComputadoraDTO;
+import daos.BloqueoDAO;
+import daos.ComputadoraDAO;
+import daos.ConexionBD;
+import daos.EstudianteDAO;
+import daos.LaboratorioDAO;
+import daos.SoftwareDAO;
+import excepciones.NegocioException;
+import interfaces.IAdministrativoNegocio;
+import interfaces.IBloqueoDAO;
+import interfaces.IComputadoraDAO;
+import interfaces.IConexionBD;
+import interfaces.IEstudianteDAO;
+import interfaces.ILaboratorioDAO;
+import interfaces.ISoftwareDAO;
+import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import negocio_administrativo.AdministrativoNegocio;
+
 /**
  *
  * @author ang3lfco
  */
 public class frmBloqueo extends javax.swing.JFrame {
-
+    private IAdministrativoNegocio adminNegocio;
     /**
      * Creates new form frmBloqueo
      */
     public frmBloqueo() {
+        IConexionBD conexion = new ConexionBD();
+        IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexion);
+        ILaboratorioDAO laboratorioDAO = new LaboratorioDAO(conexion);
+        ISoftwareDAO softwareDAO = new SoftwareDAO(conexion);
+        IBloqueoDAO bloqueoDAO = new BloqueoDAO(conexion);
+        IEstudianteDAO estudianteDAO = new EstudianteDAO(conexion);
+        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO);
         initComponents();
     }
 
@@ -28,25 +56,28 @@ public class frmBloqueo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txaMotivo = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txfID = new javax.swing.JTextField();
+        btnBloquear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txaMotivo.setColumns(20);
+        txaMotivo.setRows(5);
+        jScrollPane1.setViewportView(txaMotivo);
 
         jLabel2.setText("Motivo del bloqueo:");
 
         jLabel1.setText("Estudiante a bloquear:");
 
-        jTextField1.setText("ID de estudiante");
-
-        jButton1.setText("Bloquear");
+        btnBloquear.setText("Bloquear");
+        btnBloquear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBloquearMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -55,12 +86,12 @@ public class frmBloqueo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(btnBloquear)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel2)
                         .addComponent(jScrollPane1)
                         .addComponent(jLabel1)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -69,13 +100,13 @@ public class frmBloqueo extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(jButton1)
+                .addComponent(btnBloquear)
                 .addGap(16, 16, 16))
         );
 
@@ -92,6 +123,16 @@ public class frmBloqueo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBloquearMouseClicked
+        // TODO add your handling code here:
+        try {
+            AgregarBloqueoDTO bloqueoDTO = new AgregarBloqueoDTO(LocalDateTime.now(), txaMotivo.getText(), txfID.getText());
+            adminNegocio.agregarBloqueo(bloqueoDTO);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBloquearMouseClicked
 
     /**
      * @param args the command line arguments
@@ -129,12 +170,12 @@ public class frmBloqueo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBloquear;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea txaMotivo;
+    private javax.swing.JTextField txfID;
     // End of variables declaration//GEN-END:variables
 }

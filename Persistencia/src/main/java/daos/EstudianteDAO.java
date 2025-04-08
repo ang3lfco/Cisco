@@ -119,4 +119,19 @@ public class EstudianteDAO implements IEstudianteDAO{
 
         return estudianteDTO;
     }
+    
+    @Override
+    public Estudiante getEstudiantePorId(String idEstudiante) throws PersistenciaException {
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Estudiante> query = builder.createQuery(Estudiante.class);
+            Root<Estudiante> root = query.from(Estudiante.class);
+            query.select(root).where(builder.equal(root.get("idEstudiante"), idEstudiante));
+            return em.createQuery(query).getSingleResult();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+    }
 }

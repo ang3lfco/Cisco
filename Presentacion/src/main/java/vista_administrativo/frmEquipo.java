@@ -6,14 +6,18 @@ package vista_administrativo;
 
 import Dtos.AgregarComputadoraDTO;
 import Dtos.ComputadoraDTO;
+import daos.BloqueoDAO;
 import daos.ComputadoraDAO;
 import daos.ConexionBD;
+import daos.EstudianteDAO;
 import daos.LaboratorioDAO;
 import daos.SoftwareDAO;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
+import interfaces.IBloqueoDAO;
 import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
+import interfaces.IEstudianteDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.util.logging.Level;
@@ -35,7 +39,9 @@ public class frmEquipo extends javax.swing.JFrame {
         IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexion);
         ILaboratorioDAO laboratorioDAO = new LaboratorioDAO(conexion);
         ISoftwareDAO softwareDAO = new SoftwareDAO(conexion);
-        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO);
+        IBloqueoDAO bloqueoDAO = new BloqueoDAO(conexion);
+        IEstudianteDAO estudianteDAO = new EstudianteDAO(conexion);
+        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO);
         initComponents();
     }
     

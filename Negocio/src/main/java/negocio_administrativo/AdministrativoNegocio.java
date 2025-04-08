@@ -4,13 +4,16 @@
  */
 package negocio_administrativo;
 
+import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.HorarioEspecialDTO;
 import Dtos.InstitutoDTO;
 import Dtos.LaboratorioDTO;
+import Entidades.Bloqueo;
 import Entidades.Computadora;
+import Entidades.Estudiante;
 import Entidades.HorarioEspecial;
 import Entidades.Instituto;
 import Entidades.Laboratorio;
@@ -19,7 +22,9 @@ import conversiones.Conversiones;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IAdministrativoNegocio;
+import interfaces.IBloqueoDAO;
 import interfaces.IComputadoraDAO;
+import interfaces.IEstudianteDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.util.ArrayList;
@@ -33,11 +38,15 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
     private IComputadoraDAO computadoraDAO;
     private ILaboratorioDAO laboratorioDAO;
     private ISoftwareDAO softwareDAO;
+    private IBloqueoDAO bloqueoDAO;
+    private IEstudianteDAO estudianteDAO;
     
-    public AdministrativoNegocio(IComputadoraDAO computadoraDAO, ILaboratorioDAO laboratorioDAO, ISoftwareDAO softwareDAO){
+    public AdministrativoNegocio(IComputadoraDAO computadoraDAO, ILaboratorioDAO laboratorioDAO, ISoftwareDAO softwareDAO, IBloqueoDAO bloqueoDAO, IEstudianteDAO estudianteDAO){
         this.computadoraDAO = computadoraDAO;
         this.laboratorioDAO = laboratorioDAO;
         this.softwareDAO = softwareDAO;
+        this.bloqueoDAO = bloqueoDAO;
+        this.estudianteDAO = estudianteDAO;
     }
     
     @Override
@@ -57,6 +66,18 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         try{
             Software software = Conversiones.softwareDTOEnEntidad(softwareDTO);
             softwareDAO.agregar(software);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void agregarBloqueo(AgregarBloqueoDTO bloqueoDTO) throws NegocioException{
+        try{
+            Estudiante estudiante = estudianteDAO.getEstudiantePorId(bloqueoDTO.getIdEstudiante());
+            Bloqueo bloqueo = Conversiones.bloqueoDTOEnEntidad(bloqueoDTO, estudiante);
+            bloqueoDAO.agregar(bloqueo);
         }
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());
