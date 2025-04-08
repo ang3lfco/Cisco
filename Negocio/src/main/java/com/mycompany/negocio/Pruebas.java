@@ -4,6 +4,7 @@
  */
 package com.mycompany.negocio;
 
+import Dtos.AgregarComputadoraDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.LaboratorioDTO;
 import Dtos.ReservaDTO;
@@ -35,14 +36,16 @@ public class Pruebas {
         IAdministrativoNegocio adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO);
         
         EntityManager em = conexionBD.obtenerEntityManager();
-        Laboratorio cisco = em.createQuery("SELECT l FROM Laboratorio l WHERE l.nombre = :nombre", Laboratorio.class)
-                        .setParameter("nombre", "Cisco")
-                        .getSingleResult();
+//        Laboratorio cisco = em.createQuery("SELECT l FROM Laboratorio l WHERE l.nombre = :nombre", Laboratorio.class)
+//                        .setParameter("nombre", "Cisco")
+//                        .getSingleResult();
         
-        LaboratorioDTO labDTO = Conversiones.convertirLaboratorioALaboratorioDTO(cisco);
+//        LaboratorioDTO labDTO = Conversiones.convertirLaboratorioALaboratorioDTO(cisco);
         List<ReservaDTO> reservas = new ArrayList<>();
         List<SoftwareDTO> instalaciones = new ArrayList<>();
-        ComputadoraDTO equipo = new ComputadoraDTO(3, true, "192.168.0.103", labDTO, reservas, instalaciones);
+        AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(3, true, "192.168.0.103", "Cisco");
         adminNegocio.agregarEquipo(equipo);
+        em.close();
+        conexionBD.cerrarEntityManagerFactory();
     }
 }

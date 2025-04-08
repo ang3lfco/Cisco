@@ -4,6 +4,7 @@
  */
 package negocio_administrativo;
 
+import Dtos.AgregarComputadoraDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.HorarioEspecialDTO;
 import Dtos.InstitutoDTO;
@@ -35,9 +36,10 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
     }
     
     @Override
-    public void agregarEquipo(ComputadoraDTO computadoraDTO) throws NegocioException{
+    public void agregarEquipo(AgregarComputadoraDTO computadoraDTO) throws NegocioException{
         try{
-            Computadora equipo = Conversiones.convertirComputadoraDTOAComputadora(computadoraDTO);
+            Laboratorio lab = laboratorioDAO.getLaboratorioPorNombre(computadoraDTO.getLaboratorio());
+            Computadora equipo = Conversiones.computadoraDTOEnEntidad(computadoraDTO, lab);
             computadoraDAO.agregarComputadora(equipo);
         }
         catch(PersistenciaException e){

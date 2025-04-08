@@ -17,4 +17,5 @@ public interface ILaboratorioDAO {
     void eliminarLaboratorio(Long id) throws PersistenciaException;
     void editarLaboratorio(Laboratorio laboratorio) throws PersistenciaException;
     List<Laboratorio> getLaboratorios() throws PersistenciaException;
+    Laboratorio getLaboratorioPorNombre(String nombre) throws PersistenciaException;
 }

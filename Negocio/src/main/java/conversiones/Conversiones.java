@@ -4,6 +4,7 @@
  */
 package conversiones;
 
+import Dtos.AgregarComputadoraDTO;
 import Dtos.BloqueoDTO;
 import Dtos.CarreraDTO;
 import Dtos.ComputadoraDTO;
@@ -429,5 +430,26 @@ public class Conversiones {
         carrera.setNombre(carreraDTO.getNombre());
 
         return carrera;
+    }
+    
+    
+    
+    
+    
+    
+    
+    //pruebas
+    public static Computadora computadoraDTOEnEntidad(AgregarComputadoraDTO computadoraDTO, Laboratorio lab) {
+        if (computadoraDTO == null) {
+            return null;
+        }
+        
+        Computadora computadora = new Computadora();
+        computadora.setNumero(computadoraDTO.getNumero());
+        computadora.setEstado(computadoraDTO.isEstado());
+        computadora.setDireccionIp(computadoraDTO.getDireccionIp());
+        computadora.setLaboratorio(lab);
+
+        return computadora;
     }
 }

@@ -117,4 +117,21 @@ public class LaboratorioDAO implements ILaboratorioDAO{
             em.close();
         }
     }
+    
+    @Override
+    public Laboratorio getLaboratorioPorNombre(String nombre) throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            Laboratorio lab = em.createQuery("SELECT l FROM Laboratorio l WHERE l.nombre = :nombre", Laboratorio.class)
+                        .setParameter("nombre", nombre)
+                        .getSingleResult();
+            return lab;
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
 }
