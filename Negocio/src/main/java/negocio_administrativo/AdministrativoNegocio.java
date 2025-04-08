@@ -83,4 +83,14 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             throw new NegocioException("Error. " + e.getMessage());
         }
     }
+    
+    @Override
+    public void desbloquear(String idEstudiante) throws NegocioException{
+        try{
+            bloqueoDAO.desbloquear(idEstudiante);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
 }

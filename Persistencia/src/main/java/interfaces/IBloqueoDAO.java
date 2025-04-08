@@ -15,4 +15,5 @@ public interface IBloqueoDAO {
     void agregar(Bloqueo bloqueo) throws PersistenciaException;
     void eliminar(Long id) throws PersistenciaException;
     void editar(Bloqueo bloqueo) throws PersistenciaException;
+    void desbloquear(String idEstudiante) throws PersistenciaException;
 }

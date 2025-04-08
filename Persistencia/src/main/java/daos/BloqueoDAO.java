@@ -5,11 +5,16 @@
 package daos;
 
 import Entidades.Bloqueo;
-import Entidades.Software;
+import Entidades.Estudiante;
 import excepciones.PersistenciaException;
 import interfaces.IBloqueoDAO;
 import interfaces.IConexionBD;
+import java.time.LocalDateTime;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -64,6 +69,39 @@ public class BloqueoDAO implements IBloqueoDAO{
         EntityManager em = conexionBD.obtenerEntityManager();
         try{
             em.getTransaction().begin();
+            em.merge(bloqueo);
+            em.getTransaction().commit();
+        }
+        catch(Exception e){
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Error. " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
+    
+    @Override
+    public void desbloquear(String idEstudiante) throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            em.getTransaction().begin();
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Estudiante> query = builder.createQuery(Estudiante.class);
+            Root<Estudiante> root = query.from(Estudiante.class);
+            query.select(root).where(builder.equal(root.get("idEstudiante"), idEstudiante));
+            Estudiante estudiante = em.createQuery(query).getSingleResult();
+            
+            CriteriaQuery<Bloqueo> queryB = builder.createQuery(Bloqueo.class);
+            Root<Bloqueo> rootB = queryB.from(Bloqueo.class);
+            queryB.select(rootB).where(builder.equal(rootB.get("estudiante"), estudiante)).orderBy(builder.desc(rootB.get("fechaHoraBloqueo")));
+            
+            TypedQuery<Bloqueo> queryBloqueo = em.createQuery(queryB);
+            queryBloqueo.setMaxResults(1); 
+            
+            Bloqueo bloqueo = queryBloqueo.getSingleResult();
+            bloqueo.setFechaHoraDesbloqueo(LocalDateTime.now());
+            
             em.merge(bloqueo);
             em.getTransaction().commit();
         }

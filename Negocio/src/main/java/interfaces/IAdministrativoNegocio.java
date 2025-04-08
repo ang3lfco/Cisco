@@ -18,4 +18,5 @@ public interface IAdministrativoNegocio {
     void agregarEquipo(AgregarComputadoraDTO computadoraDTO) throws NegocioException;
     void agregarSoftware(AgregarSoftwareDTO softwareDTO) throws NegocioException;
     void agregarBloqueo(AgregarBloqueoDTO bloqueoDTO) throws NegocioException;
+    void desbloquear(String idEstudiante) throws NegocioException;
 }
