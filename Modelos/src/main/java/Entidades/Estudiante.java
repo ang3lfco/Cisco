@@ -43,7 +43,7 @@ public class Estudiante implements Serializable {
     @Column(name="estado", nullable = false)
     private String estado;
     
-    @Column(name="contraseña", length = 30, nullable = false)
+    @Column(name="contraseña", length = 60, nullable = false)
     private String contraseña;
     
     @ManyToOne

@@ -6,7 +6,9 @@ package interfaces;
 
 import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
+import Dtos.AgregarEstudianteDTO;
 import Dtos.AgregarHorarioEspecialDTO;
+import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
@@ -25,4 +27,6 @@ public interface IAdministrativoNegocio {
     void agregarHorarioEspecial(AgregarHorarioEspecialDTO horarioEspecialDTO, String nombreLab) throws NegocioException;
     void agregarInstalacion(int numeroComputadora, String nombreSoftware) throws NegocioException;
     List<ConsultarEstudianteDTO> getEstudiantes() throws NegocioException;
+    void agregarEstudiante(AgregarEstudianteDTO estudianteDTO) throws NegocioException;
+    void agregarLaboratorio(AgregarLaboratorioDTO laboratorioDTO) throws NegocioException;
 }

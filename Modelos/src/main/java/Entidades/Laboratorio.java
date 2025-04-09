@@ -39,7 +39,7 @@ public class Laboratorio implements Serializable {
     @Column(name = "horaFin", nullable = false)
     private LocalTime horaFin;
     
-    @Column(name = "contraseña",length = 50, nullable = false)
+    @Column(name = "contraseña",length = 60, nullable = false)
     private String contraseña;
 
     @ManyToOne

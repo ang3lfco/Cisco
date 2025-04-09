@@ -6,19 +6,23 @@ package vista_administrativo;
 
 import Dtos.ConsultarEstudianteDTO;
 import daos.BloqueoDAO;
+import daos.CarreraDAO;
 import daos.ComputadoraDAO;
 import daos.ConexionBD;
 import daos.EstudianteDAO;
 import daos.HorarioEspecialDAO;
+import daos.InstitutoDAO;
 import daos.LaboratorioDAO;
 import daos.SoftwareDAO;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
 import interfaces.IBloqueoDAO;
+import interfaces.ICarreraDAO;
 import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
 import interfaces.IEstudianteDAO;
 import interfaces.IHorarioEspecialDAO;
+import interfaces.IInstitutoDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.util.ArrayList;
@@ -45,7 +49,9 @@ public class frmEstudiantes extends javax.swing.JFrame {
         IBloqueoDAO bloqueoDAO = new BloqueoDAO(conexion);
         IEstudianteDAO estudianteDAO = new EstudianteDAO(conexion);
         IHorarioEspecialDAO horarioEspecialDAO = new HorarioEspecialDAO(conexion);
-        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO);
+        ICarreraDAO carreraDAO = new CarreraDAO(conexion);
+        IInstitutoDAO institutoDAO = new InstitutoDAO(conexion);
+        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO, carreraDAO, institutoDAO);
         initComponents();
         cargarDatos();
         

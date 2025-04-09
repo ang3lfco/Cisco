@@ -6,7 +6,9 @@ package conversiones;
 
 import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
+import Dtos.AgregarEstudianteDTO;
 import Dtos.AgregarHorarioEspecialDTO;
+import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.BloqueoDTO;
 import Dtos.CarreraDTO;
@@ -493,5 +495,29 @@ public class Conversiones {
         return e;
     }
     
-    
+    public static Estudiante AgregarEstudianteDtoAEntidad(AgregarEstudianteDTO estudianteDTO, Carrera carrera){
+        Estudiante e = new Estudiante(
+                estudianteDTO.getIdEstudiante(),
+                estudianteDTO.getNombre(), 
+                estudianteDTO.getApellidoPaterno(), 
+                estudianteDTO.getApellidoMaterno(),
+                "Activo",
+                estudianteDTO.getContraseña(), 
+                carrera, 
+                new ArrayList<>(), 
+                new ArrayList<>());
+        return e;
+    }
+    public static Laboratorio AgregarLaboratorioDtoAEntidad(AgregarLaboratorioDTO laboratorioDTO, Instituto instituto){
+        Laboratorio l = new Laboratorio(
+                laboratorioDTO.getNombre(),
+                laboratorioDTO.getHoraInicio(),
+                laboratorioDTO.getHoraFin(),
+                laboratorioDTO.getContraseña(),
+                instituto,
+                new ArrayList<>(),
+                new ArrayList<>()
+        );
+        return l;
+    }
 }

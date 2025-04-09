@@ -4,6 +4,7 @@ Dtos\BloqueoDTO.class
 Dtos\AgregarBloqueoDTO.class
 Entidades\Estudiante.class
 Dtos\HorarioEspecialDTO.class
+Dtos\AgregarEstudianteDTO.class
 Entidades\Bloqueo.class
 Entidades\Reserva.class
 Dtos\EstudianteDTO.class
@@ -18,6 +19,7 @@ Entidades\Instituto.class
 Dtos\ComputadoraDTO.class
 Dtos\SoftwareDTO.class
 Dtos\AgregarInstalacionDTO.class
+Dtos\AgregarLaboratorioDTO.class
 Dtos\AgregarComputadoraDTO.class
 Entidades\Carrera.class
 Dtos\AgregarHorarioEspecialDTO.class

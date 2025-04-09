@@ -352,7 +352,7 @@ public class frmAdmin extends javax.swing.JFrame {
         });
         pnlLaboratorios.setLayout(new java.awt.GridBagLayout());
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cliente-de-base-de-datos.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/labs.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

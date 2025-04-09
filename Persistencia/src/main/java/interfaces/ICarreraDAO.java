@@ -15,4 +15,5 @@ public interface ICarreraDAO {
     void agregar(Carrera carrera) throws PersistenciaException;
     void eliminar(Long id) throws PersistenciaException;
     void editar(Carrera carrera) throws PersistenciaException;
+    Carrera getCarreraPorId(Long id) throws PersistenciaException;
 }

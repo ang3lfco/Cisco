@@ -5,11 +5,13 @@
 package daos;
 
 import Entidades.Carrera;
-import Entidades.Software;
 import excepciones.PersistenciaException;
 import interfaces.ICarreraDAO;
 import interfaces.IConexionBD;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -70,6 +72,24 @@ public class CarreraDAO implements ICarreraDAO{
         catch(Exception e){
             em.getTransaction().rollback();
             throw new PersistenciaException("Error. " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
+    
+    @Override
+    public Carrera getCarreraPorId(Long id) throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Carrera> query = builder.createQuery(Carrera.class);
+            Root<Carrera> root = query.from(Carrera.class);
+            query.select(root).where(builder.equal(root.get("id"), id));
+            return em.createQuery(query).getSingleResult();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
         }
         finally{
             em.close();
