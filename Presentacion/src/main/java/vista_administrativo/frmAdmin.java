@@ -76,7 +76,7 @@ public class frmAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(1, 93, 170));
+        jPanel1.setBackground(new java.awt.Color(1, 109, 183));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         pnlAgregarEquipo.setBackground(new java.awt.Color(255, 255, 255));
@@ -97,9 +97,9 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
         pnlAgregarEquipo.add(jLabel1, gridBagConstraints);
 
-        jLabel2.setText("Agregar Equipo");
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(1, 93, 170));
+        jLabel2.setForeground(new java.awt.Color(1, 109, 183));
+        jLabel2.setText("Agregar Equipo");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -132,9 +132,9 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
         pnlBloquear.add(jLabel3, gridBagConstraints);
 
-        jLabel4.setText("Bloquear Acceso");
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(1, 93, 170));
+        jLabel4.setForeground(new java.awt.Color(1, 109, 183));
+        jLabel4.setText("Bloquear Acceso");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -167,9 +167,9 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
         pnlAgregarSoftware.add(jLabel5, gridBagConstraints);
 
-        jLabel6.setText("Agregar Software");
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(1, 93, 170));
+        jLabel6.setForeground(new java.awt.Color(1, 109, 183));
+        jLabel6.setText("Agregar Software");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -202,9 +202,9 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
         pnlDesbloquear.add(jLabel7, gridBagConstraints);
 
-        jLabel8.setText("Permitir Acceso");
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(1, 93, 170));
+        jLabel8.setForeground(new java.awt.Color(1, 109, 183));
+        jLabel8.setText("Permitir Acceso");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -237,9 +237,9 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
         pnlAgregarHorario.add(jLabel9, gridBagConstraints);
 
-        jLabel10.setText("Horarios Especiales");
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(1, 93, 170));
+        jLabel10.setForeground(new java.awt.Color(1, 109, 183));
+        jLabel10.setText("Horarios Especiales");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -255,7 +255,7 @@ public class frmAdmin extends javax.swing.JFrame {
         jPanel1.add(pnlAgregarHorario, gridBagConstraints);
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo2.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo3.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -283,9 +283,9 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
         pnlInstalaciones.add(jLabel12, gridBagConstraints);
 
-        jLabel13.setText("Instalaciones");
         jLabel13.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(1, 93, 170));
+        jLabel13.setForeground(new java.awt.Color(1, 109, 183));
+        jLabel13.setText("Instalaciones");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;

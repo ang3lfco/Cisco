@@ -6,6 +6,7 @@ package vista_administrativo;
 
 import Dtos.AgregarComputadoraDTO;
 import Dtos.ComputadoraDTO;
+import componentes.RoundedPanel;
 import daos.BloqueoDAO;
 import daos.ComputadoraDAO;
 import daos.ConexionBD;
@@ -22,6 +23,7 @@ import interfaces.IEstudianteDAO;
 import interfaces.IHorarioEspecialDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
+import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -33,11 +35,14 @@ import negocio_administrativo.AdministrativoNegocio;
  */
 public class frmEquipo extends javax.swing.JFrame {
     private IAdministrativoNegocio adminNegocio;
+    private int xMouse, yMouse;
     
     /**
      * Creates new form frmAgregarEquipo
      */
     public frmEquipo() {
+        setUndecorated(true);
+        setBackground(new Color(0, 0, 0, 0));
         IConexionBD conexion = new ConexionBD();
         IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexion);
         ILaboratorioDAO laboratorioDAO = new LaboratorioDAO(conexion);
@@ -49,6 +54,48 @@ public class frmEquipo extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        
+        // Panel redondo
+        RoundedPanel mainPanel = new RoundedPanel(50, new Color(15,86,137));
+        mainPanel.setOpaque(false);
+        setContentPane(mainPanel);
+        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(layout);
+        
+        // Ajustar márgenes para evitar que los componentes cubran los bordes redondeados
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0) // Márgenes izquierdos
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                    .addGap(0)) // Márgenes derechos
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0) // Márgenes superiores
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addGap(0)) // Márgenes inferiores
+        );
+
+        jPanel1.setOpaque(false);
+        
+        // Movimiento del Frame
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                xMouse = evt.getX();
+                yMouse = evt.getY();
+            }
+        });
+
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
+            }
+        });
     }
     
 
@@ -71,7 +118,7 @@ public class frmEquipo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(1, 93, 170));
+        jPanel1.setBackground(new java.awt.Color(15, 86, 137));
 
         txfNumeroEquipo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfNumeroEquipo.setText("Numero de Equipo");
@@ -88,7 +135,7 @@ public class frmEquipo extends javax.swing.JFrame {
         cmbLaboratorio.setEnabled(false);
 
         btnAceptar.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        btnAceptar.setForeground(new java.awt.Color(1, 93, 170));
+        btnAceptar.setForeground(new java.awt.Color(15, 86, 137));
         btnAceptar.setText("Aceptar");
         btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
