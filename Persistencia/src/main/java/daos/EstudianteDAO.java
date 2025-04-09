@@ -112,7 +112,7 @@ public class EstudianteDAO implements IEstudianteDAO{
         ).where(criteriaBuilder.equal(root.get("idEstudiante"), id));
 
         TypedQuery<EstudianteIngresaDTO> query = entityManager.createQuery(criteriaQuery);
-        if (query.equals(null)) {
+        if (query.getResultList().isEmpty()) {
          return null;   
         }
         EstudianteIngresaDTO estudianteDTO = query.getSingleResult();

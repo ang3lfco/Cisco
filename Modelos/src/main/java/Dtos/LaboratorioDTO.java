@@ -55,6 +55,15 @@ public class LaboratorioDTO {
         this.nombre = nombre;
     }
 
+    public LaboratorioDTO(Long id, String nombre, LocalTime horaInicio, LocalTime horaFin) {
+        this.id = id;
+        this.nombre = nombre;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+    }
+    
+    
+
     public Long getId() {
         return id;
     }

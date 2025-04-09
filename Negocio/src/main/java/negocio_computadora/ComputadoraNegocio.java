@@ -7,6 +7,7 @@ package negocio_computadora;
 import Dtos.ComputadoraDTO;
 import Dtos.ReservaDTO;
 import Entidades.Computadora;
+import Entidades.Laboratorio;
 import Entidades.Reserva;
 import conversiones.Conversiones;
 import static conversiones.Conversiones.convertirComputadoraDTOAComputadora;
@@ -39,6 +40,9 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     @Override
     public ComputadoraDTO computadoraPorIp(String ip) throws NegocioException{
         try {
+            if (computadoraDAO.consultarComputadorasPorIP(ip) == null) {
+                return null;
+            }
             ComputadoraDTO dto = computadoraDAO.consultarComputadorasPorIP(ip);
             
             return dto;
@@ -61,11 +65,41 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     @Override
     public void editarComputadora(ComputadoraDTO pc) throws NegocioException {
         try {
-            Computadora entidad = convertirComputadoraDTOAComputadora(pc);
+            Computadora entidad = this.convertirComputadoraDTOAComputadora(pc);
 
             computadoraDAO.editarComputadora(entidad);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error. " + e.getMessage());
         }
+    }
+    
+    @Override
+    public ComputadoraDTO computadoraPorIpYTipo(String ip, String tipo) throws NegocioException {
+        try {
+            ComputadoraDTO dto = computadoraDAO.consultarComputadorasPorIPYTipo(ip, tipo);
+
+            return dto;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
+        }
+    }
+    
+     public Computadora convertirComputadoraDTOAComputadora(ComputadoraDTO computadoraDTO) {
+        if (computadoraDTO == null) {
+            return null;
+        }
+        
+        Laboratorio lab = new Laboratorio();
+        lab.setId(computadoraDTO.getId());
+
+        Computadora computadora = new Computadora();
+        computadora.setId(computadoraDTO.getId());
+        computadora.setNumero(computadoraDTO.getNumero());
+        computadora.setEstado(computadoraDTO.isEstado());
+        computadora.setDireccionIp(computadoraDTO.getDireccionIp());
+        computadora.setTipo(computadoraDTO.getTipo());
+        computadora.setLaboratorio(lab);
+        
+        return computadora;
     }
 }

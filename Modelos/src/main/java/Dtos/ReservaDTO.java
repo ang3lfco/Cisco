@@ -4,6 +4,7 @@
  */
 package Dtos;
 
+import Entidades.HorarioEspecial;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -18,6 +19,7 @@ public class ReservaDTO {
     private LocalTime horaFin;
     private ComputadoraDTO computadora;
     private EstudianteDTO estudiante;
+    private HorarioEspecial horario;
 
     public ReservaDTO() {
     }
@@ -39,11 +41,29 @@ public class ReservaDTO {
         this.estudiante = estudiante;
     }
 
+    public ReservaDTO(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, ComputadoraDTO computadora, EstudianteDTO estudiante, HorarioEspecial horario) {
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.computadora = computadora;
+        this.estudiante = estudiante;
+        this.horario = horario;
+    }
+
+    
     public ReservaDTO(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) {
         this.id = id;
         this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+    }
+
+    public HorarioEspecial getHorario() {
+        return horario;
+    }
+
+    public void setHorario(HorarioEspecial horario) {
+        this.horario = horario;
     }
 
     public Long getId() {

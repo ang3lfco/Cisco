@@ -26,6 +26,7 @@ public class frmLiberar extends javax.swing.JFrame {
 
     IComputadoraNegocio computadoraNegocio;
     Long tiempo;
+    String tipo= "Estudiante";
 
     /**
      * Creates new form frmLiberar
@@ -104,10 +105,9 @@ public class frmLiberar extends javax.swing.JFrame {
         }
 
         try {
-            pc = computadoraNegocio.computadoraPorIp(reserva.getComputadora().getDireccionIp());
-
+            pc = computadoraNegocio.computadoraPorIpYTipo(reserva.getComputadora().getDireccionIp(),tipo);
+            pc.setTipo(tipo);
             pc.setEstado(false);
-
             computadoraNegocio.editarComputadora(pc);
         } catch (NegocioException ex) {
             Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);

@@ -4,13 +4,23 @@
  */
 package daos;
 
+import Dtos.EstudianteIngresaDTO;
+import Dtos.HorarioEspecialDTO;
+import Dtos.LaboratorioDTO;
+import Entidades.Estudiante;
 import Entidades.HorarioEspecial;
 import Entidades.Instituto;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
 import interfaces.IHorarioEspecialDAO;
+import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -102,5 +112,44 @@ public class HorarioEspecialDAO implements IHorarioEspecialDAO{
             }
         }
 
+    }
+    
+    @Override
+    public HorarioEspecialDTO buscarHorarioPorDia(LocalDate hoy) throws PersistenciaException{
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
+
+        try{
+        entityManager = conexionBD.obtenerEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<HorarioEspecialDTO> criteriaQuery = criteriaBuilder.createQuery(HorarioEspecialDTO.class);
+
+        Root<HorarioEspecial> root = criteriaQuery.from(HorarioEspecial.class);
+
+        criteriaQuery.select(
+                criteriaBuilder.construct(HorarioEspecialDTO.class,
+                        root.get("id"),
+                        root.get("fecha"),
+                        root.get("horaInicio"),
+                        root.get("horaFin"),
+                        criteriaBuilder.construct(LaboratorioDTO.class,
+                        root.get("laboratorio").get("id"))
+                )
+        ).where(criteriaBuilder.equal(root.get("fecha"), hoy));
+
+        TypedQuery<HorarioEspecialDTO> query = entityManager.createQuery(criteriaQuery);
+        
+        if (query.getResultList().isEmpty()) {
+         return null;   
+        }
+            HorarioEspecialDTO dto = query.getSingleResult();
+
+        return dto;
+        }catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
     }
 }

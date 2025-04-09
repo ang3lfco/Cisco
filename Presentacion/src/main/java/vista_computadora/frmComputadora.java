@@ -18,6 +18,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -27,6 +28,7 @@ import javax.swing.Timer;
 public class frmComputadora extends javax.swing.JFrame {
 
     IComputadoraNegocio computadoraNegocio;
+    String tipo = "Estudiante";
 
     /**
      * Creates new form frmComputadora
@@ -35,8 +37,25 @@ public class frmComputadora extends javax.swing.JFrame {
         this.computadoraNegocio = computadora;
         initComponents();
         setLocationRelativeTo(null);
-        actualizarNumeroComputadora();
-        iniciarActualizacionCadaMinuto(); // ⏱️ Iniciar el Timer
+
+        verificarComputadoraPorIP();
+    }
+
+    private void verificarComputadoraPorIP() {
+        try {
+            if (this.obtenerEquipo(this.obtenerIpDelEquipo()) == null) {
+                this.dispose();
+                JOptionPane.showMessageDialog(null, "Este equipo no tiene permitido usar el programa");
+                btnDesbloquear.hide();
+                txtPassword.disable();
+            } else {
+
+                actualizarNumeroComputadora();
+                iniciarActualizacionCadaMinuto(); // ⏱️ Iniciar el Timer
+            }
+        } catch (PresentacionException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void actualizarPantalla(ReservaDTO reserva) {
@@ -44,13 +63,15 @@ public class frmComputadora extends javax.swing.JFrame {
         jLabel3.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
     }
 
-    private void actualizarNumeroComputadora(){
+    private void actualizarNumeroComputadora() {
         try {
-            jLabel2.setText("Equipo: " + this.obtenerEquipo(this.obtenerIpDelEquipo()).getNumero() );
+            jLabel2.setText("Equipo: " + this.obtenerEquipo(this.obtenerIpDelEquipo()).getNumero());
+
         } catch (PresentacionException ex) {
             Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     private void iniciarActualizacionCadaMinuto() {
         int delay = 10_000; // 60 segundos
         String ip = null;
@@ -74,7 +95,7 @@ public class frmComputadora extends javax.swing.JFrame {
     public ComputadoraDTO obtenerEquipo(String ip) {
         ComputadoraDTO pc = null;
         try {
-            pc = this.computadoraNegocio.computadoraPorIp(ip);
+            pc = this.computadoraNegocio.computadoraPorIpYTipo(ip,tipo);
         } catch (NegocioException ex) {
             Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,6 +128,8 @@ public class frmComputadora extends javax.swing.JFrame {
             ReservaDTO reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
 
             if (!reserva.getEstudiante().getContraseña().equals(contraseña)) {
+                JOptionPane.showMessageDialog(null, "contraseña incorrecta");
+
                 return false;
             }
 

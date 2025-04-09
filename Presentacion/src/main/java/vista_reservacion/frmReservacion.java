@@ -4,12 +4,18 @@
  */
 package vista_reservacion;
 
+import Dtos.ComputadoraDTO;
 import Dtos.EstudianteIngresaDTO;
+import Dtos.ReservaDTO;
 import excepciones.NegocioException;
 import exceptiones.PresentacionException;
 import interfaces.IReservacionNegocio;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import vista_computadora.frmComputadora;
 
 /**
  *
@@ -18,6 +24,7 @@ import java.util.logging.Logger;
 public class frmReservacion extends javax.swing.JFrame {
 
     IReservacionNegocio reservacionNegocio;
+    String tipo = "Reserva";
     /**
      * Creates new form frmReservacion
      */
@@ -25,8 +32,40 @@ public class frmReservacion extends javax.swing.JFrame {
         this.reservacionNegocio = reservacionNegocio;
         initComponents();
         setLocationRelativeTo(null);
+        verificarComputadoraPorIPyTipo();
     }
     
+    private void verificarComputadoraPorIPyTipo() {
+        try {
+            if (this.obtenerEquipo(this.obtenerIpDelEquipo()) == null) {
+                btnAceptar.hide();
+                JOptionPane.showMessageDialog(null, "Este equipo no tiene permitido usar el programa");
+            }
+        } catch (PresentacionException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ComputadoraDTO obtenerEquipo(String ip) {
+        ComputadoraDTO pc = null;
+        try {
+            pc = this.reservacionNegocio.computadoraPorIpYTipo(ip,tipo);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pc;
+    }
+
+    public String obtenerIpDelEquipo() throws PresentacionException {
+        try {
+            InetAddress direccion = InetAddress.getLocalHost();
+            String ip = direccion.getHostAddress();
+
+            return ip;
+        } catch (UnknownHostException e) {
+            throw new PresentacionException("Error. " + e.getMessage());
+        }
+    }
     private EstudianteIngresaDTO buscarEstudiante(String id) throws PresentacionException{
         EstudianteIngresaDTO estudiante = new EstudianteIngresaDTO();
         try {
@@ -161,7 +200,7 @@ public class frmReservacion extends javax.swing.JFrame {
         String id = txtIdAlumno.getText();
         try {
             if (this.buscarEstudiante(id) == null) {
-                System.out.println("Alumno no encontrado");
+                JOptionPane.showMessageDialog(null, "ID no encontrado");
             }else{
             
            EstudianteIngresaDTO estudiante = this.buscarEstudiante(id);

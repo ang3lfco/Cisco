@@ -15,6 +15,7 @@ public class ComputadoraDTO {
     private int numero;
     private boolean estado;
     private String direccionIp;
+    private String tipo;
     private LaboratorioDTO laboratorio;
     private List<ReservaDTO> reservas;
     private List<SoftwareDTO> instalaciones;
@@ -56,6 +57,15 @@ public class ComputadoraDTO {
         this.laboratorio = laboratorio;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    
     public Long getId() {
         return id;
     }

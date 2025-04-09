@@ -9,12 +9,15 @@ import Dtos.EstudianteDTO;
 import Dtos.EstudianteIngresaDTO;
 import Dtos.ReservaDTO;
 import excepciones.NegocioException;
+import exceptiones.PresentacionException;
 import interfaces.IReservacionNegocio;
 import java.awt.Button;
 import java.awt.GridLayout;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import negocio_reservacion.ReservacionNegocio;
+import vista_computadora.frmComputadora;
 
 /**
  *
@@ -33,6 +37,7 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
     IReservacionNegocio reservacionNegocio;
     EstudianteIngresaDTO estudiante;
     int minutos;
+    String tipo = "Reserva";
     /**
      * Creates new form frmMenuComputadoras
      */
@@ -55,12 +60,17 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
     private void agregarBotones() {
         List<ComputadoraDTO> computadoras = null;
         try {
-            computadoras = reservacionNegocio.numeroComputadorasDTO(3L);
+            Long idLab = this.obtenerEquipo(this.obtenerIpDelEquipo()).getLaboratorio().getId();
+            computadoras = reservacionNegocio.numeroComputadorasDTO(idLab,tipo);
         } catch (NegocioException ex) {
+            Logger.getLogger(frmMenuComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PresentacionException ex) {
             Logger.getLogger(frmMenuComputadoras.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        if (computadoras.isEmpty()) {
+            
+        }else{
         int columnas = (int) Math.ceil(Math.sqrt(computadoras.size()));
         int filas = (int) Math.ceil((double) computadoras.size() / columnas);
 
@@ -85,6 +95,28 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
                 }
             });
             jPanel.add(boton);
+        }
+        }
+    }
+    
+    public ComputadoraDTO obtenerEquipo(String ip) {
+        ComputadoraDTO pc = null;
+        try {
+            pc = this.reservacionNegocio.computadoraPorIpYTipo(ip,tipo);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pc;
+    }
+
+    public String obtenerIpDelEquipo() throws PresentacionException {
+        try {
+            InetAddress direccion = InetAddress.getLocalHost();
+            String ip = direccion.getHostAddress();
+
+            return ip;
+        } catch (UnknownHostException e) {
+            throw new PresentacionException("Error. " + e.getMessage());
         }
     }
     
