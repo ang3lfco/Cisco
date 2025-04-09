@@ -7,6 +7,8 @@ package Entidades;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -41,6 +44,9 @@ public class HorarioEspecial implements Serializable {
     @JoinColumn(name = "idLaboratorio", nullable=false)
     private Laboratorio laboratorio;
     
+    @OneToMany(mappedBy = "horarioEspecial", cascade = CascadeType.PERSIST)
+    private List<Reserva> reserva;
+    
     public HorarioEspecial() {
     }
 
@@ -59,6 +65,24 @@ public class HorarioEspecial implements Serializable {
         this.laboratorio = laboratorio;
     }
 
+    public HorarioEspecial(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Laboratorio laboratorio, List<Reserva> reserva) {
+        this.id = id;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.laboratorio = laboratorio;
+        this.reserva = reserva;
+    }
+
+    public List<Reserva> getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(List<Reserva> reserva) {
+        this.reserva = reserva;
+    }
+
+    
     public Long getId() {
         return id;
     }

@@ -44,6 +44,10 @@ public class Reserva implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idEstudiante")
     private Estudiante estudiante;
+    
+    @ManyToOne
+    @JoinColumn(name = "idHorarioEspecial")
+    private HorarioEspecial horarioEspecial;
 
     public Reserva() {
     }
@@ -65,6 +69,26 @@ public class Reserva implements Serializable {
         this.estudiante = estudiante;
     }
 
+    public Reserva(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Computadora computadora, Estudiante estudiante, HorarioEspecial horarioEspecial) {
+        this.id = id;
+        this.fecha = fecha;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.computadora = computadora;
+        this.estudiante = estudiante;
+        this.horarioEspecial = horarioEspecial;
+    }
+
+    
+    public HorarioEspecial getHorarioEspecial() {
+        return horarioEspecial;
+    }
+
+    public void setHorarioEspecial(HorarioEspecial horarioEspecial) {
+        this.horarioEspecial = horarioEspecial;
+    }
+
+    
     public Long getId() {
         return id;
     }

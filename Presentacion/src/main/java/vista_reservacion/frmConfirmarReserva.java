@@ -29,10 +29,11 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
     EstudianteIngresaDTO estudiante;
     ComputadoraDTO pc;
     int minutos;
+
     /**
      * Creates new form frmConfirmarReserva
      */
-    public frmConfirmarReserva(IReservacionNegocio reservacionNegocio, EstudianteIngresaDTO estudiante,ComputadoraDTO pc,int minutos) {
+    public frmConfirmarReserva(IReservacionNegocio reservacionNegocio, EstudianteIngresaDTO estudiante, ComputadoraDTO pc, int minutos) {
         this.reservacionNegocio = reservacionNegocio;
         this.estudiante = estudiante;
         this.pc = pc;
@@ -40,38 +41,53 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         initComponents();
         this.llenarDatosEnPantalla();
     }
-    
-    private void llenarDatosEnPantalla(){
-        alumnoLabel.setText(estudiante.getNombre() + " " + 
-                estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
-        
+
+    private void llenarDatosEnPantalla() {
+        alumnoLabel.setText(estudiante.getNombre() + " "
+                + estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
+
         cantidadMinutosLabel.setText(Integer.toString(estudiante.getTiempoDiario()));
-        
+
         fechaLabel.setText(LocalDate.now().toString());
-        
+
         numeroEquipoLabel.setText("Equipo: " + pc.getNumero());
-        
-        Long extra =Integer.toUnsignedLong(this.minutos);
-        
+
+        Long extra = Integer.toUnsignedLong(this.minutos);
+
         LocalTime fin = LocalTime.now().plusMinutes(extra);
-        
+
         horaFinalLabel.setText(fin.getHour() + ":" + fin.getMinute());
-        
+
         List<SoftwareDTO> softwares;
         DefaultListModel<String> modelo = new DefaultListModel<>();
-        
+
         try {
             softwares = reservacionNegocio.softareDeComputadoraDTO(pc.getDireccionIp());
-            
+
             for (int i = 0; i < softwares.size(); i++) {
-            modelo.addElement(softwares.get(i).getNombre());
-        }
+                modelo.addElement(softwares.get(i).getNombre());
+            }
             jListSoftware.setModel(modelo);
         } catch (NegocioException ex) {
             Logger.getLogger(frmConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+    }
+
+    private boolean existeHoraroiEspecialHoy() {
+        return false;
+    }
+    
+    private int crearHoraroiEspecialHoy() {
+        return 1;
+    }
+    
+    private int obtenerHoraroiEspecialHoy() {
+        return 1;
+    }
+    private int obtenerHorarioEspecial() {
+        if(!this.existeHoraroiEspecialHoy())
+            return crearHoraroiEspecialHoy();
+        return this.obtenerHoraroiEspecialHoy();
     }
 
     /**
@@ -205,27 +221,30 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
         try {
-        EstudianteDTO estudiante = new EstudianteDTO();
-        ComputadoraDTO pc = new ComputadoraDTO();
-        
-        estudiante.setId(this.estudiante.getId());
-        pc.setId(this.pc.getId());
-        
-        ReservaDTO reserva = new ReservaDTO(
-                LocalDate.now(),
-                LocalTime.now(),
-                LocalTime.now().plusMinutes(minutos),
-                pc,
-                estudiante
-        );
-        
+            
+            int idHorarioEspecial = this.obtenerHorarioEspecial();
+            
+            EstudianteDTO estudiante = new EstudianteDTO();
+            ComputadoraDTO pc = new ComputadoraDTO();
+
+            estudiante.setId(this.estudiante.getId());
+            pc.setId(this.pc.getId());
+
+            ReservaDTO reserva = new ReservaDTO(
+                    LocalDate.now(),
+                    LocalTime.now(),
+                    LocalTime.now().plusMinutes(minutos),
+                    pc,
+                    estudiante
+            );
+
             reservacionNegocio.agregarReserva(reserva);
             pc = reservacionNegocio.computadoraPorIp(this.pc.getDireccionIp());
-            
+
             pc.setEstado(true);
-            
+
             reservacionNegocio.editarComputadora(pc);
-            
+
             JOptionPane.showMessageDialog(null, "Reservacion realizada");
             this.dispose();
         } catch (NegocioException ex) {

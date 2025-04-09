@@ -144,6 +144,7 @@ public class ComputadoraDAO implements IComputadoraDAO {
                         root.get("laboratorio").get("nombre")
                 ))
         ).where(criteriaBuilder.equal(root.get("laboratorio").get("id"), id))
+                .where(criteriaBuilder.equal(root.get("estado"), false))
                 .orderBy(criteriaBuilder.asc(root.get("numero")));
 
         TypedQuery<ComputadoraDTO> query = entityManager.createQuery(criteriaQuery);

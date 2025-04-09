@@ -38,6 +38,9 @@ public class Computadora implements Serializable {
     
     @Column(name="direccionIp", length=20, nullable=false)
     private String direccionIp;
+    
+    @Column(name="tipo", length=20, nullable=false)
+    private String tipo;
 
     @ManyToOne
     @JoinColumn(name = "idLaboratorio", nullable=false)
@@ -82,6 +85,26 @@ public class Computadora implements Serializable {
         this.softwares = softwares;
     }
 
+    public Computadora(Long id, int numero, boolean estado, String direccionIp, String tipo, Laboratorio laboratorio, List<Reserva> reservas, List<Software> softwares) {
+        this.id = id;
+        this.numero = numero;
+        this.estado = estado;
+        this.direccionIp = direccionIp;
+        this.tipo = tipo;
+        this.laboratorio = laboratorio;
+        this.reservas = reservas;
+        this.softwares = softwares;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    
     public Long getId() {
         return id;
     }

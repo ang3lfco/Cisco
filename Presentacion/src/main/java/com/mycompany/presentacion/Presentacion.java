@@ -35,11 +35,11 @@ public class Presentacion {
         IComputadoraDAO cDAO = new ComputadoraDAO(conexion);
         IEstudianteDAO eDAO = new EstudianteDAO(conexion);
         
-        IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO,eDAO);
-        frmReservacion reservacion = new frmReservacion(rNegocio);
-        
-        reservacion.setVisible(true);
-        
+//        IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO,eDAO);
+//        frmReservacion reservacion = new frmReservacion(rNegocio);
+//        
+//        reservacion.setVisible(true);
+//        
         IComputadoraNegocio cNegocio = new ComputadoraNegocio(cDAO,rDAO);
         frmComputadora computadora = new frmComputadora(cNegocio);
         
