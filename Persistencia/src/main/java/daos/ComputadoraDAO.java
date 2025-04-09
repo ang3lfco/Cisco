@@ -204,7 +204,7 @@ public class ComputadoraDAO implements IComputadoraDAO {
         CriteriaQuery<SoftwareDTO> criteriaQuery = criteriaBuilder.createQuery(SoftwareDTO.class);
 
         Root<Computadora> root = criteriaQuery.from(Computadora.class);
-        Join<Computadora, Software> joinSoftware = root.join("instalaciones"); // ← nombre del atributo en Computadora
+        Join<Computadora, Software> joinSoftware = root.join("softwares"); // ← nombre del atributo en Computadora
 
         criteriaQuery.select(criteriaBuilder.construct(SoftwareDTO.class,
                 joinSoftware.get("nombre"),

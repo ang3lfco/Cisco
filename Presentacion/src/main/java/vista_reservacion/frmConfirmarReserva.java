@@ -28,13 +28,15 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
     IReservacionNegocio reservacionNegocio;
     EstudianteIngresaDTO estudiante;
     ComputadoraDTO pc;
+    int minutos;
     /**
      * Creates new form frmConfirmarReserva
      */
-    public frmConfirmarReserva(IReservacionNegocio reservacionNegocio, EstudianteIngresaDTO estudiante,ComputadoraDTO pc) {
+    public frmConfirmarReserva(IReservacionNegocio reservacionNegocio, EstudianteIngresaDTO estudiante,ComputadoraDTO pc,int minutos) {
         this.reservacionNegocio = reservacionNegocio;
         this.estudiante = estudiante;
         this.pc = pc;
+        this.minutos = minutos;
         initComponents();
         this.llenarDatosEnPantalla();
     }
@@ -49,7 +51,8 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         
         numeroEquipoLabel.setText("Equipo: " + pc.getNumero());
         
-        Long extra = Integer.toUnsignedLong(estudiante.getTiempoDiario());
+        Long extra =Integer.toUnsignedLong(this.minutos);
+        
         LocalTime fin = LocalTime.now().plusMinutes(extra);
         
         horaFinalLabel.setText(fin.getHour() + ":" + fin.getMinute());
@@ -202,8 +205,6 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
         try {
-
-        Long extra = Integer.toUnsignedLong(estudiante.getTiempoDiario());
         EstudianteDTO estudiante = new EstudianteDTO();
         ComputadoraDTO pc = new ComputadoraDTO();
         
@@ -213,7 +214,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         ReservaDTO reserva = new ReservaDTO(
                 LocalDate.now(),
                 LocalTime.now(),
-                LocalTime.now().plusMinutes(extra),
+                LocalTime.now().plusMinutes(minutos),
                 pc,
                 estudiante
         );
@@ -224,7 +225,9 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
             pc.setEstado(true);
             
             reservacionNegocio.editarComputadora(pc);
+            
             JOptionPane.showMessageDialog(null, "Reservacion realizada");
+            this.dispose();
         } catch (NegocioException ex) {
             Logger.getLogger(frmConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -88,6 +88,7 @@ public class EstudianteDAO implements IEstudianteDAO{
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
 
+        try{
         entityManager = conexionBD.obtenerEntityManager();
         entityTransaction = entityManager.getTransaction();
 
@@ -111,13 +112,18 @@ public class EstudianteDAO implements IEstudianteDAO{
         ).where(criteriaBuilder.equal(root.get("idEstudiante"), id));
 
         TypedQuery<EstudianteIngresaDTO> query = entityManager.createQuery(criteriaQuery);
-
+        if (query.equals(null)) {
+         return null;   
+        }
         EstudianteIngresaDTO estudianteDTO = query.getSingleResult();
         if (entityManager != null && entityManager.isOpen()) {
             entityManager.close(); // Cerrar siempre el EntityManager
         }
 
         return estudianteDTO;
+        }catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
     }
     
     @Override

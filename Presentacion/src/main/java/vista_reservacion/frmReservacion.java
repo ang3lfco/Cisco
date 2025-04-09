@@ -30,8 +30,12 @@ public class frmReservacion extends javax.swing.JFrame {
     private EstudianteIngresaDTO buscarEstudiante(String id) throws PresentacionException{
         EstudianteIngresaDTO estudiante = new EstudianteIngresaDTO();
         try {
+            if (reservacionNegocio.buscarIDEstudiante(id) != null) {
             estudiante = reservacionNegocio.buscarIDEstudiante(id);
-            return estudiante;
+            
+            return estudiante;    
+            }
+            return null;
         } catch (NegocioException ex) {
             Logger.getLogger(frmReservacion.class.getName()).log(Level.SEVERE, null, ex);
             throw new PresentacionException("Estudiante no encontrado " + ex.getMessage());
@@ -156,11 +160,16 @@ public class frmReservacion extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = txtIdAlumno.getText();
         try {
+            if (this.buscarEstudiante(id) == null) {
+                System.out.println("Alumno no encontrado");
+            }else{
+            
            EstudianteIngresaDTO estudiante = this.buscarEstudiante(id);
             
             frmMenuComputadoras menuPc = new frmMenuComputadoras(reservacionNegocio, estudiante);
             menuPc.setVisible(true);
             this.dispose();
+            }
         } catch (PresentacionException ex) {
             Logger.getLogger(frmReservacion.class.getName()).log(Level.SEVERE, null, ex);
         }

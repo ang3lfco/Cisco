@@ -9,19 +9,24 @@ import Dtos.ReservaDTO;
 import excepciones.NegocioException;
 import exceptiones.PresentacionException;
 import interfaces.IComputadoraNegocio;
+import java.awt.event.ActionEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 
 /**
  *
  * @author ReneEzequiel23
  */
 public class frmLiberar extends javax.swing.JFrame {
+
     IComputadoraNegocio computadoraNegocio;
+    Long tiempo;
+
     /**
      * Creates new form frmLiberar
      */
@@ -29,28 +34,29 @@ public class frmLiberar extends javax.swing.JFrame {
         this.computadoraNegocio = computadora;
         initComponents();
         actualizarPantalla();
+        iniciarActualizacionCadaMinuto();
     }
 
     private void actualizarPantalla() {
         ReservaDTO reserva = null;
-        
+
         try {
             reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
         } catch (PresentacionException ex) {
             Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
         }
         jLabel6.setText("equipo :" + reserva.getComputadora().getNumero());
-        
+
         jLabel4.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
-        
+
         System.out.println(reserva.getHoraInicio());
         System.out.println(reserva.getHoraFin());
-        
-        Long tiempo = Duration.between(reserva.getHoraInicio(), reserva.getHoraFin()).toMinutes();
+
+        tiempo = Duration.between(reserva.getHoraInicio(), reserva.getHoraFin()).toMinutes();
         jLabel7.setText(tiempo + " min");
     }
-    
-    public ReservaDTO obtenerReserva(String ip){
+
+    public ReservaDTO obtenerReserva(String ip) {
         ReservaDTO reserva = null;
         try {
             reserva = computadoraNegocio.reservaPorComputadora(ip);
@@ -59,17 +65,55 @@ public class frmLiberar extends javax.swing.JFrame {
         }
         return reserva;
     }
-    
-    public String obtenerIpDelEquipo() throws PresentacionException{
+
+    public String obtenerIpDelEquipo() throws PresentacionException {
         try {
             InetAddress direccion = InetAddress.getLocalHost();
             String ip = direccion.getHostAddress();
-            
+
             return ip;
         } catch (UnknownHostException e) {
             throw new PresentacionException("Error. " + e.getMessage());
         }
     }
+
+    private void iniciarActualizacionCadaMinuto() {
+        int delay = 60_000; // 60 segundos
+
+        Timer timer = new Timer(delay, (ActionEvent e) -> {
+            tiempo = tiempo - 1;
+            jLabel7.setText(tiempo + " min");
+            if (tiempo == 0) {
+
+                this.actualizarEstadoEsquipo();
+                this.dispose();
+            }
+            
+        });
+
+        timer.start();
+    }
+
+    public void actualizarEstadoEsquipo() {
+        ReservaDTO reserva = null;
+        ComputadoraDTO pc = new ComputadoraDTO();
+        try {
+            reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
+        } catch (PresentacionException ex) {
+            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            pc = computadoraNegocio.computadoraPorIp(reserva.getComputadora().getDireccionIp());
+
+            pc.setEstado(false);
+
+            computadoraNegocio.editarComputadora(pc);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -190,23 +234,8 @@ public class frmLiberar extends javax.swing.JFrame {
 
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
         // TODO add your handling code here:
-        ReservaDTO reserva = null;
-        ComputadoraDTO pc = new ComputadoraDTO();
-        try {
-            reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
-        } catch (PresentacionException ex) {
-            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            pc = computadoraNegocio.computadoraPorIp(reserva.getComputadora().getDireccionIp());
-            
-            pc.setEstado(false);
-            
-            computadoraNegocio.editarComputadora(pc);
-        } catch (NegocioException ex) {
-            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.actualizarEstadoEsquipo();
+        this.dispose();
     }//GEN-LAST:event_btnLiberarActionPerformed
 
     /**

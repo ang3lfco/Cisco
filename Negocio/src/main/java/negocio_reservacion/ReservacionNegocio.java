@@ -108,6 +108,9 @@ public class ReservacionNegocio implements IReservacionNegocio {
     @Override
     public EstudianteIngresaDTO buscarIDEstudiante(String id) throws NegocioException{
         try {
+            if (estudianteDAO.buscarPorIDAlumno(id) == null) {
+                return null;
+            }
             EstudianteIngresaDTO estudiante = estudianteDAO.buscarPorIDAlumno(id);
             return estudiante;
         } catch (PersistenciaException ex) {

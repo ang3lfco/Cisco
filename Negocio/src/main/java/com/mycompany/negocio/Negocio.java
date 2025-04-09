@@ -7,10 +7,15 @@ package com.mycompany.negocio;
 import Dtos.ComputadoraDTO;
 import Dtos.EstudianteDTO;
 import Dtos.ReservaDTO;
+import conversiones.Conversiones;
+import daos.ComputadoraDAO;
 import daos.ConexionBD;
+import daos.EstudianteDAO;
 import daos.ReservaDAO;
 import excepciones.NegocioException;
+import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
+import interfaces.IEstudianteDAO;
 import interfaces.IReservaDAO;
 import interfaces.IReservacionNegocio;
 import java.time.LocalDate;
@@ -26,8 +31,8 @@ import negocio_reservacion.ReservacionNegocio;
 public class Negocio {
 
     public static void main(String[] args) {
-        IConexionBD conexion = new ConexionBD();
-        IReservaDAO reservaDAO = new ReservaDAO(conexion);
+        
+        Conversiones con = new Conversiones();
         
     }
 }

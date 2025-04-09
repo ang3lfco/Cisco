@@ -43,7 +43,7 @@
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblMinutos" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTiempo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblNombreEstudiante" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -62,8 +62,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblMinutos" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblNombreEstudiante" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTiempo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -100,11 +100,6 @@
         <Property name="text" type="java.lang.String" value="Minutos:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblMinutos">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="min"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -130,6 +125,11 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="nombre"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtTiempo">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTiempoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

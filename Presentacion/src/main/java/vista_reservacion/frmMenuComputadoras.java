@@ -32,7 +32,7 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
 
     IReservacionNegocio reservacionNegocio;
     EstudianteIngresaDTO estudiante;
-
+    int minutos;
     /**
      * Creates new form frmMenuComputadoras
      */
@@ -48,7 +48,7 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
         lblNombreEstudiante.setText(estudiante.getNombre() + " " + 
                 estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
         
-        lblMinutos.setText(Integer.toString(estudiante.getTiempoDiario()));
+        txtTiempo.setText(Integer.toString(estudiante.getTiempoDiario()));
     }
     
     
@@ -73,16 +73,23 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
             int numeroBoton = i;
             ComputadoraDTO equipo = computadoras.get(numeroBoton-1);
             lblLaboratorio.setText(equipo.getLaboratorio().getNombre());
+            
             boton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    frmConfirmarReserva confirmacion = new frmConfirmarReserva(reservacionNegocio,estudiante,equipo);
-                    confirmacion.setVisible(true);
+                    minutos = Integer.valueOf(txtTiempo.getText());
+                    frmConfirmarReserva confirmacion = new frmConfirmarReserva(reservacionNegocio,estudiante,equipo,minutos);
                     
+                    confirmacion.setVisible(true);
+                    cerrarVentana();
                 }
             });
             jPanel.add(boton);
         }
+    }
+    
+    public void cerrarVentana(){
+        this.dispose();
     }
 
     /**
@@ -96,11 +103,11 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
 
         jPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        lblMinutos = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblLaboratorio = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblNombreEstudiante = new javax.swing.JLabel();
+        txtTiempo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(1, 93, 170));
@@ -119,8 +126,6 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Minutos:");
 
-        lblMinutos.setText("min");
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Laboratorio:");
 
@@ -130,6 +135,12 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
         jLabel5.setText("Estudiante:");
 
         lblNombreEstudiante.setText("nombre");
+
+        txtTiempo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTiempoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,7 +160,7 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblMinutos)
+                        .addComponent(txtTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblNombreEstudiante)))
                 .addContainerGap())
@@ -163,8 +174,8 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMinutos)
-                    .addComponent(lblNombreEstudiante))
+                    .addComponent(lblNombreEstudiante)
+                    .addComponent(txtTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,6 +187,10 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTiempoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTiempoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,7 +233,7 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel;
     private javax.swing.JLabel lblLaboratorio;
-    private javax.swing.JLabel lblMinutos;
     private javax.swing.JLabel lblNombreEstudiante;
+    private javax.swing.JTextField txtTiempo;
     // End of variables declaration//GEN-END:variables
 }

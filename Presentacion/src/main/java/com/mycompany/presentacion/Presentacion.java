@@ -38,12 +38,14 @@ public class Presentacion {
         IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO,eDAO);
         frmReservacion reservacion = new frmReservacion(rNegocio);
         
+        reservacion.setVisible(true);
+        
         IComputadoraNegocio cNegocio = new ComputadoraNegocio(cDAO,rDAO);
         frmComputadora computadora = new frmComputadora(cNegocio);
         
-//        computadora.setVisible(true);
+        computadora.setVisible(true);
         
-        reservacion.setVisible(true);
+        
         
         try {
             InetAddress direccion = InetAddress.getLocalHost();

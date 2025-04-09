@@ -5,10 +5,16 @@
 package com.mycompany.persistencia;
 
 import Entidades.*;
+import daos.ComputadoraDAO;
 import daos.ConexionBD;
 import daos.EstudianteDAO;
+import daos.ReservaDAO;
+import daos.SoftwareDAO;
 import excepciones.PersistenciaException;
+import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
+import interfaces.IReservaDAO;
+import interfaces.ISoftwareDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,30 +27,13 @@ import javax.persistence.Persistence;
  */
 public class Pruebas {
     public static void main(String[] args) throws PersistenciaException {
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Cisco");
-//        EntityManager em = emf.createEntityManager();
-//        em.getTransaction().begin();
+        IConexionBD bd = new ConexionBD();
+        IReservaDAO reservaDAO = new ReservaDAO(bd);
+        IComputadoraDAO soft = new ComputadoraDAO(bd);
         
-        IConexionBD conexionBD = new ConexionBD();
-        EstudianteDAO estudianteDAO = new EstudianteDAO(conexionBD);
+        for (int i = 0; i < soft.consultarSoftwareDeComputadoras("192.168.0.14").size(); i++) {
+            System.out.println(soft.consultarSoftwareDeComputadoras("192.168.0.14").get(i).getNombre());
+        }
         
-        EntityManager em = conexionBD.obtenerEntityManager();
-        Carrera isw = em.createQuery("SELECT c FROM Carrera c WHERE c.nombre = :nombre", Carrera.class)
-                        .setParameter("nombre", "Ingeniería en Software")
-                        .getSingleResult();
-        
-        List<Estudiante> estudiantes = new ArrayList<>();
-        List<Bloqueo> bloqueos = new ArrayList<>();
-        List<Reserva> reservas = new ArrayList<>();
-        
-//        Carrera isw = new Carrera("Ingeniería en Software", 180, estudiantes);
-        Estudiante e = new Estudiante("00000278954","Juan","Perez","Gomez","Activo","juanito123", isw, bloqueos, reservas);
-        estudianteDAO.agregar(e);
-        em.close();
-
-//        em.persist(isw);
-//        em.getTransaction().commit();
-//        em.close();
-//        emf.close();
-    }
+       }
 }
