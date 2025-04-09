@@ -454,6 +454,7 @@ public class Conversiones {
         computadora.setNumero(computadoraDTO.getNumero());
         computadora.setEstado(computadoraDTO.isEstado());
         computadora.setDireccionIp(computadoraDTO.getDireccionIp());
+        computadora.setTipo(computadoraDTO.getTipo());
         computadora.setLaboratorio(lab);
 
         return computadora;

@@ -14,12 +14,14 @@ public class AgregarComputadoraDTO {
     private int numero;
     private boolean estado;
     private String direccionIp;
+    private String tipo;
     private String laboratorio;
 
-    public AgregarComputadoraDTO(int numero, boolean estado, String direccionIp, String laboratorio) {
+    public AgregarComputadoraDTO(int numero, boolean estado, String direccionIp, String tipo, String laboratorio) {
         this.numero = numero;
         this.estado = estado;
         this.direccionIp = direccionIp;
+        this.tipo = tipo;
         this.laboratorio = laboratorio;
     }
 
@@ -45,6 +47,14 @@ public class AgregarComputadoraDTO {
 
     public void setDireccionIp(String direccionIp) {
         this.direccionIp = direccionIp;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getLaboratorio() {

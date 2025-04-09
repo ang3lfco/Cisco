@@ -85,6 +85,16 @@ public class Computadora implements Serializable {
         this.softwares = softwares;
     }
 
+    public Computadora(int numero, boolean estado, String direccionIp, String tipo, Laboratorio laboratorio, List<Reserva> reservas, List<Software> softwares) {
+        this.numero = numero;
+        this.estado = estado;
+        this.direccionIp = direccionIp;
+        this.tipo = tipo;
+        this.laboratorio = laboratorio;
+        this.reservas = reservas;
+        this.softwares = softwares;
+    }
+
     public Computadora(Long id, int numero, boolean estado, String direccionIp, String tipo, Laboratorio laboratorio, List<Reserva> reservas, List<Software> softwares) {
         this.id = id;
         this.numero = numero;
