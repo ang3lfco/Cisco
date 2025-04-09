@@ -473,6 +473,8 @@ public class frmAdmin extends javax.swing.JFrame {
 
     private void pnlInstalacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInstalacionesMouseClicked
         // TODO add your handling code here:
+        frmInstalacion instalacion = new frmInstalacion();
+        instalacion.setVisible(true);
     }//GEN-LAST:event_pnlInstalacionesMouseClicked
 
     /**
