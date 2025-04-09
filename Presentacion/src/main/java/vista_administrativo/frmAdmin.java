@@ -4,12 +4,7 @@
  */
 package vista_administrativo;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
@@ -26,25 +21,12 @@ public class frmAdmin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        
         efectoBoton(pnlAgregarEquipo);
         efectoBoton(pnlBloquear);
         efectoBoton(pnlAgregarSoftware);
         efectoBoton(pnlDesbloquear);
         efectoBoton(pnlAgregarHorario);
         efectoBoton(pnlInstalaciones);
-        
-        // Agregar un listener para el cambio de tamaño de la ventana
-        this.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                // Si la ventana está maximizada
-                if (getExtendedState() == MAXIMIZED_BOTH) {
-                    maximizarPantalla(); // Llamar al método para maximizar
-                } else {
-//                    restaurarPantalla(); // Restaurar el layout cuando no está maximizada
-                }
-            }
-        });
     }
     
     private void efectoBoton(JPanel panel) {
@@ -60,74 +42,6 @@ public class frmAdmin extends javax.swing.JFrame {
             }
         });
     }
-    
-    // Método para ajustar el layout cuando la ventana está maximizada
-    public void maximizarPantalla() {
-        // Limpiar los componentes del contenedor actual
-        jPanel1.removeAll();
-        
-        // Contenedor principal con BorderLayout
-        jPanel1.setLayout(new BorderLayout());
-        
-        // Añadir el jLabel11 en la parte superior
-        jPanel1.add(jLabel11, BorderLayout.NORTH);
-
-        // Crear un panel central para contener los paneles laterales
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(1, 2, 10, 10)); // Dos columnas, espacio de 10px entre ellos
-        jPanel1.add(centerPanel, BorderLayout.CENTER);
-        
-        // Panel izquierdo
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 filas en columna, con separación
-        leftPanel.add(pnlAgregarEquipo);
-        leftPanel.add(pnlBloquear);
-        leftPanel.add(pnlAgregarSoftware);
-        
-        // Panel derecho
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new GridLayout(3, 1, 10, 10)); // 3 filas en columna, con separación
-        rightPanel.add(pnlDesbloquear);
-        rightPanel.add(pnlAgregarHorario);
-        rightPanel.add(pnlInstalaciones);
-        
-        // Añadir los paneles izquierdo y derecho al panel central
-        centerPanel.add(leftPanel);
-        centerPanel.add(rightPanel);
-
-        // Forzar revalidación y repintura para aplicar cambios
-        jPanel1.revalidate();
-        jPanel1.repaint();
-    }
-
-    // Método para restaurar el layout cuando la ventana no está maximizada
-    public void restaurarPantalla() {
-        // Limpiar los componentes del contenedor actual
-        jPanel1.removeAll();
-        
-        // Restaurar el layout a una estructura más simple cuando la ventana no está maximizada
-        jPanel1.setLayout(new BorderLayout());
-        
-        // Añadir el jLabel11 en la parte superior
-        jPanel1.add(jLabel11, BorderLayout.NORTH);
-
-        // Crear un panel central sin cambios cuando no está maximizada
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20)); // Centrado simple
-        jPanel1.add(centerPanel, BorderLayout.CENTER);
-        
-        // Añadir los paneles a la vista
-        centerPanel.add(pnlAgregarEquipo);
-        centerPanel.add(pnlBloquear);
-        centerPanel.add(pnlAgregarSoftware);
-        centerPanel.add(pnlDesbloquear);
-        centerPanel.add(pnlAgregarHorario);
-        centerPanel.add(pnlInstalaciones);
-
-        // Forzar revalidación y repintura para aplicar cambios
-        jPanel1.revalidate();
-        jPanel1.repaint();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -137,6 +51,7 @@ public class frmAdmin extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         pnlAgregarEquipo = new javax.swing.JPanel();
@@ -162,6 +77,7 @@ public class frmAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(1, 93, 170));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
 
         pnlAgregarEquipo.setBackground(new java.awt.Color(255, 255, 255));
         pnlAgregarEquipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -170,35 +86,33 @@ public class frmAdmin extends javax.swing.JFrame {
                 pnlAgregarEquipoMouseClicked(evt);
             }
         });
+        pnlAgregarEquipo.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ordenador-personal.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
+        pnlAgregarEquipo.add(jLabel1, gridBagConstraints);
 
+        jLabel2.setText("Agregar Equipo");
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 93, 170));
-        jLabel2.setText("Agregar Equipo");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 65);
+        pnlAgregarEquipo.add(jLabel2, gridBagConstraints);
 
-        javax.swing.GroupLayout pnlAgregarEquipoLayout = new javax.swing.GroupLayout(pnlAgregarEquipo);
-        pnlAgregarEquipo.setLayout(pnlAgregarEquipoLayout);
-        pnlAgregarEquipoLayout.setHorizontalGroup(
-            pnlAgregarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAgregarEquipoLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addGap(58, 58, 58)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlAgregarEquipoLayout.setVerticalGroup(
-            pnlAgregarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgregarEquipoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(17, 17, 17))
-            .addGroup(pnlAgregarEquipoLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 41, 0, 0);
+        jPanel1.add(pnlAgregarEquipo, gridBagConstraints);
 
         pnlBloquear.setBackground(new java.awt.Color(255, 255, 255));
         pnlBloquear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -207,35 +121,33 @@ public class frmAdmin extends javax.swing.JFrame {
                 pnlBloquearMouseClicked(evt);
             }
         });
+        pnlBloquear.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bloqueo-web.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
+        pnlBloquear.add(jLabel3, gridBagConstraints);
 
+        jLabel4.setText("Bloquear Acceso");
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(1, 93, 170));
-        jLabel4.setText("Bloquear Acceso");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 58);
+        pnlBloquear.add(jLabel4, gridBagConstraints);
 
-        javax.swing.GroupLayout pnlBloquearLayout = new javax.swing.GroupLayout(pnlBloquear);
-        pnlBloquear.setLayout(pnlBloquearLayout);
-        pnlBloquearLayout.setHorizontalGroup(
-            pnlBloquearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBloquearLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel3)
-                .addGap(58, 58, 58)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlBloquearLayout.setVerticalGroup(
-            pnlBloquearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBloquearLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(17, 17, 17))
-            .addGroup(pnlBloquearLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 18, 0, 0);
+        jPanel1.add(pnlBloquear, gridBagConstraints);
 
         pnlAgregarSoftware.setBackground(new java.awt.Color(255, 255, 255));
         pnlAgregarSoftware.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -244,35 +156,33 @@ public class frmAdmin extends javax.swing.JFrame {
                 pnlAgregarSoftwareMouseClicked(evt);
             }
         });
+        pnlAgregarSoftware.setLayout(new java.awt.GridBagLayout());
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar-servidor.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
+        pnlAgregarSoftware.add(jLabel5, gridBagConstraints);
 
+        jLabel6.setText("Agregar Software");
         jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(1, 93, 170));
-        jLabel6.setText("Agregar Software");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 46);
+        pnlAgregarSoftware.add(jLabel6, gridBagConstraints);
 
-        javax.swing.GroupLayout pnlAgregarSoftwareLayout = new javax.swing.GroupLayout(pnlAgregarSoftware);
-        pnlAgregarSoftware.setLayout(pnlAgregarSoftwareLayout);
-        pnlAgregarSoftwareLayout.setHorizontalGroup(
-            pnlAgregarSoftwareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAgregarSoftwareLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel5)
-                .addGap(58, 58, 58)
-                .addComponent(jLabel6)
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        pnlAgregarSoftwareLayout.setVerticalGroup(
-            pnlAgregarSoftwareLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgregarSoftwareLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(17, 17, 17))
-            .addGroup(pnlAgregarSoftwareLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 18, 42, 0);
+        jPanel1.add(pnlAgregarSoftware, gridBagConstraints);
 
         pnlDesbloquear.setBackground(new java.awt.Color(255, 255, 255));
         pnlDesbloquear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -281,35 +191,33 @@ public class frmAdmin extends javax.swing.JFrame {
                 pnlDesbloquearMouseClicked(evt);
             }
         });
+        pnlDesbloquear.setLayout(new java.awt.GridBagLayout());
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desbloqueado.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
+        pnlDesbloquear.add(jLabel7, gridBagConstraints);
 
+        jLabel8.setText("Permitir Acceso");
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(1, 93, 170));
-        jLabel8.setText("Permitir Acceso");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 63);
+        pnlDesbloquear.add(jLabel8, gridBagConstraints);
 
-        javax.swing.GroupLayout pnlDesbloquearLayout = new javax.swing.GroupLayout(pnlDesbloquear);
-        pnlDesbloquear.setLayout(pnlDesbloquearLayout);
-        pnlDesbloquearLayout.setHorizontalGroup(
-            pnlDesbloquearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDesbloquearLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel7)
-                .addGap(58, 58, 58)
-                .addComponent(jLabel8)
-                .addContainerGap(63, Short.MAX_VALUE))
-        );
-        pnlDesbloquearLayout.setVerticalGroup(
-            pnlDesbloquearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDesbloquearLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(17, 17, 17))
-            .addGroup(pnlDesbloquearLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 18, 0, 0);
+        jPanel1.add(pnlDesbloquear, gridBagConstraints);
 
         pnlAgregarHorario.setBackground(new java.awt.Color(255, 255, 255));
         pnlAgregarHorario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -318,38 +226,44 @@ public class frmAdmin extends javax.swing.JFrame {
                 pnlAgregarHorarioMouseClicked(evt);
             }
         });
+        pnlAgregarHorario.setLayout(new java.awt.GridBagLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cambio.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
+        pnlAgregarHorario.add(jLabel9, gridBagConstraints);
 
+        jLabel10.setText("Horarios Especiales");
         jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(1, 93, 170));
-        jLabel10.setText("Horarios Especiales");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 30);
+        pnlAgregarHorario.add(jLabel10, gridBagConstraints);
 
-        javax.swing.GroupLayout pnlAgregarHorarioLayout = new javax.swing.GroupLayout(pnlAgregarHorario);
-        pnlAgregarHorario.setLayout(pnlAgregarHorarioLayout);
-        pnlAgregarHorarioLayout.setHorizontalGroup(
-            pnlAgregarHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAgregarHorarioLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel9)
-                .addGap(58, 58, 58)
-                .addComponent(jLabel10)
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-        pnlAgregarHorarioLayout.setVerticalGroup(
-            pnlAgregarHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAgregarHorarioLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(17, 17, 17))
-            .addGroup(pnlAgregarHorarioLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 41, 0, 0);
+        jPanel1.add(pnlAgregarHorario, gridBagConstraints);
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo2.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 575;
+        gridBagConstraints.ipady = -95;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        jPanel1.add(jLabel11, gridBagConstraints);
 
         pnlInstalaciones.setBackground(new java.awt.Color(255, 255, 255));
         pnlInstalaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -358,74 +272,33 @@ public class frmAdmin extends javax.swing.JFrame {
                 pnlInstalacionesMouseClicked(evt);
             }
         });
+        pnlInstalaciones.setLayout(new java.awt.GridBagLayout());
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/configuracion (1).png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
+        pnlInstalaciones.add(jLabel12, gridBagConstraints);
 
+        jLabel13.setText("Instalaciones");
         jLabel13.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(1, 93, 170));
-        jLabel13.setText("Instalaciones");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 90);
+        pnlInstalaciones.add(jLabel13, gridBagConstraints);
 
-        javax.swing.GroupLayout pnlInstalacionesLayout = new javax.swing.GroupLayout(pnlInstalaciones);
-        pnlInstalaciones.setLayout(pnlInstalacionesLayout);
-        pnlInstalacionesLayout.setHorizontalGroup(
-            pnlInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInstalacionesLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel12)
-                .addGap(58, 58, 58)
-                .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlInstalacionesLayout.setVerticalGroup(
-            pnlInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInstalacionesLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jLabel12)
-                .addGap(17, 17, 17))
-            .addGroup(pnlInstalacionesLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlAgregarHorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlAgregarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlInstalaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pnlBloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlDesbloquear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlAgregarSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnlBloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlAgregarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(pnlDesbloquear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlAgregarHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlAgregarSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlInstalaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 41, 42, 0);
+        jPanel1.add(pnlInstalaciones, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
