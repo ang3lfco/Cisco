@@ -140,4 +140,18 @@ public class EstudianteDAO implements IEstudianteDAO{
             throw new PersistenciaException("Error: " + e.getMessage());
         }
     }
+    
+    @Override
+    public List<Estudiante> getEstudiantes() throws PersistenciaException {
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            return em.createQuery("SELECT e from Estudiante e", Estudiante.class).getResultList();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
 }

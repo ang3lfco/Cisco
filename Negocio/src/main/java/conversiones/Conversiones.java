@@ -11,6 +11,7 @@ import Dtos.AgregarSoftwareDTO;
 import Dtos.BloqueoDTO;
 import Dtos.CarreraDTO;
 import Dtos.ComputadoraDTO;
+import Dtos.ConsultarEstudianteDTO;
 import Dtos.EstudianteDTO;
 import Dtos.HorarioEspecialDTO;
 import Dtos.InstitutoDTO;
@@ -478,6 +479,18 @@ public class Conversiones {
         }
         HorarioEspecial horario = new HorarioEspecial(horarioEspecialDTO.getFecha(), horarioEspecialDTO.getHoraInicio(), horarioEspecialDTO.getHoraFin(), lab);
         return horario;
+    }
+    
+    public static ConsultarEstudianteDTO entidadEnConsultarEstudianteDTO(Estudiante estudiante){
+        ConsultarEstudianteDTO e = new ConsultarEstudianteDTO(
+                estudiante.getId(), 
+                estudiante.getIdEstudiante(),
+                estudiante.getNombre(),
+                estudiante.getApellidoPaterno(),
+                estudiante.getApellidoMaterno(), 
+                estudiante.getContraseña()
+        );
+        return e;
     }
     
     

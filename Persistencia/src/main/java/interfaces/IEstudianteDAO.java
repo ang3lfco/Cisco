@@ -7,6 +7,7 @@ package interfaces;
 import Dtos.EstudianteIngresaDTO;
 import Entidades.Estudiante;
 import excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,6 @@ public interface IEstudianteDAO {
     void eliminar(Long id) throws PersistenciaException;
     void editar(Estudiante estudiante) throws PersistenciaException;
     EstudianteIngresaDTO buscarPorIDAlumno(String id) throws PersistenciaException;
-    Estudiante getEstudiantePorId(String idEstudiante) throws PersistenciaException ;
+    Estudiante getEstudiantePorId(String idEstudiante) throws PersistenciaException;
+    List<Estudiante> getEstudiantes() throws PersistenciaException;
 }

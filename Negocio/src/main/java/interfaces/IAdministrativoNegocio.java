@@ -9,7 +9,9 @@ import Dtos.AgregarComputadoraDTO;
 import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
+import Dtos.ConsultarEstudianteDTO;
 import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -22,4 +24,5 @@ public interface IAdministrativoNegocio {
     void desbloquear(String idEstudiante) throws NegocioException;
     void agregarHorarioEspecial(AgregarHorarioEspecialDTO horarioEspecialDTO, String nombreLab) throws NegocioException;
     void agregarInstalacion(int numeroComputadora, String nombreSoftware) throws NegocioException;
+    List<ConsultarEstudianteDTO> getEstudiantes() throws NegocioException;
 }

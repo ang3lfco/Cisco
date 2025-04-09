@@ -21,6 +21,7 @@ Dtos\AgregarInstalacionDTO.class
 Dtos\AgregarComputadoraDTO.class
 Entidades\Carrera.class
 Dtos\AgregarHorarioEspecialDTO.class
+Dtos\ConsultarEstudianteDTO.class
 Dtos\AgregarSoftwareDTO.class
 Entidades\HorarioEspecial.class
 Entidades\Software.class

@@ -27,6 +27,8 @@ public class frmAdmin extends javax.swing.JFrame {
         efectoBoton(pnlDesbloquear);
         efectoBoton(pnlAgregarHorario);
         efectoBoton(pnlInstalaciones);
+        efectoBoton(pnlEstudiantes);
+        efectoBoton(pnlLaboratorios);
     }
     
     private void efectoBoton(JPanel panel) {
@@ -73,6 +75,12 @@ public class frmAdmin extends javax.swing.JFrame {
         pnlInstalaciones = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        pnlEstudiantes = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        pnlLaboratorios = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,7 +189,7 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 18, 42, 0);
+        gridBagConstraints.insets = new java.awt.Insets(18, 18, 0, 0);
         jPanel1.add(pnlAgregarSoftware, gridBagConstraints);
 
         pnlDesbloquear.setBackground(new java.awt.Color(255, 255, 255));
@@ -297,8 +305,78 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 41, 42, 0);
+        gridBagConstraints.insets = new java.awt.Insets(18, 41, 0, 0);
         jPanel1.add(pnlInstalaciones, gridBagConstraints);
+
+        pnlEstudiantes.setBackground(new java.awt.Color(255, 255, 255));
+        pnlEstudiantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlEstudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlEstudiantesMouseClicked(evt);
+            }
+        });
+        pnlEstudiantes.setLayout(new java.awt.GridBagLayout());
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/panel-de-administrador.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
+        pnlEstudiantes.add(jLabel14, gridBagConstraints);
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(1, 109, 183));
+        jLabel15.setText("Estudiantes");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 103);
+        pnlEstudiantes.add(jLabel15, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 41, 44, 0);
+        jPanel1.add(pnlEstudiantes, gridBagConstraints);
+
+        pnlLaboratorios.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLaboratorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlLaboratorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlLaboratoriosMouseClicked(evt);
+            }
+        });
+        pnlLaboratorios.setLayout(new java.awt.GridBagLayout());
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cliente-de-base-de-datos.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
+        pnlLaboratorios.add(jLabel16, gridBagConstraints);
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(1, 109, 183));
+        jLabel17.setText("Laboratorios");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 92);
+        pnlLaboratorios.add(jLabel17, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 18, 44, 0);
+        jPanel1.add(pnlLaboratorios, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -350,6 +428,16 @@ public class frmAdmin extends javax.swing.JFrame {
         instalacion.setVisible(true);
     }//GEN-LAST:event_pnlInstalacionesMouseClicked
 
+    private void pnlEstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEstudiantesMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_pnlEstudiantesMouseClicked
+
+    private void pnlLaboratoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLaboratoriosMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_pnlLaboratoriosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -391,6 +479,10 @@ public class frmAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -405,6 +497,8 @@ public class frmAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel pnlAgregarSoftware;
     private javax.swing.JPanel pnlBloquear;
     private javax.swing.JPanel pnlDesbloquear;
+    private javax.swing.JPanel pnlEstudiantes;
     private javax.swing.JPanel pnlInstalaciones;
+    private javax.swing.JPanel pnlLaboratorios;
     // End of variables declaration//GEN-END:variables
 }

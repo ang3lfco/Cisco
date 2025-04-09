@@ -7,17 +7,12 @@ package negocio_administrativo;
 import Dtos.AgregarBloqueoDTO;
 import Dtos.AgregarComputadoraDTO;
 import Dtos.AgregarHorarioEspecialDTO;
-import Dtos.AgregarInstalacionDTO;
 import Dtos.AgregarSoftwareDTO;
-import Dtos.ComputadoraDTO;
-import Dtos.HorarioEspecialDTO;
-import Dtos.InstitutoDTO;
-import Dtos.LaboratorioDTO;
+import Dtos.ConsultarEstudianteDTO;
 import Entidades.Bloqueo;
 import Entidades.Computadora;
 import Entidades.Estudiante;
 import Entidades.HorarioEspecial;
-import Entidades.Instituto;
 import Entidades.Laboratorio;
 import Entidades.Software;
 import conversiones.Conversiones;
@@ -32,8 +27,6 @@ import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -121,6 +114,21 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             
             c.getSoftwares().add(s);
             computadoraDAO.editarComputadora(c);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public List<ConsultarEstudianteDTO> getEstudiantes() throws NegocioException {
+        try{
+            List<Estudiante> estudiantes = estudianteDAO.getEstudiantes();
+            List<ConsultarEstudianteDTO> eDto = new ArrayList<>();
+            for(Estudiante e : estudiantes){
+                eDto.add(Conversiones.entidadEnConsultarEstudianteDTO(e));
+            }
+            return eDto;
         }
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());
