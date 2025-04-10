@@ -24,4 +24,5 @@ public interface IComputadoraDAO {
     Computadora getComputadoraPorNumero(int numero) throws PersistenciaException;
     ComputadoraDTO consultarComputadorasPorIPYTipo(String ip,String tipo) throws PersistenciaException;
     List<ComputadoraDTO> consultarComputadoras() throws PersistenciaException;
+    Computadora getComputadoraPorLab(String nombreLab,String ip, String tipo) throws PersistenciaException;
 }

@@ -12,6 +12,7 @@ import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EstudianteTablaDTO;
 import Entidades.Bloqueo;
@@ -37,6 +38,8 @@ import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -246,4 +249,38 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             throw new NegocioException("Error. " + e.getMessage());
         }
     }
+    @Override
+    public void editarComputadora(EditarEquipoDTO equipo,EditarEquipoDTO equipoEditado){
+        try {
+            Computadora compu = computadoraDAO.getComputadoraPorLab(
+                    equipo.getLaboratorio(),
+                    equipo.getDireccionIp(),
+                    equipo.getTipo());
+            
+            compu.setNumero(equipoEditado.getNumero());
+            compu.setDireccionIp(equipoEditado.getDireccionIp());
+            compu.setTipo(equipoEditado.getTipo());
+            
+            computadoraDAO.editarComputadora(compu);
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AdministrativoNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void eliminarComputadora(EditarEquipoDTO equipo){
+        try {
+            Computadora compu = computadoraDAO.getComputadoraPorLab(
+                    equipo.getLaboratorio(),
+                    equipo.getDireccionIp(),
+                    equipo.getTipo());
+            
+            computadoraDAO.eliminarComputadora(compu.getId());
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AdministrativoNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

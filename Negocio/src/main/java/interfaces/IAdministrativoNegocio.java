@@ -12,6 +12,7 @@ import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EstudianteTablaDTO;
 import excepciones.NegocioException;
@@ -36,4 +37,6 @@ public interface IAdministrativoNegocio {
     void editarEstudiante(EditarEstudianteDTO estudianteDTO) throws NegocioException;
     List<ComputadoraDTO> getComputadoras() throws NegocioException;
     void eliminarEstudiante(String idEstudiante) throws NegocioException;
+    void editarComputadora(EditarEquipoDTO equipo,EditarEquipoDTO equipoEditado);
+    void eliminarComputadora(EditarEquipoDTO equipo);
 }

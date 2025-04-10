@@ -9,6 +9,7 @@ import Dtos.EstudianteDTO;
 import Dtos.LaboratorioDTO;
 import Dtos.ReservaDTO;
 import Dtos.SoftwareDTO;
+import Entidades.Carrera;
 import Entidades.Computadora;
 import Entidades.Estudiante;
 import Entidades.HorarioEspecial;
@@ -325,5 +326,27 @@ public class ComputadoraDAO implements IComputadoraDAO {
         }
 
         return pcs;
+    }
+    
+    @Override
+    public Computadora getComputadoraPorLab(String nombreLab,String ip, String tipo) throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Computadora> query = builder.createQuery(Computadora.class);
+            Root<Computadora> root = query.from(Computadora.class);
+            
+            query.select(root).where(builder.equal(root.get("direccionIp"), ip),
+                    builder.equal(root.get("tipo"), tipo),
+                    builder.equal(root.get("laboratorio").get("nombre"), nombreLab));
+            
+            return em.createQuery(query).getSingleResult();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
     }
 }

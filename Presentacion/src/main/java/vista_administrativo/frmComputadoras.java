@@ -6,6 +6,7 @@ package vista_administrativo;
 
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.EditarEquipoDTO;
 import componentes.ButtonEditor;
 import componentes.ButtonRenderer;
 import excepciones.NegocioException;
@@ -22,14 +23,15 @@ import javax.swing.table.DefaultTableModel;
  * @author ang3lfco
  */
 public class frmComputadoras extends javax.swing.JFrame {
+
     private IAdministrativoNegocio adminNegocio;
+
     /**
      * Creates new form frmComputadoras
      */
     public frmComputadoras(IAdministrativoNegocio adminNegocio) {
         initComponents();
-        
-        
+
         this.adminNegocio = adminNegocio;
         try {
             cargarDatos();
@@ -41,12 +43,12 @@ public class frmComputadoras extends javax.swing.JFrame {
 
     private void cargarDatos() throws NegocioException {
         List<ComputadoraDTO> ArrayList;
-        
+
 //        List<ComputadoraDTO> pcs = adminNegocio.getComputadoras();
         List<ComputadoraDTO> pcs = adminNegocio.getComputadoras();
         DefaultTableModel model = (DefaultTableModel) tblPcs.getModel();
         model.setRowCount(0);
-        for(ComputadoraDTO c : pcs){
+        for (ComputadoraDTO c : pcs) {
             Object[] row = new Object[5];
             row[0] = c.getNumero();
             row[1] = c.isEstado();
@@ -57,25 +59,68 @@ public class frmComputadoras extends javax.swing.JFrame {
         }
         tblPcs.setRowHeight(50);
     }
-    
+
     private void configurarTabla() {
         tblPcs.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
 
         ButtonEditor editor = new ButtonEditor(
-            e -> {
-                int fila = tblPcs.getSelectedRow();
-                if (fila >= 0){
+                e -> {
+                    int fila = tblPcs.getSelectedRow();
+                    if (fila >= 0) {
+
+                        EditarEquipoDTO equipo;
+                        int numero;
+                        String ip;
+                        String tipo;
+                        String lab;
+
+                        numero = (int) tblPcs.getValueAt(tblPcs.getSelectedRow(), 0);
+
+                        ip = (String) tblPcs.getValueAt(tblPcs.getSelectedRow(), 2);
+                        tipo = (String) tblPcs.getValueAt(tblPcs.getSelectedRow(), 3);
+                        lab = (String) tblPcs.getValueAt(tblPcs.getSelectedRow(), 4);
+                        EditarEquipoDTO editarDto = new EditarEquipoDTO();
+
+                        equipo = new EditarEquipoDTO(numero, ip, tipo, lab);
+                        frmEditarEquipo editar = new frmEditarEquipo(this.adminNegocio, equipo);
+                        editar.setVisible(true);
+                    }
+                },
+                e -> {
+                    EditarEquipoDTO equipo;
+                    int numero;
+                    String ip;
+                    String tipo;
+                    String lab;
+
+                    numero = (int) tblPcs.getValueAt(tblPcs.getSelectedRow(), 0);
+                     ip = (String) tblPcs.getValueAt(tblPcs.getSelectedRow(), 2);
+                    tipo = (String) tblPcs.getValueAt(tblPcs.getSelectedRow(), 3);
+                    lab = (String) tblPcs.getValueAt(tblPcs.getSelectedRow(), 4);
+                    EditarEquipoDTO editarDto = new EditarEquipoDTO();
+
+                    equipo = new EditarEquipoDTO(numero, ip, tipo, lab);
                     
+                    int respuesta = JOptionPane.showConfirmDialog(
+                            null,
+                            "¿Estás seguro que deseas borrar?",
+                            "Confirmar borrado",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE
+                    );
+
+                    if (respuesta == JOptionPane.YES_OPTION) {
+                        adminNegocio.eliminarComputadora(equipo);
+                    } else {
+                        // Aquí puedes dejarlo vacío o hacer otra cosa si se cancela
+                        JOptionPane.showMessageDialog(null, "Eliminacion cancelada");
+                    }
                 }
-                JOptionPane.showMessageDialog(tblPcs, "Seleccionaste una fila para editar.");
-            },
-            e -> {
-                JOptionPane.showMessageDialog(tblPcs, "Seleccionaste una fila para eliminar.");
-            }
         );
 
         tblPcs.getColumnModel().getColumn(5).setCellEditor(editor);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,7 +182,7 @@ public class frmComputadoras extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(lblAgregarComputadora)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -5,87 +5,63 @@
 package vista_administrativo;
 
 import Dtos.AgregarComputadoraDTO;
-import Dtos.ComputadoraDTO;
+import Dtos.EditarEquipoDTO;
 import componentes.RoundedPanel;
-import daos.BloqueoDAO;
-import daos.CarreraDAO;
-import daos.ComputadoraDAO;
-import daos.ConexionBD;
-import daos.EstudianteDAO;
-import daos.HorarioEspecialDAO;
-import daos.InstitutoDAO;
-import daos.LaboratorioDAO;
-import daos.SoftwareDAO;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
-import interfaces.IBloqueoDAO;
-import interfaces.ICarreraDAO;
-import interfaces.IComputadoraDAO;
-import interfaces.IConexionBD;
-import interfaces.IEstudianteDAO;
-import interfaces.IHorarioEspecialDAO;
-import interfaces.IInstitutoDAO;
-import interfaces.ILaboratorioDAO;
-import interfaces.ISoftwareDAO;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import negocio_administrativo.AdministrativoNegocio;
 
 /**
  *
- * @author ang3lfco
+ * @author ReneEzequiel23
  */
-public class frmEquipo extends javax.swing.JFrame {
+public class frmEditarEquipo extends javax.swing.JFrame {
+
     private IAdministrativoNegocio adminNegocio;
+    EditarEquipoDTO equipo;
     private int xMouse, yMouse;
-    
+
     /**
-     * Creates new form frmAgregarEquipo
+     * Creates new form frmEditarEquipo
      */
-    public frmEquipo(IAdministrativoNegocio adminNegocio) {
+    public frmEditarEquipo(IAdministrativoNegocio adminNegocio, EditarEquipoDTO equipo) {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.adminNegocio = adminNegocio;
-        
+        this.equipo = equipo;
+        this.llenarDatos();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         // Panel redondo
-        RoundedPanel mainPanel = new RoundedPanel(50, new Color(15,86,137));
+        RoundedPanel mainPanel = new RoundedPanel(50, new Color(15, 86, 137));
         mainPanel.setOpaque(false);
         setContentPane(mainPanel);
-        
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(layout);
-        
+
         // Ajustar márgenes para evitar que los componentes cubran los bordes redondeados
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0) // Márgenes izquierdos
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
-                    .addGap(0)) // Márgenes derechos
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(0) // Márgenes izquierdos
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                                .addGap(0)) // Márgenes derechos
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0) // Márgenes superiores
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                    .addGap(0)) // Márgenes inferiores
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(0) // Márgenes superiores
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                                .addGap(0)) // Márgenes inferiores
         );
 
         jPanel1.setOpaque(false);
-        
+
         // Movimiento del Frame
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -102,8 +78,20 @@ public class frmEquipo extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
+    public void llenarDatos() {
+        txfNumeroEquipo.setText(String.valueOf(equipo.getNumero()));
+        txfIp.setText(equipo.getDireccionIp());
+
+        if (equipo.getTipo().equals("Estudiante")) {
+            cmbTipo.setSelectedIndex(0);
+        } else {
+            cmbTipo.setSelectedIndex(1);
+        }
+        
+        txfLab.setText(equipo.getLaboratorio());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,12 +103,11 @@ public class frmEquipo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         txfNumeroEquipo = new javax.swing.JTextField();
-        cmbEstado = new javax.swing.JComboBox<>();
         txfIp = new javax.swing.JTextField();
-        cmbLaboratorio = new javax.swing.JComboBox<>();
         btnAceptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox<>();
+        txfLab = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -129,16 +116,8 @@ public class frmEquipo extends javax.swing.JFrame {
         txfNumeroEquipo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfNumeroEquipo.setText("Numero de Equipo");
 
-        cmbEstado.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Ocupado" }));
-        cmbEstado.setEnabled(false);
-
         txfIp.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfIp.setText("Direccion ip del equipo:");
-
-        cmbLaboratorio.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        cmbLaboratorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca" }));
-        cmbLaboratorio.setEnabled(false);
 
         btnAceptar.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(15, 86, 137));
@@ -151,10 +130,19 @@ public class frmEquipo extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Agregar equipo");
+        jLabel1.setText("Editar equipo");
 
         cmbTipo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estudiante", "Reservacion" }));
+
+        txfLab.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        txfLab.setText("laboratorio");
+        txfLab.setEnabled(false);
+        txfLab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfLabActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,11 +154,10 @@ public class frmEquipo extends javax.swing.JFrame {
                     .addComponent(btnAceptar)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txfNumeroEquipo, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txfIp, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbLaboratorio, javax.swing.GroupLayout.Alignment.LEADING, 0, 228, Short.MAX_VALUE)
-                    .addComponent(cmbTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(txfIp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txfLab, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,13 +166,11 @@ public class frmEquipo extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(37, 37, 37)
                 .addComponent(txfNumeroEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txfIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(txfLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(btnAceptar)
@@ -196,7 +181,7 @@ public class frmEquipo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,17 +193,17 @@ public class frmEquipo extends javax.swing.JFrame {
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         // TODO add your handling code here:
-        try {
-            AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfIp.getText(),cmbTipo.getSelectedItem().toString(), cmbLaboratorio.getSelectedItem().toString());
-            adminNegocio.agregarEquipo(equipo);
-        } catch (NegocioException ex) {
-            Logger.getLogger(frmEquipo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        EditarEquipoDTO equipoEditado = new EditarEquipoDTO(Integer.parseInt(txfNumeroEquipo.getText()), txfIp.getText(), cmbTipo.getSelectedItem().toString(), txfLab.getText());
+        adminNegocio.editarComputadora(equipo, equipoEditado);
     }//GEN-LAST:event_btnAceptarMouseClicked
 
-//    /**
-//     * @param args the command line arguments
-//     */
+    private void txfLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfLabActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfLabActionPerformed
+
+    /**
+     * @param args the command line arguments //
+     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -233,33 +218,31 @@ public class frmEquipo extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(frmEditarEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(frmEditarEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(frmEditarEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(frmEditarEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
-//        //</editor-fold>
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new frmEquipo().setVisible(true);
+//                new frmEditarEquipo().setVisible(true);
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
-    private javax.swing.JComboBox<String> cmbEstado;
-    private javax.swing.JComboBox<String> cmbLaboratorio;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txfIp;
+    private javax.swing.JTextField txfLab;
     private javax.swing.JTextField txfNumeroEquipo;
     // End of variables declaration//GEN-END:variables
 }
