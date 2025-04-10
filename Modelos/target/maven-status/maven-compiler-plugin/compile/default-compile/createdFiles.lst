@@ -9,6 +9,7 @@ Entidades\Bloqueo.class
 Dtos\EstudianteTablaDTO.class
 Entidades\Reserva.class
 Dtos\EstudianteDTO.class
+Dtos\EditarEquipoDTO.class
 Entidades\Laboratorio.class
 Dtos\ReservaDTO.class
 Dtos\LaboratorioDTO.class
