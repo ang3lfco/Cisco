@@ -500,7 +500,8 @@ public class frmAdmin extends javax.swing.JFrame {
 
     private void pnlLaboratoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLaboratoriosMouseClicked
         // TODO add your handling code here:
-        
+        frmLaboratorios lab = new frmLaboratorios(adminNegocio);
+        lab.setVisible(true);
     }//GEN-LAST:event_pnlLaboratoriosMouseClicked
 
     private void lblCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseClicked

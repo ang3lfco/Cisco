@@ -4,6 +4,11 @@
  */
 package daos;
 
+import Dtos.ComputadoraDTO;
+import Dtos.InstitutoDTO;
+import Dtos.LaboratorioDTO;
+import Dtos.LaboratoriosTablaDTO;
+import Entidades.Computadora;
 import Entidades.Instituto;
 import Entidades.Laboratorio;
 import excepciones.PersistenciaException;
@@ -12,6 +17,7 @@ import interfaces.ILaboratorioDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -137,5 +143,41 @@ public class LaboratorioDAO implements ILaboratorioDAO{
         finally{
             em.close();
         }
+    }
+    
+    @Override
+    public List<LaboratoriosTablaDTO> consultarLaboratorios() throws PersistenciaException {
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
+
+        entityManager = conexionBD.obtenerEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<LaboratoriosTablaDTO> criteriaQuery = criteriaBuilder.createQuery(LaboratoriosTablaDTO.class);
+
+        Root<Laboratorio> root = criteriaQuery.from(Laboratorio.class);
+
+        criteriaQuery.select(
+                criteriaBuilder.construct(LaboratoriosTablaDTO.class,
+                        root.get("nombre"),
+                        root.get("horaInicio"),
+                        root.get("horaFin"),
+                        root.get("contraseña"),
+                        criteriaBuilder.construct(InstitutoDTO.class,
+                                root.get("instituto").get("nombre"),
+                                root.get("instituto").get("siglas")
+                        ))
+        );
+
+        TypedQuery<LaboratoriosTablaDTO> query = entityManager.createQuery(criteriaQuery);
+
+        List<LaboratoriosTablaDTO> lista = query.getResultList();
+        if (entityManager != null && entityManager.isOpen()) {
+            entityManager.close(); // Cerrar siempre el EntityManager
+        }
+
+        return lista;
     }
 }

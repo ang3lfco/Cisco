@@ -15,7 +15,9 @@ import Dtos.ConsultarEstudianteDTO;
 import Dtos.ConsultarLaboratorioDTO;
 import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
+import Dtos.EditarLaboratoriosDTO;
 import Dtos.EstudianteTablaDTO;
+import Dtos.LaboratoriosTablaDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -42,4 +44,7 @@ public interface IAdministrativoNegocio {
     void eliminarComputadora(EditarEquipoDTO equipo);
     ConsultarLaboratorioDTO getLaboratorioPorNombre(String nombre) throws NegocioException;
     boolean validarContraseña(String original, String encriptada);
+    List<LaboratoriosTablaDTO> getLaboratorios() throws NegocioException;
+    void editarLaboratorio(EditarLaboratoriosDTO laboratorio, EditarLaboratoriosDTO editado);
+    void eliminarLaboratorio(EditarLaboratoriosDTO labDTO);
 }

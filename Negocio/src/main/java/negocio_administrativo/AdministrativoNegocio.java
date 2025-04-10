@@ -15,7 +15,9 @@ import Dtos.ConsultarEstudianteDTO;
 import Dtos.ConsultarLaboratorioDTO;
 import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
+import Dtos.EditarLaboratoriosDTO;
 import Dtos.EstudianteTablaDTO;
+import Dtos.LaboratoriosTablaDTO;
 import Entidades.Bloqueo;
 import Entidades.Carrera;
 import Entidades.Computadora;
@@ -240,6 +242,17 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         }
     }
     
+    public List<LaboratoriosTablaDTO> getLaboratorios() throws NegocioException {
+        try{
+            List<LaboratoriosTablaDTO> laboratorios = laboratorioDAO.consultarLaboratorios();
+            return laboratorios;
+
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
     @Override
     public void eliminarEstudiante(String idEstudiante) throws NegocioException {
         try{
@@ -292,6 +305,32 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         }
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void editarLaboratorio(EditarLaboratoriosDTO laboratorio, EditarLaboratoriosDTO editado){
+        try {
+            Laboratorio lab = laboratorioDAO.getLaboratorioPorNombre(laboratorio.getNombre());
+            lab.setNombre(editado.getNombre());
+            lab.setContraseña(editado.getContraseña());
+            lab.setHoraInicio(editado.getHoraInicio());
+            lab.setHoraFin(editado.getHoraFin());
+            
+            laboratorioDAO.editarLaboratorio(lab);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AdministrativoNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void eliminarLaboratorio(EditarLaboratoriosDTO labDTO){
+        try {
+            Laboratorio lab = laboratorioDAO.getLaboratorioPorNombre(labDTO.getNombre());
+            
+            laboratorioDAO.eliminarLaboratorio(lab.getId());
+            
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AdministrativoNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

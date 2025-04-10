@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import Dtos.LaboratoriosTablaDTO;
 import Entidades.Laboratorio;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface ILaboratorioDAO {
     void editarLaboratorio(Laboratorio laboratorio) throws PersistenciaException;
     List<Laboratorio> getLaboratorios() throws PersistenciaException;
     Laboratorio getLaboratorioPorNombre(String nombre) throws PersistenciaException;
+    List<LaboratoriosTablaDTO> consultarLaboratorios() throws PersistenciaException;
 }

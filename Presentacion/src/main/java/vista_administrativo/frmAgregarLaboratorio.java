@@ -110,16 +110,20 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
         lblExpandir = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
         lblCerrar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(15, 86, 137));
 
-        txfNombre.setText("jTextField1");
+        txfNombre.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        txfNombre.setText("Nombre laboratorio");
 
-        txfContraseña.setText("jTextField2");
+        txfContraseña.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        txfContraseña.setText("contraseña");
 
-        txfIdInstituto.setText("jTextField3");
+        txfIdInstituto.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        txfIdInstituto.setText("instituto");
 
         btnAgregar.setText("jButton1");
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,6 +153,10 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Agregar laboratorio");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -170,7 +178,8 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
                         .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txfIdInstituto, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfContraseña, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txfContraseña, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1))
                     .addComponent(btnAgregar))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -182,8 +191,10 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
                     .addComponent(lblCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblExpandir))
-                .addGap(50, 50, 50)
-                .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -194,7 +205,7 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
                 .addComponent(txfIdInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(btnAgregar)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -280,6 +291,7 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
