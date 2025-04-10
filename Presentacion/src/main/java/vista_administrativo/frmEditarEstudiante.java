@@ -45,6 +45,8 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
      * Creates new form frmAgregarEstudiante
      */
     public frmEditarEstudiante(IAdministrativoNegocio adminNegocio, String idEstudiante) {
+        setUndecorated(true);
+        setBackground(new Color(0, 0, 0, 0));
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

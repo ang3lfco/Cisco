@@ -24,7 +24,7 @@ public class ButtonRenderer extends JPanel implements TableCellRenderer {
 
     public ButtonRenderer() {
         setLayout(new FlowLayout(FlowLayout.CENTER));
-        setBackground(Color.WHITE);
+        setBackground(new Color(15,86,137));
         editButton = new JButton(new ImageIcon(getClass().getResource("/icons/editar2.png")));
         deleteButton = new JButton(new ImageIcon(getClass().getResource("/icons/eliminar1.png")));
         

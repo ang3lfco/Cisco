@@ -78,7 +78,7 @@
                       <Component id="lblMinimizar" alignment="0" max="32767" attributes="0"/>
                       <Component id="lblExpandir" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="txfIdEstudiante" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txfNombre" min="-2" max="-2" attributes="0"/>
@@ -90,9 +90,9 @@
                   <Component id="txfContraseña" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txfIdCarrera" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace pref="35" max="32767" attributes="0"/>
                   <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -100,12 +100,15 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="txfIdCarrera">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Carrera"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnAgregar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton1"/>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAgregarMouseClicked"/>
@@ -113,26 +116,41 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txfIdEstudiante">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="ID Estudiante"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfNombre">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfApellidoPaterno">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Apellido Paterno"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfApellidoMaterno">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Apellido Materno"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfContrase&#xf1;a">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
           </Properties>
         </Component>

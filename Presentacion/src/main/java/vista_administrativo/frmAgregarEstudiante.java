@@ -47,6 +47,8 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.adminNegocio = adminNegocio;
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         
         // Panel redondo
         RoundedPanel mainPanel = new RoundedPanel(50, new Color(15,86,137));
@@ -116,23 +118,29 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(15, 86, 137));
 
+        txfIdCarrera.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfIdCarrera.setText("Carrera");
 
-        btnAgregar.setText("jButton1");
+        btnAgregar.setText("Agregar");
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAgregarMouseClicked(evt);
             }
         });
 
+        txfIdEstudiante.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfIdEstudiante.setText("ID Estudiante");
 
+        txfNombre.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfNombre.setText("Nombre");
 
+        txfApellidoPaterno.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfApellidoPaterno.setText("Apellido Paterno");
 
+        txfApellidoMaterno.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfApellidoMaterno.setText("Apellido Materno");
 
+        txfContraseña.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfContraseña.setText("Contraseña");
 
         lblCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cerrar.png"))); // NOI18N
@@ -189,7 +197,7 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
                     .addComponent(lblCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblExpandir))
-                .addGap(71, 71, 71)
+                .addGap(50, 50, 50)
                 .addComponent(txfIdEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,9 +209,9 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
                 .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txfIdCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(btnAgregar)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

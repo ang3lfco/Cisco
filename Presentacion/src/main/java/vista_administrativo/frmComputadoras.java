@@ -191,6 +191,9 @@ public class frmComputadoras extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(15, 86, 137));
 
+        tblPcs.setBackground(new java.awt.Color(15, 86, 137));
+        tblPcs.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        tblPcs.setForeground(new java.awt.Color(255, 255, 255));
         tblPcs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -201,7 +204,15 @@ public class frmComputadoras extends javax.swing.JFrame {
             new String [] {
                 "Numero", "Estado", "IP", "Tipo", "Laboratorio", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblPcs);
 
         lblAgregarComputadora.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
