@@ -6,6 +6,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +51,7 @@ public class Estudiante implements Serializable {
     @JoinColumn(name = "idCarrera", nullable = false)
     private Carrera carrera;
     
-    @OneToMany(mappedBy = "estudiante")
+    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.REMOVE)
     private List<Bloqueo> bloqueos;
     
     @OneToMany(mappedBy = "estudiante")

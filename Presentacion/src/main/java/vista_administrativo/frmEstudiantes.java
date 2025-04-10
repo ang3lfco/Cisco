@@ -109,7 +109,6 @@ public class frmEstudiantes extends javax.swing.JFrame {
     
     private void configurarTabla() {
         tblEstudiantes.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-
         ButtonEditor editor = new ButtonEditor(
             e -> {
                 int fila = tblEstudiantes.getSelectedRow();
@@ -122,10 +121,31 @@ public class frmEstudiantes extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para editar.");
             },
             e -> {
+                int fila = tblEstudiantes.getSelectedRow();
+                if (fila >= 0){
+                    String idEstudiante = (String) tblEstudiantes.getValueAt(fila, 0);
+                    int respuesta = JOptionPane.showConfirmDialog(
+                        tblEstudiantes,
+                        "¿Estás seguro que deseas eliminar al estudiante con ID: " + idEstudiante + "?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                    );
+                    if (respuesta == JOptionPane.YES_OPTION){
+                        try {
+                            adminNegocio.eliminarEstudiante(idEstudiante);
+                            cargarDatos();
+                        } catch (NegocioException ex) {
+                            Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } 
+                    else{
+                        JOptionPane.showMessageDialog(null, "Eliminación cancelada.");
+                    }
+                }
                 JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para eliminar.");
             }
         );
-
         tblEstudiantes.getColumnModel().getColumn(6).setCellEditor(editor);
     }
 

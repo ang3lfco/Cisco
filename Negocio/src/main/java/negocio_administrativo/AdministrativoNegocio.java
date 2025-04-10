@@ -235,4 +235,15 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             throw new NegocioException("Error. " + e.getMessage());
         }
     }
+    
+    @Override
+    public void eliminarEstudiante(String idEstudiante) throws NegocioException {
+        try{
+            Estudiante eliminacion = estudianteDAO.getEstudiantePorId(idEstudiante);
+            estudianteDAO.eliminar(eliminacion.getId());
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
 }
