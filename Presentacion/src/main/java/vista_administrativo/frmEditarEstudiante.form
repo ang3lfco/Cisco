@@ -109,9 +109,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfContrase&#xf1;a">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfIdCarrera">
           <Properties>

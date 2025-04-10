@@ -127,8 +127,6 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
 
         txfApellidoMaterno.setText("Apellido Materno");
 
-        txfContraseña.setText("Contraseña");
-
         txfIdCarrera.setText("Carrera");
 
         btnEditar.setText("Editar");
@@ -227,6 +225,7 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
     private void CargarEstudiante(){
         try {
             EditarEstudianteDTO e = adminNegocio.getEstudiantePorIdEstudiante(idEstudiante);
@@ -234,12 +233,13 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
             txfNombre.setText(e.getNombre());
             txfApellidoPaterno.setText(e.getApellidoPaterno());
             txfApellidoMaterno.setText(e.getApellidoMaterno());
-            txfContraseña.setText(e.getContraseña());
+//            txfContraseña.setText(e.getContraseña());
             txfIdCarrera.setText(e.getCarrera());
         } catch (NegocioException ex) {
             Logger.getLogger(frmEditarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         // TODO add your handling code here:
         EditarEstudianteDTO estudianteDTO = new EditarEstudianteDTO(
