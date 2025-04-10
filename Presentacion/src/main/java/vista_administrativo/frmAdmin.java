@@ -4,6 +4,7 @@
  */
 package vista_administrativo;
 
+import interfaces.IAdministrativoNegocio;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,14 +15,16 @@ import javax.swing.JPanel;
  * @author ang3lfco
  */
 public class frmAdmin extends javax.swing.JFrame {
+    private IAdministrativoNegocio adminNegocio;
     /**
      * Creates new form frmAdmin
      */
-    public frmAdmin() {
+    public frmAdmin(IAdministrativoNegocio adminNegocio) {
         initComponents();
+        this.adminNegocio = adminNegocio;
         setLocationRelativeTo(null);
         
-        efectoBoton(pnlAgregarEquipo);
+        efectoBoton(pnlComputadoras);
         efectoBoton(pnlBloquear);
         efectoBoton(pnlAgregarSoftware);
         efectoBoton(pnlDesbloquear);
@@ -56,7 +59,7 @@ public class frmAdmin extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
-        pnlAgregarEquipo = new javax.swing.JPanel();
+        pnlComputadoras = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         pnlBloquear = new javax.swing.JPanel();
@@ -87,14 +90,14 @@ public class frmAdmin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(1, 109, 183));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        pnlAgregarEquipo.setBackground(new java.awt.Color(255, 255, 255));
-        pnlAgregarEquipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlAgregarEquipo.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnlComputadoras.setBackground(new java.awt.Color(255, 255, 255));
+        pnlComputadoras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pnlComputadoras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlAgregarEquipoMouseClicked(evt);
+                pnlComputadorasMouseClicked(evt);
             }
         });
-        pnlAgregarEquipo.setLayout(new java.awt.GridBagLayout());
+        pnlComputadoras.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ordenador-personal.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -103,24 +106,25 @@ public class frmAdmin extends javax.swing.JFrame {
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(19, 15, 17, 0);
-        pnlAgregarEquipo.add(jLabel1, gridBagConstraints);
+        pnlComputadoras.add(jLabel1, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 109, 183));
-        jLabel2.setText("Agregar Equipo");
+        jLabel2.setText("Computadoras");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(36, 58, 0, 65);
-        pnlAgregarEquipo.add(jLabel2, gridBagConstraints);
+        pnlComputadoras.add(jLabel2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 41, 0, 0);
-        jPanel1.add(pnlAgregarEquipo, gridBagConstraints);
+        jPanel1.add(pnlComputadoras, gridBagConstraints);
 
         pnlBloquear.setBackground(new java.awt.Color(255, 255, 255));
         pnlBloquear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -392,86 +396,87 @@ public class frmAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pnlAgregarEquipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAgregarEquipoMouseClicked
+    private void pnlComputadorasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlComputadorasMouseClicked
         // TODO add your handling code here:
-        frmEquipo equipo = new frmEquipo();
-        equipo.setVisible(true);
-    }//GEN-LAST:event_pnlAgregarEquipoMouseClicked
+        frmComputadoras computadoras = new frmComputadoras(adminNegocio);
+        computadoras.setVisible(true);
+    }//GEN-LAST:event_pnlComputadorasMouseClicked
 
     private void pnlBloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBloquearMouseClicked
         // TODO add your handling code here:
-        frmBloqueo bloqueo = new frmBloqueo();
+        frmBloqueo bloqueo = new frmBloqueo(adminNegocio);
         bloqueo.setVisible(true);
     }//GEN-LAST:event_pnlBloquearMouseClicked
 
     private void pnlAgregarSoftwareMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAgregarSoftwareMouseClicked
         // TODO add your handling code here:
-        frmSoftware software = new frmSoftware();
+        frmSoftware software = new frmSoftware(adminNegocio);
         software.setVisible(true);
     }//GEN-LAST:event_pnlAgregarSoftwareMouseClicked
 
     private void pnlDesbloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlDesbloquearMouseClicked
         // TODO add your handling code here:
-        frmDesbloqueo desbloqueo = new frmDesbloqueo();
+        frmDesbloqueo desbloqueo = new frmDesbloqueo(adminNegocio);
         desbloqueo.setVisible(true);
     }//GEN-LAST:event_pnlDesbloquearMouseClicked
 
     private void pnlAgregarHorarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAgregarHorarioMouseClicked
         // TODO add your handling code here:
-        frmHorario horario = new frmHorario();
+        frmHorario horario = new frmHorario(adminNegocio);
         horario.setVisible(true);
     }//GEN-LAST:event_pnlAgregarHorarioMouseClicked
 
     private void pnlInstalacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInstalacionesMouseClicked
         // TODO add your handling code here:
-        frmInstalacion instalacion = new frmInstalacion();
+        frmInstalacion instalacion = new frmInstalacion(adminNegocio);
         instalacion.setVisible(true);
     }//GEN-LAST:event_pnlInstalacionesMouseClicked
 
     private void pnlEstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEstudiantesMouseClicked
         // TODO add your handling code here:
-
+        frmEstudiantes estudiantes = new frmEstudiantes(adminNegocio);
+        estudiantes.setVisible(true);
     }//GEN-LAST:event_pnlEstudiantesMouseClicked
 
     private void pnlLaboratoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLaboratoriosMouseClicked
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_pnlLaboratoriosMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmAdmin().setVisible(true);
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(frmAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new frmAdmin().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -492,10 +497,10 @@ public class frmAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel pnlAgregarEquipo;
     private javax.swing.JPanel pnlAgregarHorario;
     private javax.swing.JPanel pnlAgregarSoftware;
     private javax.swing.JPanel pnlBloquear;
+    private javax.swing.JPanel pnlComputadoras;
     private javax.swing.JPanel pnlDesbloquear;
     private javax.swing.JPanel pnlEstudiantes;
     private javax.swing.JPanel pnlInstalaciones;

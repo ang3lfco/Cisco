@@ -41,20 +41,14 @@ public class frmEstudiantes extends javax.swing.JFrame {
     /**
      * Creates new form frmEstudiantes
      */
-    public frmEstudiantes() throws NegocioException {
-        IConexionBD conexion = new ConexionBD();
-        IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexion);
-        ILaboratorioDAO laboratorioDAO = new LaboratorioDAO(conexion);
-        ISoftwareDAO softwareDAO = new SoftwareDAO(conexion);
-        IBloqueoDAO bloqueoDAO = new BloqueoDAO(conexion);
-        IEstudianteDAO estudianteDAO = new EstudianteDAO(conexion);
-        IHorarioEspecialDAO horarioEspecialDAO = new HorarioEspecialDAO(conexion);
-        ICarreraDAO carreraDAO = new CarreraDAO(conexion);
-        IInstitutoDAO institutoDAO = new InstitutoDAO(conexion);
-        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO, carreraDAO, institutoDAO);
+    public frmEstudiantes(IAdministrativoNegocio adminNegocio) {
         initComponents();
-        cargarDatos();
-        
+        this.adminNegocio = adminNegocio;
+        try {
+            cargarDatos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
@@ -97,13 +91,13 @@ public class frmEstudiantes extends javax.swing.JFrame {
 
         tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "idEstudiante", "Nombre", "Apellido Paterno", "Apellido Materno"
+                "idEstudiante", "Nombre", "Apellido Paterno", "Apellido Materno", "Editar", "Eliminar"
             }
         ));
         jScrollPane1.setViewportView(tblEstudiantes);
@@ -154,44 +148,44 @@ public class frmEstudiantes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmEstudiantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmEstudiantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmEstudiantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmEstudiantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new frmEstudiantes().setVisible(true);
-                } catch (NegocioException ex) {
-                    Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(frmEstudiantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(frmEstudiantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(frmEstudiantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(frmEstudiantes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    new frmEstudiantes().setVisible(true);
+//                } catch (NegocioException ex) {
+//                    Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
