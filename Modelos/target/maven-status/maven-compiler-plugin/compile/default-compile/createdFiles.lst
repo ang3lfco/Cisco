@@ -28,3 +28,4 @@ Dtos\ConsultarEstudianteDTO.class
 Dtos\AgregarSoftwareDTO.class
 Entidades\HorarioEspecial.class
 Entidades\Software.class
+Dtos\EditarEstudianteDTO.class

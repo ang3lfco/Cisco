@@ -11,6 +11,7 @@ import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.EditarEstudianteDTO;
 import Dtos.EstudianteTablaDTO;
 import Entidades.Bloqueo;
 import Entidades.Carrera;
@@ -184,6 +185,37 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
                 estudiantesDTO.add(estudiante);
             }
             return estudiantesDTO;
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public EditarEstudianteDTO getEstudiantePorIdEstudiante(String idEstudiante) throws NegocioException {
+        try{
+            Estudiante e = estudianteDAO.getEstudiantePorId(idEstudiante);
+            EditarEstudianteDTO estudiante = Conversiones.EntidadAEditarEstudianteDto(e);
+            return estudiante;
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void editarEstudiante(EditarEstudianteDTO estudianteDTO) throws NegocioException {
+        try{
+            Carrera carrera = carreraDAO.getCarreraPorNombre(estudianteDTO.getCarrera());
+            Estudiante estudianteOriginal = estudianteDAO.getEstudiantePorId(estudianteDTO.getIdEstudiante());
+            estudianteOriginal.setNombre(estudianteDTO.getNombre());
+            estudianteOriginal.setApellidoPaterno(estudianteDTO.getApellidoPaterno());
+            estudianteOriginal.setApellidoMaterno(estudianteDTO.getApellidoMaterno());
+            estudianteOriginal.setEstado(estudianteDTO.getEstado());
+            estudianteOriginal.setContraseña(Encriptador.encriptarContraseña(estudianteDTO.getContraseña()));
+            estudianteOriginal.setCarrera(carrera);
+            
+            estudianteDAO.editar(estudianteOriginal);
         }
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());

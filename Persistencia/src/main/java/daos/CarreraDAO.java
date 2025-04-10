@@ -95,4 +95,22 @@ public class CarreraDAO implements ICarreraDAO{
             em.close();
         }
     }
+    
+    @Override
+    public Carrera getCarreraPorNombre(String nombre) throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            CriteriaBuilder builder = em.getCriteriaBuilder();
+            CriteriaQuery<Carrera> query = builder.createQuery(Carrera.class);
+            Root<Carrera> root = query.from(Carrera.class);
+            query.select(root).where(builder.equal(root.get("nombre"), nombre));
+            return em.createQuery(query).getSingleResult();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
 }

@@ -5,6 +5,7 @@
 package vista_administrativo;
 
 import Dtos.AgregarEstudianteDTO;
+import Dtos.EditarEstudianteDTO;
 import daos.BloqueoDAO;
 import daos.CarreraDAO;
 import daos.ComputadoraDAO;
@@ -27,20 +28,27 @@ import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
  *
  * @author ang3lfco
  */
-public class frmAgregarEstudiante extends javax.swing.JFrame {
+public class frmEditarEstudiante extends javax.swing.JFrame {
     private IAdministrativoNegocio adminNegocio;
+    private String idEstudiante;
     /**
      * Creates new form frmAgregarEstudiante
      */
-    public frmAgregarEstudiante(IAdministrativoNegocio adminNegocio) {
+    public frmEditarEstudiante(IAdministrativoNegocio adminNegocio, String idEstudiante) {
         initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.adminNegocio = adminNegocio;
+        this.idEstudiante = idEstudiante;
+        
+        CargarEstudiante();
     }
 
     /**
@@ -58,11 +66,12 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
         txfApellidoMaterno = new javax.swing.JTextField();
         txfContraseña = new javax.swing.JTextField();
         txfIdCarrera = new javax.swing.JTextField();
-        btnAgregar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txfIdEstudiante.setText("ID Estudiante");
+        txfIdEstudiante.setEnabled(false);
 
         txfNombre.setText("Nombre");
 
@@ -74,10 +83,10 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
 
         txfIdCarrera.setText("Carrera");
 
-        btnAgregar.setText("jButton1");
-        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEditar.setText("Editar");
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAgregarMouseClicked(evt);
+                btnEditarMouseClicked(evt);
             }
         });
 
@@ -88,7 +97,7 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgregar)
+                    .addComponent(btnEditar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txfIdEstudiante, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                         .addComponent(txfNombre)
@@ -114,22 +123,42 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txfIdCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(btnAgregar)
+                .addComponent(btnEditar)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
-        // TODO add your handling code here:
-        AgregarEstudianteDTO estudianteDTO = new AgregarEstudianteDTO(txfIdEstudiante.getText(), txfNombre.getText(), txfApellidoPaterno.getText(), txfApellidoMaterno.getText(), txfContraseña.getText(), Long.parseLong(txfIdCarrera.getText()));
+    private void CargarEstudiante(){
         try {
-            adminNegocio.agregarEstudiante(estudianteDTO);
+            EditarEstudianteDTO e = adminNegocio.getEstudiantePorIdEstudiante(idEstudiante);
+            txfIdEstudiante.setText(e.getIdEstudiante());
+            txfNombre.setText(e.getNombre());
+            txfApellidoPaterno.setText(e.getApellidoPaterno());
+            txfApellidoMaterno.setText(e.getApellidoMaterno());
+            txfContraseña.setText(e.getContraseña());
+            txfIdCarrera.setText(e.getCarrera());
         } catch (NegocioException ex) {
-            Logger.getLogger(frmAgregarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmEditarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnAgregarMouseClicked
+    }
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        // TODO add your handling code here:
+        EditarEstudianteDTO estudianteDTO = new EditarEstudianteDTO(
+                txfIdEstudiante.getText(),
+                txfNombre.getText(),
+                txfApellidoPaterno.getText(),
+                txfApellidoMaterno.getText(),
+                "Activo",
+                txfContraseña.getText(),
+                txfIdCarrera.getText()
+        );
+        try {
+            adminNegocio.editarEstudiante(estudianteDTO);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmEditarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEditarMouseClicked
 
 //    /**
 //     * @param args the command line arguments
@@ -167,7 +196,7 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JTextField txfApellidoMaterno;
     private javax.swing.JTextField txfApellidoPaterno;
     private javax.swing.JTextField txfContraseña;

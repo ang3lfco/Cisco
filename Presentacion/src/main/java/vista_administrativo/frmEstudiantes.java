@@ -114,9 +114,12 @@ public class frmEstudiantes extends javax.swing.JFrame {
             e -> {
                 int fila = tblEstudiantes.getSelectedRow();
                 if (fila >= 0){
-                    
+                    String idEstudiante = (String) tblEstudiantes.getValueAt(fila, 0);
+                    frmEditarEstudiante editar = new frmEditarEstudiante(adminNegocio, idEstudiante);
+                    editar.setVisible(true);
+//                    JOptionPane.showMessageDialog(null, ": " + idEstudiante);
                 }
-                JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para editar.");
+//                JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para editar.");
             },
             e -> {
                 JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para eliminar.");

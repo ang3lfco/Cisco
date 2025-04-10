@@ -14,6 +14,7 @@ import Dtos.BloqueoDTO;
 import Dtos.CarreraDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.EditarEstudianteDTO;
 import Dtos.EstudianteDTO;
 import Dtos.EstudianteTablaDTO;
 import Dtos.HorarioEspecialDTO;
@@ -536,4 +537,19 @@ public class Conversiones {
         );
         return estudiante;
     }
+    
+    public static EditarEstudianteDTO EntidadAEditarEstudianteDto(Estudiante e){
+        EditarEstudianteDTO estudiante = new EditarEstudianteDTO(
+                e.getIdEstudiante(),
+                e.getNombre(),
+                e.getApellidoPaterno(),
+                e.getApellidoMaterno(),
+                e.getEstado(),
+                e.getContraseña(),
+                e.getCarrera().getNombre()
+        );
+        return estudiante;
+    }
+    
+    
 }
