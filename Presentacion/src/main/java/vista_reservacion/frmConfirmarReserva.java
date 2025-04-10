@@ -119,6 +119,16 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         }
         return this.obtenerHorarioEspecialHoy();
     }
+    
+    private void cambiarEstadoPC(){
+        try {
+            pc = reservacionNegocio.computadoraPorIpYTipo(this.pc.getDireccionIp(),"Estudiante");
+           pc.setEstado(false);
+            reservacionNegocio.editarComputadora(pc);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -272,12 +282,8 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
                     horario
             );
             
+            this.cambiarEstadoPC();
             reservacionNegocio.agregarReserva(reserva);
-            
-            pc = reservacionNegocio.computadoraPorIpYTipo(this.pc.getDireccionIp(),"Estudiante");
-            pc.setEstado(true);
-            
-            reservacionNegocio.editarComputadora(pc);
             
             JOptionPane.showMessageDialog(null, "Reservacion realizada");
             this.dispose();

@@ -84,7 +84,7 @@ public class frmComputadora extends javax.swing.JFrame {
         
         Timer timer = new Timer(delay, (ActionEvent e) -> {
             if (reserva != null) {
-                if (this.obtenerEquipo(reserva.getComputadora().getDireccionIp()).isEstado()) {
+                if (!this.obtenerEquipo(reserva.getComputadora().getDireccionIp()).isEstado()) {
                     this.btnDesbloquear.show();
                     this.actualizarPantalla(reserva);
                 }
@@ -233,7 +233,7 @@ public class frmComputadora extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("NOMBRE DEL ESTUDIANTE AQUI");
+        jLabel3.setText("ESPERANDO RESERVA");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
