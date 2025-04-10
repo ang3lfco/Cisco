@@ -551,5 +551,11 @@ public class Conversiones {
         return estudiante;
     }
     
+    public static Instituto institutoDtoAEntidad(InstitutoDTO institutoDTO){
+        Instituto instituto = new Instituto(institutoDTO.getNombre(), institutoDTO.getSiglas());
+        return instituto;
+    }
+    
+    
     
 }

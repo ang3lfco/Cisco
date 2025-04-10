@@ -4,11 +4,19 @@
  */
 package vista_administrativo;
 
+import Dtos.CargaLaboratorioDTO;
+import Dtos.ComputadoraDTO;
 import Dtos.ConsultarLaboratorioDTO;
+import Dtos.HorarioEspecialDTO;
+import Dtos.InstitutoDTO;
+import Dtos.LaboratorioDTO;
 import componentes.RoundedPanel;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
 import java.awt.Color;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -95,6 +103,7 @@ public class frmCredenciales extends javax.swing.JFrame {
         lblExpandir = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
         lblCerrar = new javax.swing.JLabel();
+        lblCargarInstituto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +153,15 @@ public class frmCredenciales extends javax.swing.JFrame {
             }
         });
 
+        lblCargarInstituto.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        lblCargarInstituto.setForeground(new java.awt.Color(255, 255, 255));
+        lblCargarInstituto.setText("+ Cargar instituto");
+        lblCargarInstituto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCargarInstitutoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,6 +170,14 @@ public class frmCredenciales extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblExpandir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMinimizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCerrar)
+                        .addGap(14, 14, 14))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
@@ -160,18 +186,10 @@ public class frmCredenciales extends javax.swing.JFrame {
                             .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblExpandir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblMinimizar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCerrar)
-                                .addGap(14, 14, 14))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnEntrar)
-                                .addContainerGap())))))
+                        .addComponent(lblCargarInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEntrar)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +210,9 @@ public class frmCredenciales extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(btnEntrar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEntrar)
+                    .addComponent(lblCargarInstituto))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -250,6 +270,39 @@ public class frmCredenciales extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblCerrarMouseClicked
 
+    private void lblCargarInstitutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCargarInstitutoMouseClicked
+        // TODO add your handling code here:
+        List<LaboratorioDTO> labs = new ArrayList<>();
+        List<ComputadoraDTO> equipos = new ArrayList<>();
+        List<HorarioEspecialDTO> horarios = new ArrayList<>();
+        InstitutoDTO instituto = new InstitutoDTO("Instituto Tecnológico de Sonora", "Itson", labs);
+        LaboratorioDTO cisco = new LaboratorioDTO(
+                "Cisco", 
+                LocalTime.of(8, 0), 
+                LocalTime.of(20, 0), 
+                "Cisco123#", 
+                instituto,
+                equipos,
+                horarios
+        );
+        LaboratorioDTO biblioteca = new LaboratorioDTO(
+                "Biblioteca", 
+                LocalTime.of(8, 0), 
+                LocalTime.of(20, 0), 
+                "Biblio098*", 
+                instituto,
+                equipos,
+                horarios
+        );
+        labs.add(cisco);
+        labs.add(biblioteca);
+        try {
+            adminNegocio.agregarInstitutoConLaboratorios(instituto);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmCredenciales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblCargarInstitutoMouseClicked
+
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -292,6 +345,7 @@ public class frmCredenciales extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblCargarInstituto;
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
     private javax.swing.JLabel lblMinimizar;

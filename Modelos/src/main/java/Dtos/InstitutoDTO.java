@@ -24,6 +24,8 @@ public class InstitutoDTO {
         this.siglas = siglas;
         this.laboratorios = laboratorios;
     }
+    
+    
 
     public InstitutoDTO(Long id, String nombre, String siglas, List<LaboratorioDTO> laboratorios) {
         this.id = id;
@@ -32,11 +34,7 @@ public class InstitutoDTO {
         this.laboratorios = laboratorios;
     }
 
-    public InstitutoDTO(String nombre, String siglas) {
-        this.nombre = nombre;
-        this.siglas = siglas;
-    }
-
+    
     
     public Long getId() {
         return id;

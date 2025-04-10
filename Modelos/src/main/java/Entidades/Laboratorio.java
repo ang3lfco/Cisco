@@ -42,7 +42,7 @@ public class Laboratorio implements Serializable {
     @Column(name = "contraseña",length = 60, nullable = false)
     private String contraseña;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idInstituto", nullable=false)
     private Instituto instituto;
     

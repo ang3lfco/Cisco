@@ -10,6 +10,7 @@ import Dtos.AgregarEstudianteDTO;
 import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
+import Dtos.CargaLaboratorioDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
 import Dtos.ConsultarLaboratorioDTO;
@@ -17,7 +18,9 @@ import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EditarLaboratoriosDTO;
 import Dtos.EstudianteTablaDTO;
+import Dtos.InstitutoDTO;
 import Dtos.LaboratoriosTablaDTO;
+import Entidades.Instituto;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -47,4 +50,6 @@ public interface IAdministrativoNegocio {
     List<LaboratoriosTablaDTO> getLaboratorios() throws NegocioException;
     void editarLaboratorio(EditarLaboratoriosDTO laboratorio, EditarLaboratoriosDTO editado);
     void eliminarLaboratorio(EditarLaboratoriosDTO labDTO);
+    void agregarInstitutoConLaboratorios(InstitutoDTO institutoDTO) throws NegocioException;
+    void agregarLaboratorioConInstituto(CargaLaboratorioDTO laboratorioDTO) throws NegocioException;
 }

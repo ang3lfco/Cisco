@@ -10,6 +10,7 @@ import Dtos.AgregarEstudianteDTO;
 import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
+import Dtos.CargaLaboratorioDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
 import Dtos.ConsultarLaboratorioDTO;
@@ -17,6 +18,8 @@ import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EditarLaboratoriosDTO;
 import Dtos.EstudianteTablaDTO;
+import Dtos.InstitutoDTO;
+import Dtos.LaboratorioDTO;
 import Dtos.LaboratoriosTablaDTO;
 import Entidades.Bloqueo;
 import Entidades.Carrera;
@@ -337,5 +340,43 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
     @Override
     public boolean validarContraseña(String original, String encriptada){
         return Encriptador.verificarContraseña(original, encriptada);
+    }
+    
+    @Override
+    public void agregarInstitutoConLaboratorios(InstitutoDTO institutoDTO) throws NegocioException {
+        try{
+            List<Laboratorio> labs = new ArrayList<>();
+            Instituto instituto = new Instituto(institutoDTO.getNombre(), institutoDTO.getSiglas(), labs);
+            List<Computadora> equipos = new ArrayList<>();
+            List<HorarioEspecial> horarios = new ArrayList<>();
+            for(LaboratorioDTO labDto : institutoDTO.getLaboratorios()){
+                Laboratorio l = new Laboratorio(labDto.getNombre(), labDto.getHoraInicio(), labDto.getHoraFin(), Encriptador.encriptarContraseña(labDto.getContraseña()), instituto, equipos, horarios);
+                labs.add(l);
+            }
+            institutoDAO.agregarInstituto(instituto);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public void agregarLaboratorioConInstituto(CargaLaboratorioDTO laboratorioDTO) throws NegocioException{
+        try{
+            Instituto instituto = Conversiones.convertirInstitutoDTOAInstituto(laboratorioDTO.getInstituto());
+            Laboratorio laboratorio = new Laboratorio(
+                    laboratorioDTO.getNombre(),
+                    laboratorioDTO.getHoraInicio(), 
+                    laboratorioDTO.getHoraFin(),
+                    laboratorioDTO.getContraseña(),
+                    instituto,
+                    new ArrayList<>(),
+                    new ArrayList<>()
+            );
+            laboratorioDAO.agregarLaboratorio(laboratorio);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
     }
 }
