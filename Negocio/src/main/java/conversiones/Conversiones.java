@@ -15,6 +15,7 @@ import Dtos.CarreraDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
 import Dtos.EstudianteDTO;
+import Dtos.EstudianteTablaDTO;
 import Dtos.HorarioEspecialDTO;
 import Dtos.InstitutoDTO;
 import Dtos.LaboratorioDTO;
@@ -520,5 +521,19 @@ public class Conversiones {
                 new ArrayList<>()
         );
         return l;
+    }
+    
+    public static EstudianteTablaDTO estudianteEntidadEnEstudianteTablaDTO(Estudiante e){
+        EstudianteTablaDTO estudiante = new EstudianteTablaDTO(
+                String.valueOf(e.getId()),
+                e.getIdEstudiante(),
+                e.getNombre(),
+                e.getApellidoPaterno(),
+                e.getApellidoMaterno(),
+                e.getEstado(),
+                e.getContraseña(),
+                e.getCarrera().getNombre()
+        );
+        return estudiante;
     }
 }

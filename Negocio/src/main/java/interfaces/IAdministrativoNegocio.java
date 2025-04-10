@@ -12,6 +12,7 @@ import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.EstudianteTablaDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -29,4 +30,5 @@ public interface IAdministrativoNegocio {
     List<ConsultarEstudianteDTO> getEstudiantes() throws NegocioException;
     void agregarEstudiante(AgregarEstudianteDTO estudianteDTO) throws NegocioException;
     void agregarLaboratorio(AgregarLaboratorioDTO laboratorioDTO) throws NegocioException;
+    List<EstudianteTablaDTO> getEstudiantesTabla() throws NegocioException;
 }

@@ -4,7 +4,9 @@
  */
 package componentes;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractCellEditor;
@@ -27,10 +29,16 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         editButton = new JButton(new ImageIcon(getClass().getResource("/iconos/editar2.png")));
         deleteButton = new JButton(new ImageIcon(getClass().getResource("/iconos/eliminar1.png")));
-
+        
+        editButton.setPreferredSize(new Dimension(24, 24));
+        deleteButton.setPreferredSize(new Dimension(24, 24));
+        
         editButton.addActionListener(editAction);
         deleteButton.addActionListener(deleteAction);
-
+        
+        editButton.setBackground(Color.WHITE);
+        deleteButton.setBackground(Color.WHITE);
+        
         panel.add(editButton);
         panel.add(deleteButton);
     }

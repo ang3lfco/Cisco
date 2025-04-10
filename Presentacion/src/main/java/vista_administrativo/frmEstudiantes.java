@@ -5,10 +5,14 @@
 package vista_administrativo;
 
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.EstudianteTablaDTO;
 import componentes.ButtonEditor;
 import componentes.ButtonRenderer;
+import componentes.RoundedPanel;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,41 +32,90 @@ public class frmEstudiantes extends javax.swing.JFrame {
      * Creates new form frmEstudiantes
      */
     public frmEstudiantes(IAdministrativoNegocio adminNegocio) {
+        setUndecorated(true);
+        setBackground(new Color(0, 0, 0, 0));
         initComponents();
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.adminNegocio = adminNegocio;
+        
         try {
             cargarDatos();
         } catch (NegocioException ex) {
             Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
         }
         configurarTabla();
+        
+        // Panel redondo
+        RoundedPanel mainPanel = new RoundedPanel(50, new Color(15,86,137));
+        mainPanel.setOpaque(false);
+        setContentPane(mainPanel);
+        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(layout);
+        
+        // Ajustar márgenes para evitar que los componentes cubran los bordes redondeados
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0) // Márgenes izquierdos
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                    .addGap(0)) // Márgenes derechos
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0) // Márgenes superiores
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addGap(0)) // Márgenes inferiores
+        );
+
+        jPanel1.setOpaque(false);
+        
+//        tblEstudiantes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+//            @Override
+//            public void mouseMoved(java.awt.event.MouseEvent e) {
+//                int row = tblEstudiantes.rowAtPoint(e.getPoint());
+//                int column = tblEstudiantes.columnAtPoint(e.getPoint());
+//
+//                // Ajusta el número de columna según en cuál estén los botones
+//                if (column == 4) { // o el número correcto
+//                    tblEstudiantes.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//                } else {
+//                    tblEstudiantes.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+//                }
+//            }
+//        });
     }
     
     
     private void cargarDatos() throws NegocioException {
-        List<ConsultarEstudianteDTO> estudiantes = adminNegocio.getEstudiantes();
-        List<ConsultarEstudianteDTO> clientesDisponibles = new ArrayList<>();
-        clientesDisponibles.clear();
+        List<EstudianteTablaDTO> estudiantes = adminNegocio.getEstudiantesTabla();
         
         DefaultTableModel model = (DefaultTableModel) tblEstudiantes.getModel();
         model.setRowCount(0);
-        for(ConsultarEstudianteDTO c : estudiantes){
-            Object[] row = new Object[4];
+        for(EstudianteTablaDTO c : estudiantes){
+            Object[] row = new Object[6];
             row[0] = c.getIdEstudiante();
             row[1] = c.getNombre();
             row[2] = c.getApellidoPaterno();
             row[3] = c.getApellidoMaterno();
+            row[4] = c.getEstado();
+            row[5] = c.getCarrera();
             model.addRow(row);
         }
         tblEstudiantes.setRowHeight(50);
     }
     
     private void configurarTabla() {
-        tblEstudiantes.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+        tblEstudiantes.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
 
         ButtonEditor editor = new ButtonEditor(
             e -> {
+                int fila = tblEstudiantes.getSelectedRow();
+                if (fila >= 0){
+                    
+                }
                 JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para editar.");
             },
             e -> {
@@ -70,7 +123,7 @@ public class frmEstudiantes extends javax.swing.JFrame {
             }
         );
 
-        tblEstudiantes.getColumnModel().getColumn(4).setCellEditor(editor);
+        tblEstudiantes.getColumnModel().getColumn(6).setCellEditor(editor);
     }
 
     /**
@@ -94,13 +147,13 @@ public class frmEstudiantes extends javax.swing.JFrame {
 
         tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "idEstudiante", "Nombre", "Apellido Paterno", "Apellido Materno", ""
+                "idEstudiante", "Nombre", "Apellido Paterno", "Apellido Materno", "Estado", "Carrera", ""
             }
         ));
         jScrollPane1.setViewportView(tblEstudiantes);
@@ -116,7 +169,7 @@ public class frmEstudiantes extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 838, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1))

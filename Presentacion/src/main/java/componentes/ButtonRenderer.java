@@ -6,6 +6,7 @@ package componentes;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,8 +27,13 @@ public class ButtonRenderer extends JPanel implements TableCellRenderer {
         setBackground(Color.WHITE);
         editButton = new JButton(new ImageIcon(getClass().getResource("/iconos/editar2.png")));
         deleteButton = new JButton(new ImageIcon(getClass().getResource("/iconos/eliminar1.png")));
+        
+        editButton.setPreferredSize(new Dimension(24, 24));
+        deleteButton.setPreferredSize(new Dimension(24, 24));
+        
         editButton.setBackground(Color.WHITE);
         deleteButton.setBackground(Color.WHITE);
+        
         editButton.setBorderPainted(false);
         editButton.setFocusPainted(false);
         editButton.setContentAreaFilled(false);

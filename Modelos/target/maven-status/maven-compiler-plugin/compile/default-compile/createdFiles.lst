@@ -6,6 +6,7 @@ Entidades\Estudiante.class
 Dtos\HorarioEspecialDTO.class
 Dtos\AgregarEstudianteDTO.class
 Entidades\Bloqueo.class
+Dtos\EstudianteTablaDTO.class
 Entidades\Reserva.class
 Dtos\EstudianteDTO.class
 Entidades\Laboratorio.class

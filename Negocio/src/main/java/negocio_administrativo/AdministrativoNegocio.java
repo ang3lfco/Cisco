@@ -11,6 +11,7 @@ import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.EstudianteTablaDTO;
 import Entidades.Bloqueo;
 import Entidades.Carrera;
 import Entidades.Computadora;
@@ -166,6 +167,23 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             Laboratorio lab = Conversiones.AgregarLaboratorioDtoAEntidad(laboratorioDTO, i);
             lab.setContraseña(Encriptador.encriptarContraseña(lab.getContraseña()));
             laboratorioDAO.agregarLaboratorio(lab);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public List<EstudianteTablaDTO> getEstudiantesTabla() throws NegocioException {
+        try{
+            List<EstudianteTablaDTO> estudiantesDTO = new ArrayList<>();
+            List<Estudiante> estudiantesDAO = estudianteDAO.getEstudiantes();
+            
+            for(Estudiante e : estudiantesDAO){
+                EstudianteTablaDTO estudiante = Conversiones.estudianteEntidadEnEstudianteTablaDTO(e);
+                estudiantesDTO.add(estudiante);
+            }
+            return estudiantesDTO;
         }
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());
