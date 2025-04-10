@@ -5,32 +5,18 @@
 package vista_administrativo;
 
 import Dtos.ConsultarEstudianteDTO;
-import daos.BloqueoDAO;
-import daos.CarreraDAO;
-import daos.ComputadoraDAO;
-import daos.ConexionBD;
-import daos.EstudianteDAO;
-import daos.HorarioEspecialDAO;
-import daos.InstitutoDAO;
-import daos.LaboratorioDAO;
-import daos.SoftwareDAO;
+import componentes.ButtonEditor;
+import componentes.ButtonRenderer;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
-import interfaces.IBloqueoDAO;
-import interfaces.ICarreraDAO;
-import interfaces.IComputadoraDAO;
-import interfaces.IConexionBD;
-import interfaces.IEstudianteDAO;
-import interfaces.IHorarioEspecialDAO;
-import interfaces.IInstitutoDAO;
-import interfaces.ILaboratorioDAO;
-import interfaces.ISoftwareDAO;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import negocio_administrativo.AdministrativoNegocio;
 
 /**
  *
@@ -43,12 +29,14 @@ public class frmEstudiantes extends javax.swing.JFrame {
      */
     public frmEstudiantes(IAdministrativoNegocio adminNegocio) {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.adminNegocio = adminNegocio;
         try {
             cargarDatos();
         } catch (NegocioException ex) {
             Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
         }
+        configurarTabla();
     }
     
     
@@ -68,6 +56,21 @@ public class frmEstudiantes extends javax.swing.JFrame {
             model.addRow(row);
         }
         tblEstudiantes.setRowHeight(50);
+    }
+    
+    private void configurarTabla() {
+        tblEstudiantes.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+
+        ButtonEditor editor = new ButtonEditor(
+            e -> {
+                JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para editar.");
+            },
+            e -> {
+                JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para eliminar.");
+            }
+        );
+
+        tblEstudiantes.getColumnModel().getColumn(4).setCellEditor(editor);
     }
 
     /**
@@ -91,13 +94,13 @@ public class frmEstudiantes extends javax.swing.JFrame {
 
         tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "idEstudiante", "Nombre", "Apellido Paterno", "Apellido Materno", "Editar", "Eliminar"
+                "idEstudiante", "Nombre", "Apellido Paterno", "Apellido Materno", ""
             }
         ));
         jScrollPane1.setViewportView(tblEstudiantes);
