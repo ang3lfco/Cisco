@@ -218,6 +218,9 @@ public class ReservaDAO implements IReservaDAO {
         TypedQuery<ReservaDTO> query = entityManager.createQuery(criteriaQuery);
 
         List<ReservaDTO> reservas = query.getResultList();
+        if (reservas.isEmpty()) {
+            return null;
+        }
         ReservaDTO reserva = reservas.getLast();
         if (entityManager != null && entityManager.isOpen()) {
             entityManager.close(); // Cerrar siempre el EntityManager

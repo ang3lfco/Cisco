@@ -254,6 +254,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
 
             Long idHorarioEspecial = this.obtenerHorarioEspecial();
             System.out.println("id horario: " + idHorarioEspecial);
+            
             EstudianteDTO estudiante = new EstudianteDTO();
             ComputadoraDTO pc = new ComputadoraDTO();
             HorarioEspecial horario = new HorarioEspecial();
@@ -272,10 +273,12 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
             );
             
             reservacionNegocio.agregarReserva(reserva);
+            
             pc = reservacionNegocio.computadoraPorIpYTipo(this.pc.getDireccionIp(),"Estudiante");
             pc.setEstado(true);
-            pc.setTipo("Estudiante");
+            
             reservacionNegocio.editarComputadora(pc);
+            
             JOptionPane.showMessageDialog(null, "Reservacion realizada");
             this.dispose();
         } catch (NegocioException ex) {
@@ -285,6 +288,9 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         // TODO add your handling code here:
+        frmMenuComputadoras anterior = new frmMenuComputadoras(this.reservacionNegocio,this.estudiante);
+        anterior.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAnteriorActionPerformed
 
     /**

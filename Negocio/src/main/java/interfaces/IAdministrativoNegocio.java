@@ -31,4 +31,5 @@ public interface IAdministrativoNegocio {
     void agregarEstudiante(AgregarEstudianteDTO estudianteDTO) throws NegocioException;
     void agregarLaboratorio(AgregarLaboratorioDTO laboratorioDTO) throws NegocioException;
     List<EstudianteTablaDTO> getEstudiantesTabla() throws NegocioException;
+    List<ComputadoraDTO> getComputadoras() throws NegocioException;
 }

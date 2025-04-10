@@ -31,8 +31,5 @@ import negocio_reservacion.ReservacionNegocio;
 public class Negocio {
 
     public static void main(String[] args) {
-        
-        Conversiones con = new Conversiones();
-        
     }
 }

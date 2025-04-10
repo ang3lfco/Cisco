@@ -37,7 +37,7 @@ public class frmComputadora extends javax.swing.JFrame {
         this.computadoraNegocio = computadora;
         initComponents();
         setLocationRelativeTo(null);
-
+        this.btnDesbloquear.hide();
         verificarComputadoraPorIP();
     }
 
@@ -49,7 +49,6 @@ public class frmComputadora extends javax.swing.JFrame {
                 btnDesbloquear.hide();
                 txtPassword.disable();
             } else {
-
                 actualizarNumeroComputadora();
                 iniciarActualizacionCadaMinuto(); // ⏱️ Iniciar el Timer
             }
@@ -82,11 +81,15 @@ public class frmComputadora extends javax.swing.JFrame {
         }
 
         ReservaDTO reserva = this.obtenerReserva(ip);
+        
         Timer timer = new Timer(delay, (ActionEvent e) -> {
-
-            if (this.obtenerEquipo(reserva.getComputadora().getDireccionIp()).isEstado()) {
-                this.actualizarPantalla(reserva);
+            if (reserva != null) {
+                if (this.obtenerEquipo(reserva.getComputadora().getDireccionIp()).isEstado()) {
+                    this.btnDesbloquear.show();
+                    this.actualizarPantalla(reserva);
+                }
             }
+
         });
 
         timer.start();
@@ -95,7 +98,7 @@ public class frmComputadora extends javax.swing.JFrame {
     public ComputadoraDTO obtenerEquipo(String ip) {
         ComputadoraDTO pc = null;
         try {
-            pc = this.computadoraNegocio.computadoraPorIpYTipo(ip,tipo);
+            pc = this.computadoraNegocio.computadoraPorIpYTipo(ip, tipo);
         } catch (NegocioException ex) {
             Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -105,6 +108,9 @@ public class frmComputadora extends javax.swing.JFrame {
     public ReservaDTO obtenerReserva(String ip) {
         ReservaDTO reserva = null;
         try {
+            if (computadoraNegocio.reservaPorComputadora(ip) == null) {
+                return null;
+            }
             reserva = computadoraNegocio.reservaPorComputadora(ip);
         } catch (NegocioException ex) {
             Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
