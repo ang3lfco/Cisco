@@ -12,6 +12,7 @@ import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.ConsultarLaboratorioDTO;
 import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EstudianteTablaDTO;
@@ -283,4 +284,19 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         }
     }
     
+    @Override
+    public ConsultarLaboratorioDTO getLaboratorioPorNombre(String nombre) throws NegocioException {
+        try{
+            Laboratorio lab = laboratorioDAO.getLaboratorioPorNombre(nombre);
+            return new ConsultarLaboratorioDTO(String.valueOf(lab.getId()), lab.getNombre(), lab.getContraseña());
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public boolean validarContraseña(String original, String encriptada){
+        return Encriptador.verificarContraseña(original, encriptada);
+    }
 }

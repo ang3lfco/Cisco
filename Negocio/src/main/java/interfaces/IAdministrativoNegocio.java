@@ -12,6 +12,7 @@ import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
+import Dtos.ConsultarLaboratorioDTO;
 import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EstudianteTablaDTO;
@@ -39,4 +40,6 @@ public interface IAdministrativoNegocio {
     void eliminarEstudiante(String idEstudiante) throws NegocioException;
     void editarComputadora(EditarEquipoDTO equipo,EditarEquipoDTO equipoEditado);
     void eliminarComputadora(EditarEquipoDTO equipo);
+    ConsultarLaboratorioDTO getLaboratorioPorNombre(String nombre) throws NegocioException;
+    boolean validarContraseña(String original, String encriptada);
 }

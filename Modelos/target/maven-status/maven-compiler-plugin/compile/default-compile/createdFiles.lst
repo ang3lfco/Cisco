@@ -3,6 +3,7 @@ com\mycompany\modelos\Modelos.class
 Dtos\BloqueoDTO.class
 Dtos\AgregarBloqueoDTO.class
 Entidades\Estudiante.class
+Dtos\ConsultarLaboratorioDTO.class
 Dtos\HorarioEspecialDTO.class
 Dtos\AgregarEstudianteDTO.class
 Entidades\Bloqueo.class

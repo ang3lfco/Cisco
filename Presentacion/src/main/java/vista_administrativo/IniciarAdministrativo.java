@@ -43,7 +43,7 @@ public class IniciarAdministrativo {
         IInstitutoDAO institutoDAO = new InstitutoDAO(conexion);
         
         adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO, carreraDAO, institutoDAO);
-        frmAdmin admin = new frmAdmin(adminNegocio);
-        admin.setVisible(true);
+        frmCredenciales iniciar = new frmCredenciales(adminNegocio);
+        iniciar.setVisible(true);
     }
 }
