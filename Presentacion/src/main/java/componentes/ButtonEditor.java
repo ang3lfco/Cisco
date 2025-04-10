@@ -27,8 +27,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 
     public ButtonEditor(ActionListener editAction, ActionListener deleteAction) {
         panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        editButton = new JButton(new ImageIcon(getClass().getResource("/iconos/editar2.png")));
-        deleteButton = new JButton(new ImageIcon(getClass().getResource("/iconos/eliminar1.png")));
+        editButton = new JButton(new ImageIcon(getClass().getResource("/icons/editar2.png")));
+        deleteButton = new JButton(new ImageIcon(getClass().getResource("/icons/eliminar1.png")));
         
         editButton.setPreferredSize(new Dimension(24, 24));
         deleteButton.setPreferredSize(new Dimension(24, 24));
