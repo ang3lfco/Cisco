@@ -9,8 +9,10 @@ import Dtos.ConsultarEstudianteDTO;
 import Dtos.EditarEquipoDTO;
 import componentes.ButtonEditor;
 import componentes.ButtonRenderer;
+import componentes.RoundedPanel;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,14 +28,58 @@ import javax.swing.table.DefaultTableModel;
 public class frmComputadoras extends javax.swing.JFrame {
 
     private IAdministrativoNegocio adminNegocio;
-
+    private int xMouse, yMouse;
     /**
      * Creates new form frmComputadoras
      */
     public frmComputadoras(IAdministrativoNegocio adminNegocio) {
+        setUndecorated(true);
+        setBackground(new Color(0, 0, 0, 0));
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        // Panel redondo
+        RoundedPanel mainPanel = new RoundedPanel(50, new Color(15,86,137));
+        mainPanel.setOpaque(false);
+        setContentPane(mainPanel);
+        
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(layout);
+        
+        // Ajustar márgenes para evitar que los componentes cubran los bordes redondeados
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0) // Márgenes izquierdos
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                    .addGap(0)) // Márgenes derechos
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0) // Márgenes superiores
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addGap(0)) // Márgenes inferiores
+        );
+
+        jPanel1.setOpaque(false);
+        
+        // Movimiento del Frame
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                xMouse = evt.getX();
+                yMouse = evt.getY();
+            }
+        });
+
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
+            }
+        });
 
         this.adminNegocio = adminNegocio;
         try {
@@ -137,10 +183,13 @@ public class frmComputadoras extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPcs = new javax.swing.JTable();
         lblAgregarComputadora = new javax.swing.JLabel();
+        lblCerrar = new javax.swing.JLabel();
+        lblExpandir = new javax.swing.JLabel();
+        lblMinimizar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(1, 109, 183));
+        jPanel1.setBackground(new java.awt.Color(15, 86, 137));
 
         tblPcs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -164,6 +213,27 @@ public class frmComputadoras extends javax.swing.JFrame {
             }
         });
 
+        lblCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cerrar.png"))); // NOI18N
+        lblCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCerrarMouseClicked(evt);
+            }
+        });
+
+        lblExpandir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/expandir.png"))); // NOI18N
+        lblExpandir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExpandirMouseClicked(evt);
+            }
+        });
+
+        lblMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimizar.png"))); // NOI18N
+        lblMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMinimizarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -177,11 +247,24 @@ public class frmComputadoras extends javax.swing.JFrame {
                         .addComponent(lblAgregarComputadora)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblExpandir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMinimizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCerrar)
+                .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblExpandir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(lblAgregarComputadora)
@@ -207,6 +290,26 @@ public class frmComputadoras extends javax.swing.JFrame {
         frmEquipo agregarEquipo = new frmEquipo(adminNegocio);
         agregarEquipo.setVisible(true);
     }//GEN-LAST:event_lblAgregarComputadoraMouseClicked
+
+    private void lblCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_lblCerrarMouseClicked
+
+    private void lblMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizarMouseClicked
+        // TODO add your handling code here:
+        this.setState(JFrame.ICONIFIED);
+    }//GEN-LAST:event_lblMinimizarMouseClicked
+
+    private void lblExpandirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExpandirMouseClicked
+        // TODO add your handling code here:
+        if (this.getExtendedState() == JFrame.MAXIMIZED_BOTH){
+            this.setExtendedState(JFrame.NORMAL);
+        } 
+        else{
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
+    }//GEN-LAST:event_lblExpandirMouseClicked
 
 //    /**
 //     * @param args the command line arguments
@@ -247,6 +350,9 @@ public class frmComputadoras extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAgregarComputadora;
+    private javax.swing.JLabel lblCerrar;
+    private javax.swing.JLabel lblExpandir;
+    private javax.swing.JLabel lblMinimizar;
     private javax.swing.JTable tblPcs;
     // End of variables declaration//GEN-END:variables
 }
