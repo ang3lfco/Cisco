@@ -26,7 +26,7 @@ public class frmLiberar extends javax.swing.JFrame {
 
     IComputadoraNegocio computadoraNegocio;
     Long tiempo;
-    String tipo= "Estudiante";
+    String tipo = "Estudiante";
 
     /**
      * Creates new form frmLiberar
@@ -36,30 +36,41 @@ public class frmLiberar extends javax.swing.JFrame {
         initComponents();
         actualizarPantalla();
         iniciarActualizacionCadaMinuto();
+        
     }
 
     private void actualizarPantalla() {
         ReservaDTO reserva = null;
 
         try {
-            reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
+            if (computadoraNegocio.reservaPorComputadora(this.obtenerIpDelEquipo()) != null) {
+                reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
+
+                jLabel6.setText("equipo :" + reserva.getComputadora().getNumero());
+
+                jLabel4.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
+
+                System.out.println(reserva.getHoraInicio());
+                System.out.println(reserva.getHoraFin());
+
+                tiempo = Duration.between(LocalTime.now(), reserva.getHoraFin()).toMinutes();
+                jLabel7.setText(tiempo + " min");
+                
+            }
+
         } catch (PresentacionException ex) {
             Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jLabel6.setText("equipo :" + reserva.getComputadora().getNumero());
-
-        jLabel4.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
-
-        System.out.println(reserva.getHoraInicio());
-        System.out.println(reserva.getHoraFin());
-
-        tiempo = Duration.between(reserva.getHoraInicio(), reserva.getHoraFin()).toMinutes();
-        jLabel7.setText(tiempo + " min");
     }
 
     public ReservaDTO obtenerReserva(String ip) {
         ReservaDTO reserva = null;
         try {
+            if (computadoraNegocio.reservaPorComputadora(ip) == null) {
+                return null;
+            }
             reserva = computadoraNegocio.reservaPorComputadora(ip);
         } catch (NegocioException ex) {
             Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,7 +100,7 @@ public class frmLiberar extends javax.swing.JFrame {
                 this.actualizarEstadoEsquipo();
                 this.dispose();
             }
-            
+
         });
 
         timer.start();
@@ -105,7 +116,7 @@ public class frmLiberar extends javax.swing.JFrame {
         }
 
         try {
-            pc = computadoraNegocio.computadoraPorIpYTipo(reserva.getComputadora().getDireccionIp(),tipo);
+            pc = computadoraNegocio.computadoraPorIpYTipo(reserva.getComputadora().getDireccionIp(), tipo);
             pc.setTipo(tipo);
             pc.setEstado(false);
             computadoraNegocio.editarComputadora(pc);

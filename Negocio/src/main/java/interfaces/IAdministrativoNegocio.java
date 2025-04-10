@@ -34,4 +34,5 @@ public interface IAdministrativoNegocio {
     List<EstudianteTablaDTO> getEstudiantesTabla() throws NegocioException;
     EditarEstudianteDTO getEstudiantePorIdEstudiante(String idEstudiante) throws NegocioException;
     void editarEstudiante(EditarEstudianteDTO estudianteDTO) throws NegocioException;
+    List<ComputadoraDTO> getComputadoras() throws NegocioException;
 }

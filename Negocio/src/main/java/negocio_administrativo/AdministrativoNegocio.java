@@ -10,6 +10,7 @@ import Dtos.AgregarEstudianteDTO;
 import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
+import Dtos.ComputadoraDTO;
 import Dtos.ConsultarEstudianteDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EstudianteTablaDTO;
@@ -216,6 +217,19 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             estudianteOriginal.setCarrera(carrera);
             
             estudianteDAO.editar(estudianteOriginal);
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public List<ComputadoraDTO> getComputadoras() throws NegocioException {
+        try{
+            List<ComputadoraDTO> computadoras = computadoraDAO.consultarComputadoras();
+            
+            return computadoras;
+
         }
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());

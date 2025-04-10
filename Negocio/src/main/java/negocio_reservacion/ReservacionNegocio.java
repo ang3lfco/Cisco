@@ -69,7 +69,7 @@ public class ReservacionNegocio implements IReservacionNegocio {
     public void editarReserva(ReservaDTO reserva) throws NegocioException {
         try {
             Reserva reservaEntidad = this.convertirReservaDTOAEntidad(reserva);
-
+            
             reservaDAO.editarReserva(reservaEntidad);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error. " + e.getMessage());
@@ -80,7 +80,6 @@ public class ReservacionNegocio implements IReservacionNegocio {
     public void editarComputadora(ComputadoraDTO pc) throws NegocioException {
         try {
             Computadora entidad = this.convertirComputadoraDTOAComputadora(pc);
-
             computadoraDAO.editarComputadora(entidad);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error. " + e.getMessage());
@@ -209,11 +208,11 @@ public class ReservacionNegocio implements IReservacionNegocio {
 
     public Computadora convertirComputadoraDTOAComputadora(ComputadoraDTO computadoraDTO) {
         if (computadoraDTO == null) {
+            System.out.println("NULO");
             return null;
         }
-        
         Laboratorio lab = new Laboratorio();
-        lab.setId(computadoraDTO.getId());
+        lab.setId(computadoraDTO.getLaboratorio().getId());
 
         Computadora computadora = new Computadora();
         computadora.setId(computadoraDTO.getId());

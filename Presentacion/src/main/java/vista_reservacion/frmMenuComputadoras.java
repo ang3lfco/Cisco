@@ -61,7 +61,7 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
         List<ComputadoraDTO> computadoras = null;
         try {
             Long idLab = this.obtenerEquipo(this.obtenerIpDelEquipo()).getLaboratorio().getId();
-            computadoras = reservacionNegocio.numeroComputadorasDTO(idLab,tipo);
+            computadoras = reservacionNegocio.numeroComputadorasDTO(idLab,"Estudiante");
         } catch (NegocioException ex) {
             Logger.getLogger(frmMenuComputadoras.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PresentacionException ex) {

@@ -144,10 +144,9 @@ public class ComputadoraDAO implements IComputadoraDAO {
                                 root.get("laboratorio").get("id"),
                                 root.get("laboratorio").get("nombre")
                         ))
-        ).where(criteriaBuilder.equal(root.get("laboratorio").get("id"), id))
-                .where(criteriaBuilder.equal(root.get("estado"), false))
-                .where(criteriaBuilder.equal(root.get("tipo"), tipo))
-                .orderBy(criteriaBuilder.asc(root.get("numero")));
+        ).where(criteriaBuilder.equal(root.get("laboratorio").get("id"), id),
+                criteriaBuilder.equal(root.get("estado"), false),
+                criteriaBuilder.equal(root.get("tipo"), tipo)).orderBy(criteriaBuilder.asc(root.get("numero")));
 
         TypedQuery<ComputadoraDTO> query = entityManager.createQuery(criteriaQuery);
 
@@ -221,14 +220,14 @@ public class ComputadoraDAO implements IComputadoraDAO {
                         root.get("numero"),
                         root.get("estado"),
                         root.get("direccionIp"),
+                        root.get("tipo"),
                         criteriaBuilder.construct(LaboratorioDTO.class,
                                 root.get("laboratorio").get("id"),
                                 root.get("laboratorio").get("nombre"),
                                 root.get("laboratorio").get("horaInicio"),
                                 root.get("laboratorio").get("horaFin")
                         ))
-        ).where(criteriaBuilder.equal(root.get("direccionIp"), ip)).
-                where(criteriaBuilder.equal(root.get("tipo"), tipo));
+        ).where(criteriaBuilder.equal(root.get("tipo"), tipo),criteriaBuilder.and(criteriaBuilder.equal(root.get("direccionIp"), ip)));
 
         TypedQuery<ComputadoraDTO> query = entityManager.createQuery(criteriaQuery);
 
@@ -289,5 +288,42 @@ public class ComputadoraDAO implements IComputadoraDAO {
         } finally {
             em.close();
         }
+    }
+    
+    @Override
+    public List<ComputadoraDTO> consultarComputadoras() throws PersistenciaException {
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
+
+        entityManager = conexionBD.obtenerEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<ComputadoraDTO> criteriaQuery = criteriaBuilder.createQuery(ComputadoraDTO.class);
+
+        Root<Computadora> root = criteriaQuery.from(Computadora.class);
+
+        criteriaQuery.select(
+                criteriaBuilder.construct(ComputadoraDTO.class,
+                        root.get("id"),
+                        root.get("numero"),
+                        root.get("estado"),
+                        root.get("direccionIp"),
+                        root.get("tipo"),
+                        criteriaBuilder.construct(LaboratorioDTO.class,
+                                root.get("laboratorio").get("id"),
+                                root.get("laboratorio").get("nombre")
+                        ))
+        );
+
+        TypedQuery<ComputadoraDTO> query = entityManager.createQuery(criteriaQuery);
+
+        List<ComputadoraDTO> pcs = query.getResultList();
+        if (entityManager != null && entityManager.isOpen()) {
+            entityManager.close(); // Cerrar siempre el EntityManager
+        }
+
+        return pcs;
     }
 }

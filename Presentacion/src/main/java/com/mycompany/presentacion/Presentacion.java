@@ -32,21 +32,11 @@ public class Presentacion {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        IConexionBD conexion = new ConexionBD();
-        IReservaDAO rDAO = new ReservaDAO(conexion);
-        IComputadoraDAO cDAO = new ComputadoraDAO(conexion);
-        IEstudianteDAO eDAO = new EstudianteDAO(conexion);
-        IHorarioEspecialDAO heDAO = new HorarioEspecialDAO(conexion);
-        
-        IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO,eDAO,heDAO);
-        frmReservacion reservacion = new frmReservacion(rNegocio);
-        
-        reservacion.setVisible(true);
-        
-        IComputadoraNegocio cNegocio = new ComputadoraNegocio(cDAO,rDAO);
-        frmComputadora computadora = new frmComputadora(cNegocio);
-        
-        computadora.setVisible(true);
+//        
+//        IComputadoraNegocio cNegocio = new ComputadoraNegocio(cDAO,rDAO);
+//        frmComputadora computadora = new frmComputadora(cNegocio);
+//        
+//        computadora.setVisible(true);
         
         
         

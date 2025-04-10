@@ -4,7 +4,18 @@
  */
 package vista_administrativo;
 
+import Dtos.ComputadoraDTO;
+import Dtos.ConsultarEstudianteDTO;
+import componentes.ButtonEditor;
+import componentes.ButtonRenderer;
+import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,9 +28,54 @@ public class frmComputadoras extends javax.swing.JFrame {
      */
     public frmComputadoras(IAdministrativoNegocio adminNegocio) {
         initComponents();
+        
+        
         this.adminNegocio = adminNegocio;
+        try {
+            cargarDatos();
+            configurarTabla();
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    private void cargarDatos() throws NegocioException {
+        List<ComputadoraDTO> ArrayList;
+        
+//        List<ComputadoraDTO> pcs = adminNegocio.getComputadoras();
+        List<ComputadoraDTO> pcs = adminNegocio.getComputadoras();
+        DefaultTableModel model = (DefaultTableModel) tblPcs.getModel();
+        model.setRowCount(0);
+        for(ComputadoraDTO c : pcs){
+            Object[] row = new Object[5];
+            row[0] = c.getNumero();
+            row[1] = c.isEstado();
+            row[2] = c.getDireccionIp();
+            row[3] = c.getTipo();
+            row[4] = c.getLaboratorio().getNombre();
+            model.addRow(row);
+        }
+        tblPcs.setRowHeight(50);
+    }
+    
+    private void configurarTabla() {
+        tblPcs.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+
+        ButtonEditor editor = new ButtonEditor(
+            e -> {
+                int fila = tblPcs.getSelectedRow();
+                if (fila >= 0){
+                    
+                }
+                JOptionPane.showMessageDialog(tblPcs, "Seleccionaste una fila para editar.");
+            },
+            e -> {
+                JOptionPane.showMessageDialog(tblPcs, "Seleccionaste una fila para eliminar.");
+            }
+        );
+
+        tblPcs.getColumnModel().getColumn(5).setCellEditor(editor);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,25 +87,25 @@ public class frmComputadoras extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPcs = new javax.swing.JTable();
         lblAgregarComputadora = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(1, 109, 183));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPcs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Numero", "Estado", "IP", "Tipo", "Laboratorio", "Editar", "Eliminar"
+                "Numero", "Estado", "IP", "Tipo", "Laboratorio", ""
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPcs);
 
         lblAgregarComputadora.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lblAgregarComputadora.setForeground(new java.awt.Color(255, 255, 255));
@@ -142,7 +198,7 @@ public class frmComputadoras extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAgregarComputadora;
+    private javax.swing.JTable tblPcs;
     // End of variables declaration//GEN-END:variables
 }

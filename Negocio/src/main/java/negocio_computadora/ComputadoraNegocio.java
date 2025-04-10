@@ -54,6 +54,9 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     @Override
     public ReservaDTO reservaPorComputadora(String ip) throws NegocioException{
         try {
+            if (reservaDAO.consultarReserva(ip) == null) {
+                return null;
+            }
             ReservaDTO dto = reservaDAO.consultarReserva(ip);
             
             return dto;
@@ -86,11 +89,12 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     
      public Computadora convertirComputadoraDTOAComputadora(ComputadoraDTO computadoraDTO) {
         if (computadoraDTO == null) {
+            System.out.println("NULO");
             return null;
         }
-        
+        System.out.println("NO NULO");
         Laboratorio lab = new Laboratorio();
-        lab.setId(computadoraDTO.getId());
+        lab.setId(computadoraDTO.getLaboratorio().getId());
 
         Computadora computadora = new Computadora();
         computadora.setId(computadoraDTO.getId());
