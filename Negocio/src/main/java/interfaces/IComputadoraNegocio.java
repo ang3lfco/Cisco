@@ -6,9 +6,7 @@ package interfaces;
 
 import Dtos.ComputadoraDTO;
 import Dtos.ReservaDTO;
-import Dtos.SoftwareDTO;
 import excepciones.NegocioException;
-import java.util.List;
 
 /**
  *

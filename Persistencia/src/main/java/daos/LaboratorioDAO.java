@@ -4,12 +4,8 @@
  */
 package daos;
 
-import Dtos.ComputadoraDTO;
 import Dtos.InstitutoDTO;
-import Dtos.LaboratorioDTO;
 import Dtos.LaboratoriosTablaDTO;
-import Entidades.Computadora;
-import Entidades.Instituto;
 import Entidades.Laboratorio;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;

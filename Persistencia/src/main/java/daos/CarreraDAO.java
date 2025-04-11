@@ -5,7 +5,6 @@
 package daos;
 
 import Entidades.Carrera;
-import Entidades.Software;
 import excepciones.PersistenciaException;
 import interfaces.ICarreraDAO;
 import interfaces.IConexionBD;

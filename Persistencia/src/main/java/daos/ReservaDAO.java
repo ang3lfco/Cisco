@@ -10,8 +10,6 @@ import Dtos.LaboratorioDTO;
 import Dtos.ReservaDTO;
 import Entidades.Computadora;
 import Entidades.Estudiante;
-import Entidades.Instituto;
-import Entidades.Laboratorio;
 import Entidades.Reserva;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
@@ -23,7 +21,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 /**

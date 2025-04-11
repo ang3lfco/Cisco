@@ -5,7 +5,6 @@
 package vista_administrativo;
 
 import Dtos.ComputadoraDTO;
-import Dtos.ConsultarEstudianteDTO;
 import Dtos.EditarEquipoDTO;
 import componentes.ButtonEditor;
 import componentes.ButtonRenderer;
@@ -13,7 +12,6 @@ import componentes.RoundedPanel;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

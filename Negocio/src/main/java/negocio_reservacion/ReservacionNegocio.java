@@ -4,9 +4,7 @@
  */
 package negocio_reservacion;
 
-import Dtos.AgregarHorarioEspecialDTO;
 import Dtos.ComputadoraDTO;
-import Dtos.EstudianteDTO;
 import Dtos.EstudianteIngresaDTO;
 import Dtos.HorarioEspecialDTO;
 import Dtos.ReservaDTO;
@@ -17,8 +15,6 @@ import Entidades.HorarioEspecial;
 import Entidades.Laboratorio;
 import Entidades.Reserva;
 import Entidades.Software;
-import conversiones.Conversiones;
-import static conversiones.Conversiones.convertirComputadoraDTOAComputadora;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IComputadoraDAO;

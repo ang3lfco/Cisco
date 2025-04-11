@@ -5,16 +5,9 @@
 package daos;
 
 import Dtos.ComputadoraDTO;
-import Dtos.EstudianteDTO;
 import Dtos.LaboratorioDTO;
-import Dtos.ReservaDTO;
 import Dtos.SoftwareDTO;
-import Entidades.Carrera;
 import Entidades.Computadora;
-import Entidades.Estudiante;
-import Entidades.HorarioEspecial;
-import Entidades.Laboratorio;
-import Entidades.Reserva;
 import Entidades.Software;
 import excepciones.PersistenciaException;
 import interfaces.IComputadoraDAO;
@@ -22,7 +15,6 @@ import interfaces.IConexionBD;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

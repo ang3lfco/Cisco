@@ -6,33 +6,14 @@ package vista_administrativo;
 
 import Dtos.AgregarBloqueoDTO;
 import componentes.RoundedPanel;
-import daos.BloqueoDAO;
-import daos.CarreraDAO;
-import daos.ComputadoraDAO;
-import daos.ConexionBD;
-import daos.EstudianteDAO;
-import daos.HorarioEspecialDAO;
-import daos.InstitutoDAO;
-import daos.LaboratorioDAO;
-import daos.SoftwareDAO;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
-import interfaces.IBloqueoDAO;
-import interfaces.ICarreraDAO;
-import interfaces.IComputadoraDAO;
-import interfaces.IConexionBD;
-import interfaces.IEstudianteDAO;
-import interfaces.IHorarioEspecialDAO;
-import interfaces.IInstitutoDAO;
-import interfaces.ILaboratorioDAO;
-import interfaces.ISoftwareDAO;
 import java.awt.Color;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import negocio_administrativo.AdministrativoNegocio;
 
 /**
  *

@@ -4,7 +4,6 @@
  */
 package daos;
 
-import Entidades.Carrera;
 import Entidades.Instituto;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;

@@ -4,7 +4,6 @@
  */
 package vista_administrativo;
 
-import Dtos.CargaLaboratorioDTO;
 import Dtos.ComputadoraDTO;
 import Dtos.ConsultarLaboratorioDTO;
 import Dtos.HorarioEspecialDTO;

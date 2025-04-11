@@ -4,22 +4,14 @@
  */
 package daos;
 
-import Dtos.ComputadoraDTO;
-import Dtos.LaboratorioDTO;
-import Dtos.SoftwareDTO;
-import Entidades.Computadora;
-import Entidades.Laboratorio;
 import Entidades.Software;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
 import interfaces.ISoftwareDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 /**

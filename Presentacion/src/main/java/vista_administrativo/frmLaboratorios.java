@@ -4,9 +4,6 @@
  */
 package vista_administrativo;
 
-import Dtos.ComputadoraDTO;
-import Dtos.EditarEquipoDTO;
-import Dtos.LaboratorioDTO;
 import Dtos.EditarLaboratoriosDTO;
 import Dtos.LaboratoriosTablaDTO;
 import componentes.ButtonEditor;

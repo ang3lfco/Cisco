@@ -4,10 +4,7 @@
  */
 package daos;
 
-import Dtos.ComputadoraDTO;
 import Dtos.EstudianteIngresaDTO;
-import Dtos.LaboratorioDTO;
-import Entidades.Computadora;
 import Entidades.Estudiante;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;

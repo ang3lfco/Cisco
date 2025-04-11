@@ -22,7 +22,6 @@ import Dtos.EditarLaboratoriosDTO;
 import Dtos.EstudianteTablaDTO;
 import Dtos.InstitutoDTO;
 import Dtos.LaboratoriosTablaDTO;
-import Entidades.Instituto;
 import excepciones.NegocioException;
 import java.util.List;
 

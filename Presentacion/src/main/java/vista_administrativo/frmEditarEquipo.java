@@ -4,14 +4,10 @@
  */
 package vista_administrativo;
 
-import Dtos.AgregarComputadoraDTO;
 import Dtos.EditarEquipoDTO;
 import componentes.RoundedPanel;
-import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 

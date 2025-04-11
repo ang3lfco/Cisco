@@ -6,7 +6,6 @@ package vista_reservacion;
 
 import Dtos.ComputadoraDTO;
 import Dtos.EstudianteIngresaDTO;
-import Dtos.ReservaDTO;
 import excepciones.NegocioException;
 import exceptiones.PresentacionException;
 import interfaces.IReservacionNegocio;

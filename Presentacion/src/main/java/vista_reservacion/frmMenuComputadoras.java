@@ -5,13 +5,10 @@
 package vista_reservacion;
 
 import Dtos.ComputadoraDTO;
-import Dtos.EstudianteDTO;
 import Dtos.EstudianteIngresaDTO;
-import Dtos.ReservaDTO;
 import excepciones.NegocioException;
 import exceptiones.PresentacionException;
 import interfaces.IReservacionNegocio;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.List;
@@ -19,14 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import negocio_reservacion.ReservacionNegocio;
 import vista_computadora.frmComputadora;
 
 /**
