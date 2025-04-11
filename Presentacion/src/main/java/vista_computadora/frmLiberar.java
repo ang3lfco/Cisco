@@ -25,7 +25,7 @@ import javax.swing.Timer;
 public class frmLiberar extends javax.swing.JFrame {
 
     IComputadoraNegocio computadoraNegocio;
-    Long tiempo;
+    Long tiempo, minutos;
     String tipo = "Estudiante";
 
     /**
@@ -36,7 +36,7 @@ public class frmLiberar extends javax.swing.JFrame {
         initComponents();
         actualizarPantalla();
         iniciarActualizacionCadaMinuto();
-        
+
     }
 
     private void actualizarPantalla() {
@@ -46,16 +46,14 @@ public class frmLiberar extends javax.swing.JFrame {
             if (computadoraNegocio.reservaPorComputadora(this.obtenerIpDelEquipo()) != null) {
                 reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
 
-                jLabel6.setText("equipo :" + reserva.getComputadora().getNumero());
+                lblEquipo.setText("equipo: " + reserva.getComputadora().getNumero());
 
-                jLabel4.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
+                lblNombre.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
+                minutos = Duration.between(reserva.getHoraInicio(), LocalTime.now().plusMinutes(reserva.getMinutosSeleccionados())).toMinutes();
+                tiempo = minutos;
 
-                System.out.println(reserva.getHoraInicio());
-                System.out.println(reserva.getHoraFin());
+                lblTiempo.setText(tiempo + " min");
 
-                tiempo = Duration.between(reserva.getHoraFin(),LocalTime.now()).toMinutes();
-                jLabel7.setText(tiempo + " min");
-                
             }
 
         } catch (PresentacionException ex) {
@@ -94,10 +92,10 @@ public class frmLiberar extends javax.swing.JFrame {
 
         Timer timer = new Timer(delay, (ActionEvent e) -> {
             tiempo = tiempo - 1;
-            jLabel7.setText(tiempo + " min");
-            if (tiempo == 0) {
-
+            lblTiempo.setText(tiempo + " min");
+            if (tiempo < 0) {
                 this.actualizarEstadoEsquipo();
+                actualizarReserva();
                 this.dispose();
             }
 
@@ -125,6 +123,27 @@ public class frmLiberar extends javax.swing.JFrame {
         }
     }
 
+    public void actualizarReserva() {
+        ReservaDTO reserva = null;
+
+        try {
+            reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
+            LocalTime fin = LocalTime.now();
+
+            Long minUsados = Duration.between(reserva.getHoraInicio(), fin).toMinutes();
+
+            reserva.setHoraFin(fin);
+
+            reserva.setMinutosUsados(minUsados.intValue());
+
+            computadoraNegocio.editarReserva(reserva);
+        } catch (PresentacionException ex) {
+            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmLiberar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,10 +157,10 @@ public class frmLiberar extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         btnLiberar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblEquipo = new javax.swing.JLabel();
+        lblTiempo = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
@@ -161,10 +180,10 @@ public class frmLiberar extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo2.png"))); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("NOMBRE DEL ESTUDIANTE AQUI");
+        lblNombre.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombre.setText("NOMBRE DEL ESTUDIANTE AQUI");
 
         btnLiberar.setText("Liberar");
         btnLiberar.addActionListener(new java.awt.event.ActionListener() {
@@ -173,15 +192,15 @@ public class frmLiberar extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Equipo: 2");
+        lblEquipo.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        lblEquipo.setForeground(new java.awt.Color(255, 255, 255));
+        lblEquipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEquipo.setText("Equipo: 2");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("30");
-        jLabel7.setToolTipText("");
+        lblTiempo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        lblTiempo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTiempo.setText("30");
+        lblTiempo.setToolTipText("");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -200,7 +219,7 @@ public class frmLiberar extends javax.swing.JFrame {
                                 .addGap(208, 208, 208)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7))
+                                .addComponent(lblTiempo))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(226, 226, 226)
                                 .addComponent(btnLiberar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -208,8 +227,8 @@ public class frmLiberar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -217,13 +236,13 @@ public class frmLiberar extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(lblEquipo)
                 .addGap(10, 10, 10)
-                .addComponent(jLabel4)
+                .addComponent(lblNombre)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel7))
+                    .addComponent(lblTiempo))
                 .addGap(18, 18, 18)
                 .addComponent(btnLiberar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(125, Short.MAX_VALUE))
@@ -246,6 +265,7 @@ public class frmLiberar extends javax.swing.JFrame {
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
         // TODO add your handling code here:
         this.actualizarEstadoEsquipo();
+        this.actualizarReserva();
         this.dispose();
     }//GEN-LAST:event_btnLiberarActionPerformed
 
@@ -288,11 +308,11 @@ public class frmLiberar extends javax.swing.JFrame {
     private javax.swing.JButton btnLiberar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblEquipo;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblTiempo;
     // End of variables declaration//GEN-END:variables
 }

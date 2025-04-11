@@ -35,6 +35,7 @@ public class BloqueoDTO {
         this.estudiante = estudiante;
     }
 
+    
     public Long getId() {
         return id;
     }

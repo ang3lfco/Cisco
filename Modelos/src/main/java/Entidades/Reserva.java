@@ -28,14 +28,18 @@ public class Reserva implements Serializable {
     @Column(name = "id")
     private Long id;
     
-    @Column(name = "fecha")
-    private LocalDate fecha;
-    
     @Column(name = "horaInicio")
     private LocalTime horaInicio;
     
+    @Column(name = "minutosSeleccionados")
+    private int minutosSeleccionados;
+    
     @Column(name = "horaFin")
     private LocalTime horaFin;
+    
+    
+    @Column(name = "minutosUsados")
+    private int minutosUsados;
     
     @ManyToOne
     @JoinColumn(name = "idComputadora")
@@ -52,31 +56,48 @@ public class Reserva implements Serializable {
     public Reserva() {
     }
 
-    public Reserva(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Computadora computadora, Estudiante estudiante) {
-        this.fecha = fecha;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.computadora = computadora;
-        this.estudiante = estudiante;
-    }
-
-    public Reserva(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Computadora computadora, Estudiante estudiante) {
+    public Reserva(Long id, LocalTime horaInicio, int minutosSeleccionados, LocalTime horaFin, int minutosUsados, Computadora computadora, Estudiante estudiante, HorarioEspecial horarioEspecial) {
         this.id = id;
-        this.fecha = fecha;
         this.horaInicio = horaInicio;
+        this.minutosSeleccionados = minutosSeleccionados;
         this.horaFin = horaFin;
-        this.computadora = computadora;
-        this.estudiante = estudiante;
-    }
-
-    public Reserva(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Computadora computadora, Estudiante estudiante, HorarioEspecial horarioEspecial) {
-        this.id = id;
-        this.fecha = fecha;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
+        this.minutosUsados = minutosUsados;
         this.computadora = computadora;
         this.estudiante = estudiante;
         this.horarioEspecial = horarioEspecial;
+    }
+
+    public Reserva(LocalTime horaInicio, int minutosSeleccionados, LocalTime horaFin, int minutosUsados, Computadora computadora, Estudiante estudiante, HorarioEspecial horarioEspecial) {
+        this.horaInicio = horaInicio;
+        this.minutosSeleccionados = minutosSeleccionados;
+        this.horaFin = horaFin;
+        this.minutosUsados = minutosUsados;
+        this.computadora = computadora;
+        this.estudiante = estudiante;
+        this.horarioEspecial = horarioEspecial;
+    }
+
+    public Reserva(LocalTime horaInicio, int minutosSeleccionados, LocalTime horaFin, int minutosUsados) {
+        this.horaInicio = horaInicio;
+        this.minutosSeleccionados = minutosSeleccionados;
+        this.horaFin = horaFin;
+        this.minutosUsados = minutosUsados;
+    }
+
+    public int getMinutosSeleccionados() {
+        return minutosSeleccionados;
+    }
+
+    public void setMinutosSeleccionados(int minutosSeleccionados) {
+        this.minutosSeleccionados = minutosSeleccionados;
+    }
+
+    public int getMinutosUsados() {
+        return minutosUsados;
+    }
+
+    public void setMinutosUsados(int minutosUsados) {
+        this.minutosUsados = minutosUsados;
     }
 
     
@@ -95,14 +116,6 @@ public class Reserva implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
     }
 
     public LocalTime getHoraInicio() {
@@ -139,6 +152,8 @@ public class Reserva implements Serializable {
 
     @Override
     public String toString() {
-        return "Reserva{" + "id=" + id + ", fecha=" + fecha + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", computadora=" + computadora + ", estudiante=" + estudiante + '}';
+        return "Reserva{" + "id=" + id + ", horaInicio=" + horaInicio + ", minutosSeleccionados=" + minutosSeleccionados + ", horaFin=" + horaFin + ", minutosUsados=" + minutosUsados + ", computadora=" + computadora + ", estudiante=" + estudiante + ", horarioEspecial=" + horarioEspecial + '}';
     }
+    
+    
 }

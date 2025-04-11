@@ -18,4 +18,5 @@ public interface IComputadoraNegocio {
     void editarComputadora(ComputadoraDTO pc) throws NegocioException;
     ComputadoraDTO computadoraPorIpYTipo(String ip, String tipo) throws NegocioException;
     boolean validarContrasenhaEstudiante(String contrasenha, String idEstudiante) throws NegocioException;
+    void editarReserva(ReservaDTO reserva) throws NegocioException;
 }

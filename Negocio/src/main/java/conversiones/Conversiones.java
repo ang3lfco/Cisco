@@ -220,9 +220,10 @@ public class Conversiones {
 
         ReservaDTO reservaDTO = new ReservaDTO(
                 reserva.getId(),
-                reserva.getFecha(),
                 reserva.getHoraInicio(),
                 reserva.getHoraFin(),
+                reserva.getMinutosSeleccionados(),
+                reserva.getMinutosUsados(),
                 convertirComputadoraAComputadoraDTO(reserva.getComputadora()),
                 convertirEstudianteAEstudianteDTO(reserva.getEstudiante()) // Convierte Estudiante a DTO
         );
@@ -236,8 +237,10 @@ public class Conversiones {
         }
 
         Reserva reserva = new Reserva();
+        
         reserva.setId(reservaDTO.getId());
-        reserva.setFecha(reservaDTO.getFecha());
+        reserva.setMinutosSeleccionados(reservaDTO.getMinutosSeleccionados());
+        reserva.setMinutosUsados(reservaDTO.getMinutosUsados());
         reserva.setHoraInicio(reservaDTO.getHoraInicio());
         reserva.setHoraFin(reservaDTO.getHoraFin());
 

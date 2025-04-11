@@ -28,4 +28,5 @@ public interface IReservacionNegocio {
     HorarioEspecialDTO buscarHorarioEspecialPorDia(LocalDate hoy) throws NegocioException;
     void agregarHorarioEspecial(HorarioEspecialDTO horarioEspecialDTO) throws NegocioException;
     ComputadoraDTO computadoraPorIpYTipo(String ip,String tipo) throws NegocioException;
+    boolean estudianteEstaBloqueado(String id) throws NegocioException;
 }

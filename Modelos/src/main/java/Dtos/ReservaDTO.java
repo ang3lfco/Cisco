@@ -14,9 +14,10 @@ import java.time.LocalTime;
  */
 public class ReservaDTO {
     private Long id;
-    private LocalDate fecha;
     private LocalTime horaInicio;
     private LocalTime horaFin;
+    private int minutosSeleccionados;
+    private int minutosUsados;
     private ComputadoraDTO computadora;
     private EstudianteDTO estudiante;
     private HorarioEspecial horario;
@@ -24,40 +25,64 @@ public class ReservaDTO {
     public ReservaDTO() {
     }
 
-    public ReservaDTO(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, ComputadoraDTO computadora, EstudianteDTO estudiante) {
-        this.fecha = fecha;
+    public ReservaDTO(LocalTime horaInicio, LocalTime horaFin, int minutosSeleccionados, int minutosUsados, ComputadoraDTO computadora, EstudianteDTO estudiante) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+        this.minutosSeleccionados = minutosSeleccionados;
+        this.minutosUsados = minutosUsados;
         this.computadora = computadora;
         this.estudiante = estudiante;
     }
 
-    public ReservaDTO(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, ComputadoraDTO computadora, EstudianteDTO estudiante) {
+    public ReservaDTO(Long id, LocalTime horaInicio, LocalTime horaFin, int minutosSeleccionados, int minutosUsados, ComputadoraDTO computadora, EstudianteDTO estudiante, HorarioEspecial horario) {
         this.id = id;
-        this.fecha = fecha;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+        this.minutosSeleccionados = minutosSeleccionados;
+        this.minutosUsados = minutosUsados;
+        this.computadora = computadora;
+        this.estudiante = estudiante;
+        this.horario = horario;
+    }
+
+    public ReservaDTO(Long id, LocalTime horaInicio, LocalTime horaFin, int minutosSeleccionados, int minutosUsados, ComputadoraDTO computadora, EstudianteDTO estudiante) {
+        this.id = id;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.minutosSeleccionados = minutosSeleccionados;
+        this.minutosUsados = minutosUsados;
         this.computadora = computadora;
         this.estudiante = estudiante;
     }
 
-    public ReservaDTO(LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, ComputadoraDTO computadora, EstudianteDTO estudiante, HorarioEspecial horario) {
-        this.fecha = fecha;
+    public ReservaDTO(LocalTime horaInicio, LocalTime horaFin, int minutosSeleccionados, int minutosUsados, ComputadoraDTO computadora, EstudianteDTO estudiante, HorarioEspecial horario) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+        this.minutosSeleccionados = minutosSeleccionados;
+        this.minutosUsados = minutosUsados;
         this.computadora = computadora;
         this.estudiante = estudiante;
         this.horario = horario;
     }
 
     
-    public ReservaDTO(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin) {
-        this.id = id;
-        this.fecha = fecha;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
+    public int getMinutosSeleccionados() {
+        return minutosSeleccionados;
     }
 
+    public void setMinutosSeleccionados(int minutosSeleccionados) {
+        this.minutosSeleccionados = minutosSeleccionados;
+    }
+
+    public int getMinutosUsados() {
+        return minutosUsados;
+    }
+
+    public void setMinutosUsados(int minutosUsados) {
+        this.minutosUsados = minutosUsados;
+    }
+
+    
     public HorarioEspecial getHorario() {
         return horario;
     }
@@ -72,14 +97,6 @@ public class ReservaDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
     }
 
     public LocalTime getHoraInicio() {

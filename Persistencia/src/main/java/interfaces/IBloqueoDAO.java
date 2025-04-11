@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import Dtos.BloqueoDTO;
 import Entidades.Bloqueo;
 import excepciones.PersistenciaException;
 
@@ -16,4 +17,5 @@ public interface IBloqueoDAO {
     void eliminar(Long id) throws PersistenciaException;
     void editar(Bloqueo bloqueo) throws PersistenciaException;
     void desbloquear(String idEstudiante) throws PersistenciaException;
+    BloqueoDTO consultarUltimoBloqueoDeEstudiante(String id) throws PersistenciaException;
 }

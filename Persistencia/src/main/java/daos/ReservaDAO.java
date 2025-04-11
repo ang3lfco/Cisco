@@ -135,9 +135,10 @@ public class ReservaDAO implements IReservaDAO {
         criteriaQuery.select(
                 criteriaBuilder.construct(ReservaDTO.class,
                         root.get("id"),
-                        root.get("fecha"),
                         root.get("horaInicio"),
                         root.get("horaFin"),
+                        root.get("minutosSeleccionados"),
+                        root.get("minutosUsados"),
                         criteriaBuilder.construct(ComputadoraDTO.class,
                                 joinComputadora.get("id"),
                                 joinComputadora.get("numero"),
@@ -188,9 +189,10 @@ public class ReservaDAO implements IReservaDAO {
         criteriaQuery.select(
                 criteriaBuilder.construct(ReservaDTO.class,
                         root.get("id"),
-                        root.get("fecha"),
                         root.get("horaInicio"),
                         root.get("horaFin"),
+                        root.get("minutosSeleccionados"),
+                        root.get("minutosUsados"),
                         criteriaBuilder.construct(ComputadoraDTO.class,
                                 joinComputadora.get("id"),
                                 joinComputadora.get("numero"),

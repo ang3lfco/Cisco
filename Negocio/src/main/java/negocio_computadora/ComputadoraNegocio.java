@@ -9,7 +9,9 @@ import Dtos.ReservaDTO;
 import Dtos.SoftwareDTO;
 import Entidades.Computadora;
 import Entidades.Estudiante;
+import Entidades.HorarioEspecial;
 import Entidades.Laboratorio;
+import Entidades.Reserva;
 import Entidades.Software;
 import encriptamiento.Encriptador;
 import excepciones.NegocioException;
@@ -17,7 +19,9 @@ import excepciones.PersistenciaException;
 import interfaces.IComputadoraDAO;
 import interfaces.IComputadoraNegocio;
 import interfaces.IEstudianteDAO;
+import interfaces.IHorarioEspecialDAO;
 import interfaces.IReservaDAO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,6 +35,7 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     private IComputadoraDAO computadoraDAO;
     private IReservaDAO reservaDAO;
     private IEstudianteDAO estudianteDAO;
+    private IHorarioEspecialDAO heDAO;
     
     public ComputadoraNegocio(IComputadoraDAO computadoraDAO) {
         this.computadoraDAO = computadoraDAO;
@@ -45,6 +50,13 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
         this.computadoraDAO = computadoraDAO;
         this.reservaDAO = reservaDAO;
         this.estudianteDAO = estudianteDAO;
+    }
+
+    public ComputadoraNegocio(IComputadoraDAO computadoraDAO, IReservaDAO reservaDAO, IEstudianteDAO estudianteDAO, IHorarioEspecialDAO heDAO) {
+        this.computadoraDAO = computadoraDAO;
+        this.reservaDAO = reservaDAO;
+        this.estudianteDAO = estudianteDAO;
+        this.heDAO = heDAO;
     }
     
     
@@ -86,6 +98,18 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
             throw new NegocioException("Error. " + e.getMessage());
         }
     }
+    
+        @Override
+    public void editarReserva(ReservaDTO reserva) throws NegocioException {
+        try {
+            Reserva reservaEntidad = this.convertirReservaDTOAEntidad(reserva);
+
+            reservaDAO.editarReserva(reservaEntidad);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+
     
     @Override
     public ComputadoraDTO computadoraPorIpYTipo(String ip, String tipo) throws NegocioException {
@@ -153,4 +177,47 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
             }
          return entidades;
      }
+     
+     private Reserva convertirReservaDTOAEntidad(ReservaDTO dto) {
+
+        Estudiante estudiante = new Estudiante();
+        Computadora computadora = new Computadora();
+        HorarioEspecial horario = new HorarioEspecial();
+
+        estudiante.setId(dto.getEstudiante().getId());
+        computadora.setId(dto.getComputadora().getId());
+
+        String etiqueta = dto.getComputadora().getEtiqueta();
+        System.out.println("Etiqueta: " + etiqueta);
+        computadora.setEtiqueta(etiqueta);
+        
+        try {
+            horario.setId(heDAO.buscarHorarioPorDia(LocalDate.now()).getId());
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComputadoraNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            List<SoftwareDTO> softwares = this.computadoraDAO.consultarSoftwareDeComputadoras(
+                    dto.getComputadora().getDireccionIp(),
+                    dto.getComputadora().getTipo());
+
+            computadora.setSoftwares(this.softwaresDTOAEntidad(softwares));
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComputadoraNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Reserva reservaEntidad = new Reserva(
+                dto.getId(),
+                dto.getHoraInicio(),
+                dto.getMinutosSeleccionados(),
+                dto.getHoraFin(),
+                dto.getMinutosUsados(),
+                computadora,
+                estudiante,
+                horario
+        );
+
+        return reservaEntidad;
+    }
 }

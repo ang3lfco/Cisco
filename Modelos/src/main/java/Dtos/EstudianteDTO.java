@@ -59,6 +59,10 @@ public class EstudianteDTO {
         this.contraseña = contraseña;
     }
 
+    public EstudianteDTO(Long id) {
+        this.id = id;
+    }
+
     
     public Long getId() {
         return id;

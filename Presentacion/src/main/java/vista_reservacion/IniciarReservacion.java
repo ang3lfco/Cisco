@@ -4,11 +4,13 @@
  */
 package vista_reservacion;
 
+import daos.BloqueoDAO;
 import daos.ComputadoraDAO;
 import daos.ConexionBD;
 import daos.EstudianteDAO;
 import daos.HorarioEspecialDAO;
 import daos.ReservaDAO;
+import interfaces.IBloqueoDAO;
 import interfaces.IComputadoraDAO;
 import interfaces.IConexionBD;
 import interfaces.IEstudianteDAO;
@@ -34,8 +36,9 @@ public class IniciarReservacion {
         IComputadoraDAO cDAO = new ComputadoraDAO(conexion);
         IEstudianteDAO eDAO = new EstudianteDAO(conexion);
         IHorarioEspecialDAO heDAO = new HorarioEspecialDAO(conexion);
+        IBloqueoDAO bDAO = new BloqueoDAO(conexion);
 //        
-        IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO,eDAO,heDAO);
+        IReservacionNegocio rNegocio = new ReservacionNegocio(rDAO,cDAO,eDAO,heDAO,bDAO);
         frmReservacion reservacion = new frmReservacion(rNegocio);
         
         reservacion.setVisible(true);

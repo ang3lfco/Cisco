@@ -4,16 +4,22 @@
  */
 package daos;
 
+import Dtos.BloqueoDTO;
+import Dtos.EstudianteDTO;
 import Entidades.Bloqueo;
+import Entidades.Computadora;
 import Entidades.Estudiante;
 import excepciones.PersistenciaException;
 import interfaces.IBloqueoDAO;
 import interfaces.IConexionBD;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 /**
@@ -112,5 +118,49 @@ public class BloqueoDAO implements IBloqueoDAO{
         finally{
             em.close();
         }
+    }
+    
+    
+    @Override
+    public BloqueoDTO consultarUltimoBloqueoDeEstudiante(String id) throws PersistenciaException {
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
+
+        entityManager = conexionBD.obtenerEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<BloqueoDTO> criteriaQuery = criteriaBuilder.createQuery(BloqueoDTO.class);
+
+        Root<Bloqueo> root = criteriaQuery.from(Bloqueo.class);
+        Join<Bloqueo, Computadora> joinEstudiante = root.join("estudiante");
+
+        criteriaQuery.select(
+                criteriaBuilder.construct(BloqueoDTO.class,
+                        root.get("id"),
+                        root.get("fechaHoraBloqueo"),
+                        root.get("fechaHoraDesbloqueo"),
+                        root.get("motivo"),
+                        criteriaBuilder.construct(EstudianteDTO.class,
+                                joinEstudiante.get("id")
+                        )
+                )
+        ).where(
+        criteriaBuilder.equal(root.get("estudiante").get("idEstudiante"), id));
+
+        TypedQuery<BloqueoDTO> query = entityManager.createQuery(criteriaQuery);
+
+        List<BloqueoDTO> bloqueos = query.getResultList();
+        if (bloqueos.isEmpty()) {
+            return null;
+        }
+        BloqueoDTO bloqueo = bloqueos.getLast();
+        if (entityManager != null && entityManager.isOpen()) {
+            entityManager.close(); // Cerrar siempre el EntityManager
+        }
+        
+        return bloqueo;
+
     }
 }

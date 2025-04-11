@@ -275,9 +275,10 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
             horario.setId(idHorarioEspecial);
 
             ReservaDTO reserva = new ReservaDTO(
-                    LocalDate.now(),
                     LocalTime.now(),
-                    LocalTime.now().plusMinutes(minutos),
+                    null,
+                    minutos,
+                    0,
                     pc,
                     estudiante,
                     horario

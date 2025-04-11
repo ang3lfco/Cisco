@@ -80,6 +80,15 @@ public class frmReservacion extends javax.swing.JFrame {
         }
     }
     
+    private boolean estudianteEstaBloqueado(String id){
+        try {
+            return reservacionNegocio.estudianteEstaBloqueado(id);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmReservacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -201,6 +210,9 @@ public class frmReservacion extends javax.swing.JFrame {
         try {
             if (this.buscarEstudiante(id) == null) {
                 JOptionPane.showMessageDialog(null, "ID no encontrado");
+                
+            }else if(this.estudianteEstaBloqueado(id)){
+                JOptionPane.showMessageDialog(null, "Estudiante bloqueado");
             }else{
             
            EstudianteIngresaDTO estudiante = this.buscarEstudiante(id);

@@ -17,6 +17,7 @@ import Entidades.Reserva;
 import Entidades.Software;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
+import interfaces.IBloqueoDAO;
 import interfaces.IComputadoraDAO;
 import interfaces.IEstudianteDAO;
 import interfaces.IHorarioEspecialDAO;
@@ -39,6 +40,7 @@ public class ReservacionNegocio implements IReservacionNegocio {
     private IComputadoraDAO computadoraDAO;
     private IEstudianteDAO estudianteDAO;
     private IHorarioEspecialDAO horarioEspecialDAO;
+    private IBloqueoDAO bloqueoDAO;
 
     public ReservacionNegocio(IReservaDAO reservaDAO, IComputadoraDAO computadoraDAO, IEstudianteDAO estudianteDAO) {
         this.reservaDAO = reservaDAO;
@@ -53,6 +55,15 @@ public class ReservacionNegocio implements IReservacionNegocio {
         this.horarioEspecialDAO = horarioEspecialDAO;
     }
 
+    public ReservacionNegocio(IReservaDAO reservaDAO, IComputadoraDAO computadoraDAO, IEstudianteDAO estudianteDAO, IHorarioEspecialDAO horarioEspecialDAO, IBloqueoDAO bloqueoDAO) {
+        this.reservaDAO = reservaDAO;
+        this.computadoraDAO = computadoraDAO;
+        this.estudianteDAO = estudianteDAO;
+        this.horarioEspecialDAO = horarioEspecialDAO;
+        this.bloqueoDAO = bloqueoDAO;
+    }
+
+    
     @Override
     public void agregarReserva(ReservaDTO reserva) throws NegocioException {
         try {
@@ -154,6 +165,20 @@ public class ReservacionNegocio implements IReservacionNegocio {
         }
     }
 
+    @Override
+    public boolean estudianteEstaBloqueado(String id) throws NegocioException{
+        try {
+            if (bloqueoDAO.consultarUltimoBloqueoDeEstudiante(id) == null) {
+                return true;
+            }
+            if (bloqueoDAO.consultarUltimoBloqueoDeEstudiante(id).getFechaHoraDesbloqueo() == null) {
+                return true;
+            }
+            return false;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
+        }
+    }
     public EstudianteIngresaDTO buscarIDEstudiante(String id) throws NegocioException {
         try {
             if (estudianteDAO.buscarPorIDAlumno(id) == null) {
@@ -176,7 +201,6 @@ public class ReservacionNegocio implements IReservacionNegocio {
         computadora.setId(dto.getComputadora().getId());
 
         String etiqueta = dto.getComputadora().getEtiqueta();
-        System.out.println("Etiqueta: " + etiqueta);
         computadora.setEtiqueta(etiqueta);
 
         horario.setId(dto.getHorario().getId());
@@ -193,9 +217,10 @@ public class ReservacionNegocio implements IReservacionNegocio {
 
         Reserva reservaEntidad = new Reserva(
                 dto.getId(),
-                dto.getFecha(),
                 dto.getHoraInicio(),
+                dto.getMinutosSeleccionados(),
                 dto.getHoraFin(),
+                dto.getMinutosUsados(),
                 computadora,
                 estudiante,
                 horario
