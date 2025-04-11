@@ -5,6 +5,7 @@
 package interfaces;
 
 import Dtos.SoftwareDTO;
+import Entidades.Laboratorio;
 import Entidades.Software;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -18,4 +19,5 @@ public interface ISoftwareDAO {
     void eliminar(Long id) throws PersistenciaException;
     void editar(Software software) throws PersistenciaException;
     Software getSoftwarePorNombre(String nombre) throws PersistenciaException;
+    List<Software> getSoftwares() throws PersistenciaException;
 }

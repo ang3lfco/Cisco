@@ -60,9 +60,9 @@
                           <Component id="txfIdEstudiante" alignment="0" max="32767" attributes="0"/>
                           <Component id="txfNombre" alignment="0" max="32767" attributes="0"/>
                           <Component id="txfApellidoPaterno" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txfApellidoMaterno" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txfApellidoMaterno" alignment="0" pref="255" max="32767" attributes="0"/>
                           <Component id="txfContraseña" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txfIdCarrera" alignment="0" min="-2" pref="255" max="-2" attributes="0"/>
+                          <Component id="cmbCarreras" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="41" max="32767" attributes="0"/>
@@ -89,8 +89,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txfContraseña" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txfIdCarrera" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="46" max="32767" attributes="0"/>
+                  <Component id="cmbCarreras" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="48" max="32767" attributes="0"/>
                   <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
@@ -109,11 +109,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfContrase&#xf1;a">
-        </Component>
-        <Component class="javax.swing.JTextField" name="txfIdCarrera">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Carrera"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnEditar">
           <Properties>
@@ -163,6 +158,21 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblExpandirMouseClicked"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbCarreras">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

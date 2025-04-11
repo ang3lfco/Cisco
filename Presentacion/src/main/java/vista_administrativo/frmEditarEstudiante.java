@@ -5,6 +5,7 @@
 package vista_administrativo;
 
 import Dtos.AgregarEstudianteDTO;
+import Dtos.ConsultarCarreraDTO;
 import Dtos.EditarEstudianteDTO;
 import componentes.RoundedPanel;
 import daos.BloqueoDAO;
@@ -28,6 +29,7 @@ import interfaces.IInstitutoDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.awt.Color;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -41,14 +43,16 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
     private IAdministrativoNegocio adminNegocio;
     private String idEstudiante;
     private int xMouse, yMouse;
+    List<ConsultarCarreraDTO> carreras;
     /**
      * Creates new form frmAgregarEstudiante
      */
-    public frmEditarEstudiante(IAdministrativoNegocio adminNegocio, String idEstudiante) {
+    public frmEditarEstudiante(IAdministrativoNegocio adminNegocio, String idEstudiante) throws NegocioException {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
         setLocationRelativeTo(null);
+        carreras = adminNegocio.getListaCarreras();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.adminNegocio = adminNegocio;
         this.idEstudiante = idEstudiante;
@@ -95,7 +99,16 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
             }
         });
         
+        cargarCarreras();
         CargarEstudiante();
+        
+    }
+    
+    private void cargarCarreras() throws NegocioException{
+        cmbCarreras.removeAllItems();
+        for(ConsultarCarreraDTO carrera : carreras){
+            cmbCarreras.addItem(carrera.getNombre());
+        }
     }
 
     /**
@@ -111,13 +124,13 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
         txfApellidoPaterno = new javax.swing.JTextField();
         txfApellidoMaterno = new javax.swing.JTextField();
         txfContraseña = new javax.swing.JTextField();
-        txfIdCarrera = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
         txfIdEstudiante = new javax.swing.JTextField();
         txfNombre = new javax.swing.JTextField();
         lblCerrar = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
         lblExpandir = new javax.swing.JLabel();
+        cmbCarreras = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,8 +139,6 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
         txfApellidoPaterno.setText("Apellido Paterno");
 
         txfApellidoMaterno.setText("Apellido Materno");
-
-        txfIdCarrera.setText("Carrera");
 
         btnEditar.setText("Editar");
         btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,6 +173,8 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
             }
         });
 
+        cmbCarreras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -182,9 +195,9 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
                         .addComponent(txfIdEstudiante)
                         .addComponent(txfNombre)
                         .addComponent(txfApellidoPaterno)
-                        .addComponent(txfApellidoMaterno)
+                        .addComponent(txfApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                         .addComponent(txfContraseña)
-                        .addComponent(txfIdCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbCarreras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -206,8 +219,8 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txfIdCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(cmbCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(btnEditar)
                 .addGap(30, 30, 30))
         );
@@ -234,7 +247,15 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
             txfApellidoPaterno.setText(e.getApellidoPaterno());
             txfApellidoMaterno.setText(e.getApellidoMaterno());
 //            txfContraseña.setText(e.getContraseña());
-            txfIdCarrera.setText(e.getCarrera());
+            String carreraEstudiante = e.getCarrera();
+            for (int i = 0; i < carreras.size(); i++) {
+                if (carreras.get(i).getNombre().equals(carreraEstudiante)) {
+                    cmbCarreras.setSelectedIndex(i);
+                    break;
+                }
+            }
+            
+            
         } catch (NegocioException ex) {
             Logger.getLogger(frmEditarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -242,6 +263,8 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
     
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         // TODO add your handling code here:
+        
+        
         EditarEstudianteDTO estudianteDTO = new EditarEstudianteDTO(
                 txfIdEstudiante.getText(),
                 txfNombre.getText(),
@@ -249,7 +272,7 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
                 txfApellidoMaterno.getText(),
                 "Activo",
                 txfContraseña.getText(),
-                txfIdCarrera.getText()
+                cmbCarreras.getSelectedItem().toString()
         );
         try {
             adminNegocio.editarEstudiante(estudianteDTO);
@@ -315,6 +338,7 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
+    private javax.swing.JComboBox<String> cmbCarreras;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
@@ -322,7 +346,6 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
     private javax.swing.JTextField txfApellidoMaterno;
     private javax.swing.JTextField txfApellidoPaterno;
     private javax.swing.JTextField txfContraseña;
-    private javax.swing.JTextField txfIdCarrera;
     private javax.swing.JTextField txfIdEstudiante;
     private javax.swing.JTextField txfNombre;
     // End of variables declaration//GEN-END:variables

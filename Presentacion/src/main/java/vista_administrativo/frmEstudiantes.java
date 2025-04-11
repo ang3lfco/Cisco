@@ -131,8 +131,14 @@ public class frmEstudiantes extends javax.swing.JFrame {
                 int fila = tblEstudiantes.getSelectedRow();
                 if (fila >= 0){
                     String idEstudiante = (String) tblEstudiantes.getValueAt(fila, 0);
-                    frmEditarEstudiante editar = new frmEditarEstudiante(adminNegocio, idEstudiante);
-                    editar.setVisible(true);
+                    frmEditarEstudiante editar;
+                    try {
+                        editar = new frmEditarEstudiante(adminNegocio, idEstudiante);
+                        editar.setVisible(true);
+                    } catch (NegocioException ex) {
+                        Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
 //                    JOptionPane.showMessageDialog(null, ": " + idEstudiante);
                 }
 //                JOptionPane.showMessageDialog(tblEstudiantes, "Seleccionaste una fila para editar.");
@@ -314,8 +320,14 @@ public class frmEstudiantes extends javax.swing.JFrame {
 
     private void lblAgregarEstudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarEstudianteMouseClicked
         // TODO add your handling code here:
-        frmAgregarEstudiante agregarEstudiante = new frmAgregarEstudiante(adminNegocio);
-        agregarEstudiante.setVisible(true);
+        frmAgregarEstudiante agregarEstudiante;
+        try {
+            agregarEstudiante = new frmAgregarEstudiante(adminNegocio);
+            agregarEstudiante.setVisible(true);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_lblAgregarEstudianteMouseClicked
 
 //    /**

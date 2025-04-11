@@ -4,6 +4,7 @@
  */
 package vista_administrativo;
 
+import Dtos.ConsultarSoftwareDTO;
 import componentes.RoundedPanel;
 import daos.BloqueoDAO;
 import daos.CarreraDAO;
@@ -26,6 +27,7 @@ import interfaces.IInstitutoDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.awt.Color;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -41,7 +43,7 @@ public class frmInstalacion extends javax.swing.JFrame {
     /**
      * Creates new form frmInstalacion
      */
-    public frmInstalacion(IAdministrativoNegocio adminNegocio) {
+    public frmInstalacion(IAdministrativoNegocio adminNegocio) throws NegocioException {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
@@ -90,6 +92,16 @@ public class frmInstalacion extends javax.swing.JFrame {
                 setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
             }
         });
+        
+        cargarSoftwares();
+    }
+    
+    private void cargarSoftwares() throws NegocioException{
+        List<ConsultarSoftwareDTO> softwares = adminNegocio.getListaSoftwares();
+        cmbSoftwares.removeAllItems();
+        for(ConsultarSoftwareDTO laboratorio : softwares){
+            cmbSoftwares.addItem(laboratorio.getNombre());
+        }
     }
 
     /**
@@ -103,7 +115,7 @@ public class frmInstalacion extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         txfNumero = new javax.swing.JTextField();
-        cmbSoftware = new javax.swing.JComboBox<>();
+        cmbSoftwares = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnInstalar = new javax.swing.JButton();
@@ -117,8 +129,8 @@ public class frmInstalacion extends javax.swing.JFrame {
 
         txfNumero.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
 
-        cmbSoftware.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Photoshop", "Figma", "Android Studio", " " }));
-        cmbSoftware.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        cmbSoftwares.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        cmbSoftwares.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Photoshop", "Figma", "Android Studio", " " }));
 
         jLabel1.setText("Numero de computadora:");
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -166,7 +178,7 @@ public class frmInstalacion extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnInstalar)
-                    .addComponent(cmbSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbSoftwares, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txfNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -198,7 +210,7 @@ public class frmInstalacion extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbSoftwares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(btnInstalar)
                 .addGap(26, 26, 26))
@@ -221,7 +233,7 @@ public class frmInstalacion extends javax.swing.JFrame {
     private void btnInstalarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInstalarMouseClicked
         try {
             // TODO add your handling code here:
-            adminNegocio.agregarInstalacion(Integer.parseInt(txfNumero.getText()), cmbSoftware.getSelectedItem().toString());
+            adminNegocio.agregarInstalacion(Integer.parseInt(txfNumero.getText()), cmbSoftwares.getSelectedItem().toString());
         } catch (NegocioException ex) {
             Logger.getLogger(frmInstalacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,7 +296,7 @@ public class frmInstalacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInstalar;
-    private javax.swing.JComboBox<String> cmbSoftware;
+    private javax.swing.JComboBox<String> cmbSoftwares;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

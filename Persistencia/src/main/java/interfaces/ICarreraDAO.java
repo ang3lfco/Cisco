@@ -6,6 +6,7 @@ package interfaces;
 
 import Entidades.Carrera;
 import excepciones.PersistenciaException;
+import java.util.List;
 
 /**
  *
@@ -17,4 +18,5 @@ public interface ICarreraDAO {
     void editar(Carrera carrera) throws PersistenciaException;
     Carrera getCarreraPorId(Long id) throws PersistenciaException;
     Carrera getCarreraPorNombre(String nombre) throws PersistenciaException;
+    List<Carrera> getCarreras() throws PersistenciaException;
 }

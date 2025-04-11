@@ -5,6 +5,8 @@
 package vista_administrativo;
 
 import Dtos.AgregarHorarioEspecialDTO;
+import Dtos.ConsultarLaboratorioDTO;
+import Dtos.ConsultarSoftwareDTO;
 import Dtos.HorarioEspecialDTO;
 import componentes.RoundedPanel;
 import daos.BloqueoDAO;
@@ -30,6 +32,7 @@ import interfaces.ISoftwareDAO;
 import java.awt.Color;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -45,7 +48,7 @@ public class frmHorario extends javax.swing.JFrame {
     /**
      * Creates new form frmHorario
      */
-    public frmHorario(IAdministrativoNegocio adminNegocio) {
+    public frmHorario(IAdministrativoNegocio adminNegocio) throws NegocioException {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
@@ -94,6 +97,16 @@ public class frmHorario extends javax.swing.JFrame {
                 setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
             }
         });
+        
+        cargarLabs();
+    }
+    
+    private void cargarLabs() throws NegocioException{
+        List<ConsultarLaboratorioDTO> labs = adminNegocio.getListaLaboratorios();
+        cmbLaboratorios.removeAllItems();
+        for(ConsultarLaboratorioDTO laboratorio : labs){
+            cmbLaboratorios.addItem(laboratorio.getNombre());
+        }
     }
 
     /**
@@ -112,7 +125,7 @@ public class frmHorario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnConfirmar = new javax.swing.JButton();
-        cmbLab = new javax.swing.JComboBox<>();
+        cmbLaboratorios = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         lblCerrar1 = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
@@ -143,9 +156,8 @@ public class frmHorario extends javax.swing.JFrame {
             }
         });
 
-        cmbLab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", " " }));
-        cmbLab.setEnabled(false);
-        cmbLab.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        cmbLaboratorios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", " " }));
+        cmbLaboratorios.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
 
         jLabel4.setText("Laboratorio:");
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -187,7 +199,7 @@ public class frmHorario extends javax.swing.JFrame {
                         .addComponent(dateTimePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(dateTimePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addComponent(cmbLab, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(cmbLaboratorios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -219,7 +231,7 @@ public class frmHorario extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbLaboratorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(btnConfirmar)
                 .addGap(24, 24, 24))
@@ -246,7 +258,7 @@ public class frmHorario extends javax.swing.JFrame {
         LocalTime horaFin = dateTimePicker2.timePicker.getTime();
         AgregarHorarioEspecialDTO horario = new AgregarHorarioEspecialDTO(fecha, horaInicio, horaFin);
         try {
-            adminNegocio.agregarHorarioEspecial(horario, cmbLab.getSelectedItem().toString());
+            adminNegocio.agregarHorarioEspecial(horario, cmbLaboratorios.getSelectedItem().toString());
         } catch (NegocioException ex) {
             Logger.getLogger(frmHorario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -309,7 +321,7 @@ public class frmHorario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirmar;
-    private javax.swing.JComboBox<String> cmbLab;
+    private javax.swing.JComboBox<String> cmbLaboratorios;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker2;
     private javax.swing.JLabel jLabel1;
@@ -317,7 +329,6 @@ public class frmHorario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblCerrar1;
     private javax.swing.JLabel lblExpandir;
     private javax.swing.JLabel lblMinimizar;

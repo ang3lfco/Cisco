@@ -12,8 +12,10 @@ import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.CargaLaboratorioDTO;
 import Dtos.ComputadoraDTO;
+import Dtos.ConsultarCarreraDTO;
 import Dtos.ConsultarEstudianteDTO;
 import Dtos.ConsultarLaboratorioDTO;
+import Dtos.ConsultarSoftwareDTO;
 import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EditarLaboratoriosDTO;
@@ -52,4 +54,7 @@ public interface IAdministrativoNegocio {
     void eliminarLaboratorio(EditarLaboratoriosDTO labDTO);
     void agregarInstitutoConLaboratorios(InstitutoDTO institutoDTO) throws NegocioException;
     void agregarLaboratorioConInstituto(CargaLaboratorioDTO laboratorioDTO) throws NegocioException;
+    List<ConsultarLaboratorioDTO> getListaLaboratorios() throws NegocioException;
+    List<ConsultarSoftwareDTO> getListaSoftwares() throws NegocioException;
+    List<ConsultarCarreraDTO> getListaCarreras() throws NegocioException;
 }

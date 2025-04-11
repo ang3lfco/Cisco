@@ -12,8 +12,10 @@ import Dtos.AgregarLaboratorioDTO;
 import Dtos.AgregarSoftwareDTO;
 import Dtos.CargaLaboratorioDTO;
 import Dtos.ComputadoraDTO;
+import Dtos.ConsultarCarreraDTO;
 import Dtos.ConsultarEstudianteDTO;
 import Dtos.ConsultarLaboratorioDTO;
+import Dtos.ConsultarSoftwareDTO;
 import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EditarLaboratoriosDTO;
@@ -222,9 +224,10 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             estudianteOriginal.setApellidoPaterno(estudianteDTO.getApellidoPaterno());
             estudianteOriginal.setApellidoMaterno(estudianteDTO.getApellidoMaterno());
             estudianteOriginal.setEstado(estudianteDTO.getEstado());
-            estudianteOriginal.setContraseña(Encriptador.encriptarContraseña(estudianteDTO.getContraseña()));
+            if(estudianteDTO.getContraseña() != null || !estudianteDTO.getContraseña().isEmpty()){
+                estudianteOriginal.setContraseña(Encriptador.encriptarContraseña(estudianteDTO.getContraseña()));
+            }
             estudianteOriginal.setCarrera(carrera);
-            
             estudianteDAO.editar(estudianteOriginal);
         }
         catch(PersistenciaException e){
@@ -379,4 +382,54 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             throw new NegocioException("Error. " + e.getMessage());
         }
     }
+    
+    @Override
+    public List<ConsultarLaboratorioDTO> getListaLaboratorios() throws NegocioException {
+        try{
+            List<Laboratorio> entidades = laboratorioDAO.getLaboratorios();
+            List<ConsultarLaboratorioDTO> dtos = new ArrayList<>();
+            for(Laboratorio l : entidades){
+                ConsultarLaboratorioDTO ldto = new ConsultarLaboratorioDTO(String.valueOf(l.getId()), l.getNombre(), l.getContraseña());
+                dtos.add(ldto);
+            }
+            return dtos;
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public List<ConsultarSoftwareDTO> getListaSoftwares() throws NegocioException {
+        try{
+            List<Software> entidades = softwareDAO.getSoftwares();
+            List<ConsultarSoftwareDTO> dtos = new ArrayList<>();
+            for(Software s : entidades){
+                ConsultarSoftwareDTO sdto = new ConsultarSoftwareDTO(s.getNombre(), s.getVersion());
+                dtos.add(sdto);
+            }
+            return dtos;
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    @Override
+    public List<ConsultarCarreraDTO> getListaCarreras() throws NegocioException {
+        try{
+            List<Carrera> carreras = carreraDAO.getCarreras();
+            List<ConsultarCarreraDTO> dtos = new ArrayList<>();
+            for(Carrera c : carreras){
+                ConsultarCarreraDTO cdto = new ConsultarCarreraDTO(c.getId(), c.getNombre(), c.getTiempoDiario());
+                dtos.add(cdto);
+            }
+            return dtos;
+        }
+        catch(PersistenciaException e){
+            throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    
 }

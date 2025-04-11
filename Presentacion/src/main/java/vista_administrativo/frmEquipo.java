@@ -6,6 +6,7 @@ package vista_administrativo;
 
 import Dtos.AgregarComputadoraDTO;
 import Dtos.ComputadoraDTO;
+import Dtos.ConsultarLaboratorioDTO;
 import componentes.RoundedPanel;
 import daos.BloqueoDAO;
 import daos.CarreraDAO;
@@ -31,6 +32,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -52,7 +54,7 @@ public class frmEquipo extends javax.swing.JFrame {
     /**
      * Creates new form frmAgregarEquipo
      */
-    public frmEquipo(IAdministrativoNegocio adminNegocio) {
+    public frmEquipo(IAdministrativoNegocio adminNegocio) throws NegocioException {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
@@ -101,6 +103,16 @@ public class frmEquipo extends javax.swing.JFrame {
                 setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
             }
         });
+        
+        cargarLabs();
+    }
+    
+    private void cargarLabs() throws NegocioException{
+        List<ConsultarLaboratorioDTO> labs = adminNegocio.getListaLaboratorios();
+        cmbLaboratorios.removeAllItems();
+        for(ConsultarLaboratorioDTO laboratorio : labs){
+            cmbLaboratorios.addItem(laboratorio.getNombre());
+        }
     }
     
     
@@ -117,7 +129,7 @@ public class frmEquipo extends javax.swing.JFrame {
         txfNumeroEquipo = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox<>();
         txfIp = new javax.swing.JTextField();
-        cmbLaboratorio = new javax.swing.JComboBox<>();
+        cmbLaboratorios = new javax.swing.JComboBox<>();
         btnAceptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox<>();
@@ -139,9 +151,8 @@ public class frmEquipo extends javax.swing.JFrame {
         txfIp.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfIp.setText("Direccion ip del equipo:");
 
-        cmbLaboratorio.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        cmbLaboratorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca" }));
-        cmbLaboratorio.setEnabled(false);
+        cmbLaboratorios.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        cmbLaboratorios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca" }));
 
         btnAceptar.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(15, 86, 137));
@@ -201,7 +212,7 @@ public class frmEquipo extends javax.swing.JFrame {
                         .addComponent(txfNumeroEquipo, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txfIp, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cmbLaboratorio, javax.swing.GroupLayout.Alignment.LEADING, 0, 228, Short.MAX_VALUE)
+                        .addComponent(cmbLaboratorios, javax.swing.GroupLayout.Alignment.LEADING, 0, 228, Short.MAX_VALUE)
                         .addComponent(cmbTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -222,7 +233,7 @@ public class frmEquipo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txfIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbLaboratorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
@@ -247,7 +258,7 @@ public class frmEquipo extends javax.swing.JFrame {
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         // TODO add your handling code here:
         try {
-            AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfIp.getText(),cmbTipo.getSelectedItem().toString(), cmbLaboratorio.getSelectedItem().toString());
+            AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfIp.getText(),cmbTipo.getSelectedItem().toString(), cmbLaboratorios.getSelectedItem().toString());
             adminNegocio.agregarEquipo(equipo);
         } catch (NegocioException ex) {
             Logger.getLogger(frmEquipo.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,7 +324,7 @@ public class frmEquipo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JComboBox<String> cmbEstado;
-    private javax.swing.JComboBox<String> cmbLaboratorio;
+    private javax.swing.JComboBox<String> cmbLaboratorios;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

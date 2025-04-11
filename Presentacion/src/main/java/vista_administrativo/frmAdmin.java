@@ -5,12 +5,15 @@
 package vista_administrativo;
 
 import componentes.RoundedPanel;
+import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -482,14 +485,26 @@ public class frmAdmin extends javax.swing.JFrame {
 
     private void pnlAgregarHorarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAgregarHorarioMouseClicked
         // TODO add your handling code here:
-        frmHorario horario = new frmHorario(adminNegocio);
-        horario.setVisible(true);
+        frmHorario horario;
+        try {
+            horario = new frmHorario(adminNegocio);
+            horario.setVisible(true);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_pnlAgregarHorarioMouseClicked
 
     private void pnlInstalacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlInstalacionesMouseClicked
         // TODO add your handling code here:
-        frmInstalacion instalacion = new frmInstalacion(adminNegocio);
-        instalacion.setVisible(true);
+        frmInstalacion instalacion;
+        try {
+            instalacion = new frmInstalacion(adminNegocio);
+            instalacion.setVisible(true);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_pnlInstalacionesMouseClicked
 
     private void pnlEstudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEstudiantesMouseClicked

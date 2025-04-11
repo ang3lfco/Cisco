@@ -298,8 +298,14 @@ public class frmComputadoras extends javax.swing.JFrame {
 
     private void lblAgregarComputadoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarComputadoraMouseClicked
         // TODO add your handling code here:
-        frmEquipo agregarEquipo = new frmEquipo(adminNegocio);
-        agregarEquipo.setVisible(true);
+        frmEquipo agregarEquipo;
+        try {
+            agregarEquipo = new frmEquipo(adminNegocio);
+            agregarEquipo.setVisible(true);
+        } catch (NegocioException ex) {
+            Logger.getLogger(frmComputadoras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_lblAgregarComputadoraMouseClicked
 
     private void lblCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseClicked

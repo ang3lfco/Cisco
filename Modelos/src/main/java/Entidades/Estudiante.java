@@ -71,6 +71,15 @@ public class Estudiante implements Serializable {
         this.bloqueos = bloqueos;
         this.reservas = reservas;
     }
+
+    public Estudiante(String nombre, String apellidoPaterno, String apellidoMaterno, String estado, String contraseña, Carrera carrera) {
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.estado = estado;
+        this.contraseña = contraseña;
+        this.carrera = carrera;
+    }
     
     public Estudiante(Long id, String idEstudiante, String nombre, String apellidoPaterno, String apellidoMaterno, String estado, String contraseña, Carrera carrera, List<Bloqueo> bloqueos, List<Reserva> reservas) {
         this.id = id;

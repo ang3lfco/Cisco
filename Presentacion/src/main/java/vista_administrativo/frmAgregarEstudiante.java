@@ -5,6 +5,8 @@
 package vista_administrativo;
 
 import Dtos.AgregarEstudianteDTO;
+import Dtos.ConsultarCarreraDTO;
+import Dtos.ConsultarSoftwareDTO;
 import componentes.RoundedPanel;
 import daos.BloqueoDAO;
 import daos.CarreraDAO;
@@ -27,6 +29,7 @@ import interfaces.IInstitutoDAO;
 import interfaces.ILaboratorioDAO;
 import interfaces.ISoftwareDAO;
 import java.awt.Color;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -39,14 +42,16 @@ import negocio_administrativo.AdministrativoNegocio;
 public class frmAgregarEstudiante extends javax.swing.JFrame {
     private IAdministrativoNegocio adminNegocio;
     private int xMouse, yMouse;
+    List<ConsultarCarreraDTO> carreras;
     /**
      * Creates new form frmAgregarEstudiante
      */
-    public frmAgregarEstudiante(IAdministrativoNegocio adminNegocio) {
+    public frmAgregarEstudiante(IAdministrativoNegocio adminNegocio) throws NegocioException {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.adminNegocio = adminNegocio;
+        carreras = adminNegocio.getListaCarreras();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -91,6 +96,15 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
                 setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
             }
         });
+        
+        cargarCarreras();
+    }
+    
+    private void cargarCarreras() throws NegocioException{
+        cmbCarreras.removeAllItems();
+        for(ConsultarCarreraDTO carrera : carreras){
+            cmbCarreras.addItem(carrera.getNombre());
+        }
     }
 
     /**
@@ -103,7 +117,6 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txfIdCarrera = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         txfIdEstudiante = new javax.swing.JTextField();
         txfNombre = new javax.swing.JTextField();
@@ -113,13 +126,11 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
         lblCerrar = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
         lblExpandir = new javax.swing.JLabel();
+        cmbCarreras = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(15, 86, 137));
-
-        txfIdCarrera.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        txfIdCarrera.setText("Carrera");
 
         btnAgregar.setText("Agregar");
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,22 +175,12 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
             }
         });
 
+        cmbCarreras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAgregar)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txfIdEstudiante)
-                        .addComponent(txfNombre)
-                        .addComponent(txfApellidoPaterno)
-                        .addComponent(txfApellidoMaterno)
-                        .addComponent(txfContraseña)
-                        .addComponent(txfIdCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblExpandir)
@@ -188,6 +189,17 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCerrar)
                 .addGap(17, 17, 17))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnAgregar)
+                    .addComponent(txfIdEstudiante, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfApellidoPaterno, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfApellidoMaterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(txfContraseña, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbCarreras, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,8 +220,8 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txfIdCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(cmbCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(btnAgregar)
                 .addGap(31, 31, 31))
         );
@@ -230,7 +242,16 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         // TODO add your handling code here:
-        AgregarEstudianteDTO estudianteDTO = new AgregarEstudianteDTO(txfIdEstudiante.getText(), txfNombre.getText(), txfApellidoPaterno.getText(), txfApellidoMaterno.getText(), txfContraseña.getText(), Long.parseLong(txfIdCarrera.getText()));
+        int carreraIndex = cmbCarreras.getSelectedIndex();
+        ConsultarCarreraDTO carreraSeleccionada = carreras.get(carreraIndex);
+        AgregarEstudianteDTO estudianteDTO = new AgregarEstudianteDTO(
+                txfIdEstudiante.getText(), 
+                txfNombre.getText(), 
+                txfApellidoPaterno.getText(), 
+                txfApellidoMaterno.getText(), 
+                txfContraseña.getText(), 
+                carreraSeleccionada.getId()
+        );
         try {
             adminNegocio.agregarEstudiante(estudianteDTO);
         } catch (NegocioException ex) {
@@ -295,6 +316,7 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JComboBox<String> cmbCarreras;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
@@ -302,7 +324,6 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
     private javax.swing.JTextField txfApellidoMaterno;
     private javax.swing.JTextField txfApellidoPaterno;
     private javax.swing.JTextField txfContraseña;
-    private javax.swing.JTextField txfIdCarrera;
     private javax.swing.JTextField txfIdEstudiante;
     private javax.swing.JTextField txfNombre;
     // End of variables declaration//GEN-END:variables

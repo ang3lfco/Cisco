@@ -99,5 +99,19 @@ public class SoftwareDAO implements ISoftwareDAO {
             em.close();
         }
     }
+    
+    @Override
+    public List<Software> getSoftwares() throws PersistenciaException{
+        EntityManager em = conexionBD.obtenerEntityManager();
+        try{
+            return em.createQuery("SELECT s from Software s", Software.class).getResultList();
+        }
+        catch(Exception e){
+            throw new PersistenciaException("Error: " + e.getMessage());
+        }
+        finally{
+            em.close();
+        }
+    }
 
 }
