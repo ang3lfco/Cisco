@@ -249,6 +249,7 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         }
     }
     
+    @Override
     public List<LaboratoriosTablaDTO> getLaboratorios() throws NegocioException {
         try{
             List<LaboratoriosTablaDTO> laboratorios = laboratorioDAO.consultarLaboratorios();
@@ -270,6 +271,7 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             throw new NegocioException("Error. " + e.getMessage());
         }
     }
+    
     @Override
     public void editarComputadora(EditarEquipoDTO equipo,EditarEquipoDTO equipoEditado){
         try {
@@ -330,6 +332,7 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         }
     }
     
+    @Override
     public void eliminarLaboratorio(EditarLaboratoriosDTO labDTO){
         try {
             Laboratorio lab = laboratorioDAO.getLaboratorioPorNombre(labDTO.getNombre());
@@ -431,6 +434,4 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
             throw new NegocioException("Error. " + e.getMessage());
         }
     }
-    
-    
 }
