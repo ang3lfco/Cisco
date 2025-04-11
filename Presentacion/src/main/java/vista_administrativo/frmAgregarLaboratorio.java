@@ -30,6 +30,7 @@ import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -228,6 +229,8 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
         AgregarLaboratorioDTO laboratorioDTO = new AgregarLaboratorioDTO(txfNombre.getText(), dateTimePicker1.timePicker.getTime(), dateTimePicker2.timePicker.getTime(), txfContraseña.getText(), Long.parseLong(txfIdInstituto.getText()));
         try {
             adminNegocio.agregarLaboratorio(laboratorioDTO);
+            JOptionPane.showMessageDialog(null, "Laboratorio agregado.");
+            this.dispose();
         } catch (NegocioException ex) {
             Logger.getLogger(frmAgregarLaboratorio.class.getName()).log(Level.SEVERE, null, ex);
         }

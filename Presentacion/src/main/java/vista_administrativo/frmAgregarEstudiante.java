@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -254,7 +255,10 @@ public class frmAgregarEstudiante extends javax.swing.JFrame {
         );
         try {
             adminNegocio.agregarEstudiante(estudianteDTO);
-        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(null, "Estudiante agregado.");
+            this.dispose();
+        } 
+        catch (NegocioException ex) {
             Logger.getLogger(frmAgregarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAgregarMouseClicked

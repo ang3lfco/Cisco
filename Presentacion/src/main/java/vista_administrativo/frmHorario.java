@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -259,6 +260,8 @@ public class frmHorario extends javax.swing.JFrame {
         AgregarHorarioEspecialDTO horario = new AgregarHorarioEspecialDTO(fecha, horaInicio, horaFin);
         try {
             adminNegocio.agregarHorarioEspecial(horario, cmbLaboratorios.getSelectedItem().toString());
+            JOptionPane.showMessageDialog(null, "Horario especial asignado.");
+            this.dispose();
         } catch (NegocioException ex) {
             Logger.getLogger(frmHorario.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -40,6 +40,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import negocio_administrativo.AdministrativoNegocio;
 
@@ -264,10 +265,12 @@ public class frmEquipo extends javax.swing.JFrame {
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         // TODO add your handling code here:
+        AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfEtiqueta.getText(),cmbTipo.getSelectedItem().toString(), cmbLaboratorios.getSelectedItem().toString());
+        equipo.setEtiqueta(txfEtiqueta.getText());
         try {
-            AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfEtiqueta.getText(),cmbTipo.getSelectedItem().toString(), cmbLaboratorios.getSelectedItem().toString());
-            equipo.setEtiqueta(txfEtiqueta.getText());
             adminNegocio.agregarEquipo(equipo);
+            JOptionPane.showMessageDialog(null, "Computadora agregada.");
+            this.dispose();
         } catch (NegocioException ex) {
             Logger.getLogger(frmEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }

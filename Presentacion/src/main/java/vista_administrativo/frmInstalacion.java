@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -234,6 +235,8 @@ public class frmInstalacion extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             adminNegocio.agregarInstalacion(Integer.parseInt(txfNumero.getText()), cmbSoftwares.getSelectedItem().toString());
+            JOptionPane.showMessageDialog(null, "Software instalado en Computadora.");
+            this.dispose();
         } catch (NegocioException ex) {
             Logger.getLogger(frmInstalacion.class.getName()).log(Level.SEVERE, null, ex);
         }

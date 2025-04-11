@@ -30,6 +30,7 @@ import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -218,9 +219,11 @@ public class frmSoftware extends javax.swing.JFrame {
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         // TODO add your handling code here:
+        AgregarSoftwareDTO software = new AgregarSoftwareDTO(txfNombre.getText(), txfVersion.getText());
         try {
-            AgregarSoftwareDTO software = new AgregarSoftwareDTO(txfNombre.getText(), txfVersion.getText());
             adminNegocio.agregarSoftware(software);
+            JOptionPane.showMessageDialog(null, "Software agregado.");
+            this.dispose();
         } catch (NegocioException ex) {
             Logger.getLogger(frmSoftware.class.getName()).log(Level.SEVERE, null, ex);
         }

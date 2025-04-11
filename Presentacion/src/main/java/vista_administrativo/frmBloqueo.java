@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -223,10 +224,13 @@ public class frmBloqueo extends javax.swing.JFrame {
 
     private void btnBloquearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBloquearMouseClicked
         // TODO add your handling code here:
+        AgregarBloqueoDTO bloqueoDTO = new AgregarBloqueoDTO(LocalDateTime.now(), txaMotivo.getText(), txfID.getText());
         try {
-            AgregarBloqueoDTO bloqueoDTO = new AgregarBloqueoDTO(LocalDateTime.now(), txaMotivo.getText(), txfID.getText());
             adminNegocio.agregarBloqueo(bloqueoDTO);
-        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(null, "Bloqueo asignado.");
+            this.dispose();
+        } 
+        catch (NegocioException ex) {
             Logger.getLogger(frmEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBloquearMouseClicked

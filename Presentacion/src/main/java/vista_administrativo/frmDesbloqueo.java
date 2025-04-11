@@ -29,6 +29,7 @@ import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -206,6 +207,8 @@ public class frmDesbloqueo extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             adminNegocio.desbloquear(txfID.getText());
+            JOptionPane.showMessageDialog(null, "Desbloqueo aplicado.");
+            this.dispose();
         } catch (NegocioException ex) {
             Logger.getLogger(frmDesbloqueo.class.getName()).log(Level.SEVERE, null, ex);
         }
