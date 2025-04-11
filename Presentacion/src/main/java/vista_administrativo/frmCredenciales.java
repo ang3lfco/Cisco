@@ -32,7 +32,7 @@ public class frmCredenciales extends javax.swing.JFrame {
     /**
      * Creates new form frmCredenciales
      */
-    public frmCredenciales(IAdministrativoNegocio adminNegocio) {
+    public frmCredenciales(IAdministrativoNegocio adminNegocio) throws NegocioException {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
@@ -82,6 +82,16 @@ public class frmCredenciales extends javax.swing.JFrame {
                 setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
             }
         });
+        
+        cargarLabs();
+    }
+    
+    private void cargarLabs() throws NegocioException{
+        List<ConsultarLaboratorioDTO> labs = adminNegocio.getListaLaboratorios();
+        cmbLaboratorios.removeAllItems();
+        for(ConsultarLaboratorioDTO laboratorio : labs){
+            cmbLaboratorios.addItem(laboratorio.getNombre());
+        }
     }
 
     /**
@@ -94,7 +104,7 @@ public class frmCredenciales extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        cmbLaboratorio = new javax.swing.JComboBox<>();
+        cmbLaboratorios = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txfContraseña = new javax.swing.JTextField();
@@ -109,8 +119,8 @@ public class frmCredenciales extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(15, 86, 137));
 
-        cmbLaboratorio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca", "Residencias", "Cafeteria", " " }));
-        cmbLaboratorio.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        cmbLaboratorios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca", "Residencias", "Cafeteria", " " }));
+        cmbLaboratorios.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
 
         jLabel1.setText("Seleccione laboratorio:");
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -182,7 +192,7 @@ public class frmCredenciales extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
-                            .addComponent(cmbLaboratorio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbLaboratorios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -204,7 +214,7 @@ public class frmCredenciales extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbLaboratorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbLaboratorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -233,7 +243,7 @@ public class frmCredenciales extends javax.swing.JFrame {
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
         try {
             // TODO add your handling code here:
-            ConsultarLaboratorioDTO lab = adminNegocio.getLaboratorioPorNombre(cmbLaboratorio.getSelectedItem().toString());
+            ConsultarLaboratorioDTO lab = adminNegocio.getLaboratorioPorNombre(cmbLaboratorios.getSelectedItem().toString());
             boolean valido = adminNegocio.validarContraseña(txfContraseña.getText(), lab.getContraseña());
             if(valido){
                 JOptionPane.showMessageDialog(null, "Bienvenido administrativo de " + lab.getNombre());
@@ -340,7 +350,7 @@ public class frmCredenciales extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
-    private javax.swing.JComboBox<String> cmbLaboratorio;
+    private javax.swing.JComboBox<String> cmbLaboratorios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

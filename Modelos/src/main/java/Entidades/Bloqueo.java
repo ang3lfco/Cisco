@@ -6,6 +6,7 @@ package Entidades;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Bloqueo implements Serializable {
     @Column(name = "motivo", length = 300, nullable = false)
     private String motivo;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "idEstudiante")
     private Estudiante estudiante;
 
@@ -94,8 +95,8 @@ public class Bloqueo implements Serializable {
         this.estudiante = estudiante;
     }
 
-    @Override
-    public String toString() {
-        return "Bloqueo{" + "id=" + id + ", fechaHoraBloqueo=" + fechaHoraBloqueo + ", fechaHoraDesbloqueo=" + fechaHoraDesbloqueo + ", motivo=" + motivo + ", estudiante=" + estudiante + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Bloqueo{" + "id=" + id + ", fechaHoraBloqueo=" + fechaHoraBloqueo + ", fechaHoraDesbloqueo=" + fechaHoraDesbloqueo + ", motivo=" + motivo + ", estudiante=" + estudiante + '}';
+//    }
 }

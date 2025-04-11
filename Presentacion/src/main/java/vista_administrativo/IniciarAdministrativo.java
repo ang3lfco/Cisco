@@ -13,6 +13,7 @@ import daos.HorarioEspecialDAO;
 import daos.InstitutoDAO;
 import daos.LaboratorioDAO;
 import daos.SoftwareDAO;
+import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
 import interfaces.IBloqueoDAO;
 import interfaces.ICarreraDAO;
@@ -30,7 +31,7 @@ import negocio_administrativo.AdministrativoNegocio;
  * @author ang3lfco
  */
 public class IniciarAdministrativo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NegocioException {
         IAdministrativoNegocio adminNegocio;
         IConexionBD conexion = new ConexionBD();
         IComputadoraDAO computadoraDAO = new ComputadoraDAO(conexion);

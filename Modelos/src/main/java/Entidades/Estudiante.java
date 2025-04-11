@@ -54,7 +54,7 @@ public class Estudiante implements Serializable {
     @OneToMany(mappedBy = "estudiante", cascade = CascadeType.REMOVE)
     private List<Bloqueo> bloqueos;
     
-    @OneToMany(mappedBy = "estudiante")
+    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.REMOVE)
     private List<Reserva> reservas;
 
     public Estudiante() {
@@ -174,8 +174,8 @@ public class Estudiante implements Serializable {
         this.reservas = reservas;
     }
 
-    @Override
-    public String toString() {
-        return "Estudiante{" + "id=" + id + ", idEstudiante=" + idEstudiante + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", estado=" + estado + ", contrase\u00f1a=" + contraseña + ", carrera=" + carrera + ", bloqueos=" + bloqueos + ", reservas=" + reservas + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Estudiante{" + "id=" + id + ", idEstudiante=" + idEstudiante + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", estado=" + estado + ", contrase\u00f1a=" + contraseña + ", carrera=" + carrera + ", bloqueos=" + bloqueos + ", reservas=" + reservas + '}';
+//    }
 }

@@ -31,9 +31,9 @@ public class Pruebas {
         IReservaDAO reservaDAO = new ReservaDAO(bd);
         IComputadoraDAO soft = new ComputadoraDAO(bd);
         
-        for (int i = 0; i < soft.consultarSoftwareDeComputadoras("192.168.0.14").size(); i++) {
-            System.out.println(soft.consultarSoftwareDeComputadoras("192.168.0.14").get(i).getNombre());
-        }
+//        for (int i = 0; i < soft.consultarSoftwareDeComputadoras("192.168.0.14").size(); i++) {
+//            System.out.println(soft.consultarSoftwareDeComputadoras("192.168.0.14").get(i).getNombre());
+//        }
         
        }
 }
