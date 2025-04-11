@@ -79,6 +79,7 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         try{
             Laboratorio lab = laboratorioDAO.getLaboratorioPorNombre(computadoraDTO.getLaboratorio());
             Computadora equipo = Conversiones.computadoraDTOEnEntidad(computadoraDTO, lab);
+            equipo.setEtiqueta(computadoraDTO.getEtiqueta());
             computadoraDAO.agregarComputadora(equipo);
         }
         catch(PersistenciaException e){

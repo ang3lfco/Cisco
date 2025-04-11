@@ -34,6 +34,11 @@ public class InstitutoDTO {
         this.laboratorios = laboratorios;
     }
 
+    public InstitutoDTO(String nombre, String siglas) {
+        this.nombre = nombre;
+        this.siglas = siglas;
+    }
+
     
     
     public Long getId() {

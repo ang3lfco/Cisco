@@ -131,6 +131,8 @@ public class frmLaboratorios extends javax.swing.JFrame {
 
         tblLaboratorios.getColumnModel().getColumn(5).setCellEditor(editor);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -165,7 +167,7 @@ public class frmLaboratorios extends javax.swing.JFrame {
 
         lblAgregarLaboratorio.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         lblAgregarLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
-        lblAgregarLaboratorio.setText("+ Agregar Computadora");
+        lblAgregarLaboratorio.setText("+ Agregar Laboratorio");
         lblAgregarLaboratorio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAgregarLaboratorioMouseClicked(evt);

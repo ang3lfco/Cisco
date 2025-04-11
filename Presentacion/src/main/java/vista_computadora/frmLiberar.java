@@ -53,7 +53,7 @@ public class frmLiberar extends javax.swing.JFrame {
                 System.out.println(reserva.getHoraInicio());
                 System.out.println(reserva.getHoraFin());
 
-                tiempo = Duration.between(LocalTime.now(), reserva.getHoraFin()).toMinutes();
+                tiempo = Duration.between(reserva.getHoraFin(),LocalTime.now()).toMinutes();
                 jLabel7.setText(tiempo + " min");
                 
             }

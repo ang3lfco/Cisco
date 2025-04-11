@@ -6,16 +6,23 @@ package negocio_computadora;
 
 import Dtos.ComputadoraDTO;
 import Dtos.ReservaDTO;
+import Dtos.SoftwareDTO;
 import Entidades.Computadora;
+import Entidades.Estudiante;
 import Entidades.Laboratorio;
 import Entidades.Reserva;
+import Entidades.Software;
 import conversiones.Conversiones;
 import static conversiones.Conversiones.convertirComputadoraDTOAComputadora;
+import encriptamiento.Encriptador;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfaces.IComputadoraDAO;
 import interfaces.IComputadoraNegocio;
+import interfaces.IEstudianteDAO;
 import interfaces.IReservaDAO;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +33,7 @@ import java.util.logging.Logger;
 public class ComputadoraNegocio implements IComputadoraNegocio{
     private IComputadoraDAO computadoraDAO;
     private IReservaDAO reservaDAO;
+    private IEstudianteDAO estudianteDAO;
     
     public ComputadoraNegocio(IComputadoraDAO computadoraDAO) {
         this.computadoraDAO = computadoraDAO;
@@ -34,6 +42,12 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
     public ComputadoraNegocio(IComputadoraDAO computadoraDAO, IReservaDAO reservaDAO) {
         this.computadoraDAO = computadoraDAO;
         this.reservaDAO = reservaDAO;
+    }
+
+    public ComputadoraNegocio(IComputadoraDAO computadoraDAO, IReservaDAO reservaDAO, IEstudianteDAO estudianteDAO) {
+        this.computadoraDAO = computadoraDAO;
+        this.reservaDAO = reservaDAO;
+        this.estudianteDAO = estudianteDAO;
     }
     
     
@@ -87,12 +101,25 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
         }
     }
     
+    
+    @Override
+    public boolean validarContrasenhaEstudiante(String contrasenha, String idEstudiante) throws NegocioException {
+        try {
+            Estudiante estudiante = estudianteDAO.getEstudiantePorId(idEstudiante);
+            
+            if (this.validarContraseña(contrasenha, estudiante.getContraseña())) {
+                return true;
+            }
+            
+            return false;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
+        }
+    }
      public Computadora convertirComputadoraDTOAComputadora(ComputadoraDTO computadoraDTO) {
         if (computadoraDTO == null) {
-            System.out.println("NULO");
             return null;
         }
-        System.out.println("NO NULO");
         Laboratorio lab = new Laboratorio();
         lab.setId(computadoraDTO.getLaboratorio().getId());
 
@@ -103,7 +130,30 @@ public class ComputadoraNegocio implements IComputadoraNegocio{
         computadora.setDireccionIp(computadoraDTO.getDireccionIp());
         computadora.setTipo(computadoraDTO.getTipo());
         computadora.setLaboratorio(lab);
+        computadora.setEtiqueta(computadoraDTO.getEtiqueta());
         
+        try {
+            List<SoftwareDTO> softwares = this.computadoraDAO.consultarSoftwareDeComputadoras(computadora.getDireccionIp(), computadora.getTipo());
+            computadora.setSoftwares(this.softwaresDTOAEntidad(softwares));
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComputadoraNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return computadora;
     }
+     
+     public boolean validarContraseña(String original, String encriptada){
+        return Encriptador.verificarContraseña(original, encriptada);
+    }
+     
+     private List<Software> softwaresDTOAEntidad(List<SoftwareDTO> dtos){
+         List<Software> entidades = new ArrayList<>();
+         
+         
+         for (SoftwareDTO softwares : dtos) {
+             Software software = new Software();
+                software.setId(softwares.getId());
+                entidades.add(software);
+            }
+         return entidades;
+     }
 }

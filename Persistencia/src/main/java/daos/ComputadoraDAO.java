@@ -140,7 +140,9 @@ public class ComputadoraDAO implements IComputadoraDAO {
                         root.get("id"),
                         root.get("numero"),
                         root.get("estado"),
+                        root.get("etiqueta"),
                         root.get("direccionIp"),
+                        root.get("tipo"),
                         criteriaBuilder.construct(LaboratorioDTO.class,
                                 root.get("laboratorio").get("id"),
                                 root.get("laboratorio").get("nombre")
@@ -220,6 +222,7 @@ public class ComputadoraDAO implements IComputadoraDAO {
                         root.get("id"),
                         root.get("numero"),
                         root.get("estado"),
+                        root.get("etiqueta"),
                         root.get("direccionIp"),
                         root.get("tipo"),
                         criteriaBuilder.construct(LaboratorioDTO.class,
@@ -245,7 +248,7 @@ public class ComputadoraDAO implements IComputadoraDAO {
     }
 
     @Override
-    public List<SoftwareDTO> consultarSoftwareDeComputadoras(String ip) throws PersistenciaException {
+    public List<SoftwareDTO> consultarSoftwareDeComputadoras(String ip, String tipo) throws PersistenciaException {
         EntityManager entityManager = null;
         EntityTransaction entityTransaction = null;
 
@@ -260,10 +263,12 @@ public class ComputadoraDAO implements IComputadoraDAO {
         Join<Computadora, Software> joinSoftware = root.join("softwares"); // ← nombre del atributo en Computadora
 
         criteriaQuery.select(criteriaBuilder.construct(SoftwareDTO.class,
+                joinSoftware.get("id"),
                 joinSoftware.get("nombre"),
                 joinSoftware.get("version"))
         )
-                .where(criteriaBuilder.equal(root.get("direccionIp"), ip));
+                .where(criteriaBuilder.equal(root.get("direccionIp"), ip),
+                        criteriaBuilder.equal(root.get("tipo"), tipo));
 
         TypedQuery<SoftwareDTO> query = entityManager.createQuery(criteriaQuery);
 
@@ -310,6 +315,7 @@ public class ComputadoraDAO implements IComputadoraDAO {
                         root.get("id"),
                         root.get("numero"),
                         root.get("estado"),
+                        root.get("etiqueta"),
                         root.get("direccionIp"),
                         root.get("tipo"),
                         criteriaBuilder.construct(LaboratorioDTO.class,
@@ -349,4 +355,5 @@ public class ComputadoraDAO implements IComputadoraDAO {
             em.close();
         }
     }
+    
 }

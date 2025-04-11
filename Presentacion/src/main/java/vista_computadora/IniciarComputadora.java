@@ -6,10 +6,12 @@ package vista_computadora;
 
 import daos.ComputadoraDAO;
 import daos.ConexionBD;
+import daos.EstudianteDAO;
 import daos.ReservaDAO;
 import interfaces.IComputadoraDAO;
 import interfaces.IComputadoraNegocio;
 import interfaces.IConexionBD;
+import interfaces.IEstudianteDAO;
 import interfaces.IReservaDAO;
 import negocio_computadora.ComputadoraNegocio;
 
@@ -29,8 +31,9 @@ public class IniciarComputadora {
         IConexionBD conexion = new ConexionBD();
         IReservaDAO rDAO = new ReservaDAO(conexion);
         IComputadoraDAO cDAO = new ComputadoraDAO(conexion);
+        IEstudianteDAO eDAO = new EstudianteDAO(conexion);
         
-        IComputadoraNegocio cNegocio = new ComputadoraNegocio(cDAO,rDAO);
+        IComputadoraNegocio cNegocio = new ComputadoraNegocio(cDAO,rDAO,eDAO);
         frmComputadora computadora = new frmComputadora(cNegocio);
         
         computadora.setVisible(true);

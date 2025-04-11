@@ -16,6 +16,7 @@ public class AgregarComputadoraDTO {
     private String direccionIp;
     private String tipo;
     private String laboratorio;
+    private String etiqueta;
 
     public AgregarComputadoraDTO(int numero, boolean estado, String direccionIp, String tipo, String laboratorio) {
         this.numero = numero;
@@ -24,6 +25,25 @@ public class AgregarComputadoraDTO {
         this.tipo = tipo;
         this.laboratorio = laboratorio;
     }
+
+    public AgregarComputadoraDTO(int numero, boolean estado, String direccionIp, String tipo, String laboratorio, String etiqueta) {
+        this.numero = numero;
+        this.estado = estado;
+        this.direccionIp = direccionIp;
+        this.tipo = tipo;
+        this.laboratorio = laboratorio;
+        this.etiqueta = etiqueta;
+    }
+
+    public String getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(String etiqueta) {
+        this.etiqueta = etiqueta;
+    }
+    
+    
 
     public int getNumero() {
         return numero;

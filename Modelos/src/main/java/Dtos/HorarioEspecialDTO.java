@@ -35,6 +35,7 @@ public class HorarioEspecialDTO {
         this.horaFin = horaFin;
         this.laboratorio = laboratorio;
     }
+    
 
     public Long getId() {
         return id;

@@ -98,19 +98,20 @@ public class frmComputadoras extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblPcs.getModel();
         model.setRowCount(0);
         for (ComputadoraDTO c : pcs) {
-            Object[] row = new Object[5];
+            Object[] row = new Object[7];
             row[0] = c.getNumero();
             row[1] = c.isEstado();
             row[2] = c.getDireccionIp();
             row[3] = c.getTipo();
             row[4] = c.getLaboratorio().getNombre();
+            row[5] = c.getEtiqueta();
             model.addRow(row);
         }
         tblPcs.setRowHeight(50);
     }
 
     private void configurarTabla() {
-        tblPcs.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        tblPcs.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
 
         ButtonEditor editor = new ButtonEditor(
                 e -> {
@@ -167,7 +168,7 @@ public class frmComputadoras extends javax.swing.JFrame {
                 }
         );
 
-        tblPcs.getColumnModel().getColumn(5).setCellEditor(editor);
+        tblPcs.getColumnModel().getColumn(6).setCellEditor(editor);
     }
 
     /**
@@ -196,17 +197,17 @@ public class frmComputadoras extends javax.swing.JFrame {
         tblPcs.setForeground(new java.awt.Color(255, 255, 255));
         tblPcs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Numero", "Estado", "IP", "Tipo", "Laboratorio", ""
+                "Numero", "Estado", "IP", "Tipo", "Laboratorio", "Etiqueta", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

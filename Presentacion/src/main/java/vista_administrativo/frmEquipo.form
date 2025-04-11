@@ -60,9 +60,10 @@
                           <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
                           <Component id="txfNumeroEquipo" alignment="0" max="32767" attributes="0"/>
                           <Component id="cmbEstado" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txfIp" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txfEtiqueta" alignment="0" max="32767" attributes="0"/>
                           <Component id="cmbLaboratorios" alignment="0" pref="228" max="32767" attributes="0"/>
                           <Component id="cmbTipo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txfIp1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="28" max="32767" attributes="0"/>
@@ -84,15 +85,17 @@
                   <Component id="txfNumeroEquipo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="cmbEstado" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="txfIp" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="txfIp1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <Component id="txfEtiqueta" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="cmbLaboratorios" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="cmbTipo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="49" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -123,12 +126,12 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="txfIp">
+        <Component class="javax.swing.JTextField" name="txfEtiqueta">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Black" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Direccion ip del equipo:"/>
+            <Property name="text" type="java.lang.String" value="etiqueta"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbLaboratorios">
@@ -217,6 +220,14 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblExpandirMouseClicked"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txfIp1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI Black" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Direccion ip del equipo:"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

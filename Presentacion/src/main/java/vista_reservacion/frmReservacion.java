@@ -24,7 +24,7 @@ import vista_computadora.frmComputadora;
 public class frmReservacion extends javax.swing.JFrame {
 
     IReservacionNegocio reservacionNegocio;
-    String tipo = "Reserva";
+    String tipo = "Reservacion";
     /**
      * Creates new form frmReservacion
      */
@@ -80,6 +80,7 @@ public class frmReservacion extends javax.swing.JFrame {
             throw new PresentacionException("Estudiante no encontrado " + ex.getMessage());
         }
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

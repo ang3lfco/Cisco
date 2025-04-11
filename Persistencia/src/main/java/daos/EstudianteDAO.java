@@ -107,6 +107,7 @@ public class EstudianteDAO implements IEstudianteDAO{
                         root.get("apellidoMaterno"),
                         root.get("estado"),
                         root.get("contraseña"),
+                        root.get("carrera").get("nombre"),
                         root.get("carrera").get("tiempoDiario")
                 )
         ).where(criteriaBuilder.equal(root.get("idEstudiante"), id));

@@ -16,6 +16,7 @@ public class EstudianteIngresaDTO {
     private String apellidoMaterno;
     private String estado;
     private String contraseña;
+    private String carrera;
     private int tiempoDiario;
 
     public EstudianteIngresaDTO() {
@@ -50,6 +51,28 @@ public class EstudianteIngresaDTO {
         this.contraseña = contraseña;
         this.tiempoDiario = tiempoDiario;
     }
+
+    public EstudianteIngresaDTO(Long id, String idEstudiante, String nombre, String apellidoPaterno, String apellidoMaterno, String estado, String contraseña, String carrera, int tiempoDiario) {
+        this.id = id;
+        this.idEstudiante = idEstudiante;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.estado = estado;
+        this.contraseña = contraseña;
+        this.carrera = carrera;
+        this.tiempoDiario = tiempoDiario;
+    }
+
+    public String getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
+    }
+    
+    
 
     public Long getId() {
         return id;

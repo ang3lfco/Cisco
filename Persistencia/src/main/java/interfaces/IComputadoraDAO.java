@@ -20,7 +20,7 @@ public interface IComputadoraDAO {
     void editarComputadora(Computadora computadora) throws PersistenciaException;
     List<ComputadoraDTO> consultarNumeroComputadorasPorLaboratorio(Long id,String tipo) throws PersistenciaException;
     ComputadoraDTO consultarComputadorasPorIP(String ip) throws PersistenciaException;
-    List<SoftwareDTO> consultarSoftwareDeComputadoras(String ip) throws PersistenciaException;
+    List<SoftwareDTO> consultarSoftwareDeComputadoras(String ip,String tipo) throws PersistenciaException;
     Computadora getComputadoraPorNumero(int numero) throws PersistenciaException;
     ComputadoraDTO consultarComputadorasPorIPYTipo(String ip,String tipo) throws PersistenciaException;
     List<ComputadoraDTO> consultarComputadoras() throws PersistenciaException;

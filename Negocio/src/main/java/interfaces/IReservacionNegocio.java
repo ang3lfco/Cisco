@@ -23,7 +23,7 @@ public interface IReservacionNegocio {
     List<ComputadoraDTO> numeroComputadorasDTO(Long id,String tipo) throws NegocioException;
     EstudianteIngresaDTO buscarIDEstudiante(String id) throws NegocioException;
     ComputadoraDTO computadoraPorIp(String ip) throws NegocioException;
-    List<SoftwareDTO> softareDeComputadoraDTO(String ip) throws NegocioException;
+    List<SoftwareDTO> softareDeComputadoraDTO(String ip,String tipo) throws NegocioException;
     void editarComputadora(ComputadoraDTO pc) throws NegocioException;
     HorarioEspecialDTO buscarHorarioEspecialPorDia(LocalDate hoy) throws NegocioException;
     void agregarHorarioEspecial(HorarioEspecialDTO horarioEspecialDTO) throws NegocioException;

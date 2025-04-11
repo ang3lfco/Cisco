@@ -65,7 +65,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         DefaultListModel<String> modelo = new DefaultListModel<>();
 
         try {
-            softwares = reservacionNegocio.softareDeComputadoraDTO(pc.getDireccionIp());
+            softwares = reservacionNegocio.softareDeComputadoraDTO(pc.getDireccionIp(), "Estudiante");
 
             for (int i = 0; i < softwares.size(); i++) {
                 modelo.addElement(softwares.get(i).getNombre());
@@ -91,7 +91,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         Long id = null;
         
         try {
-            pc = reservacionNegocio.computadoraPorIp(this.pc.getDireccionIp());
+            pc = reservacionNegocio.computadoraPorIpYTipo(this.pc.getDireccionIp(), "Estudiante");
             he = new HorarioEspecialDTO(LocalDate.now(), pc.getLaboratorio().getHoraInicio(),
                     pc.getLaboratorio().getHoraInicio(), pc.getLaboratorio());
 
@@ -122,8 +122,9 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
     
     private void cambiarEstadoPC(){
         try {
-            pc = reservacionNegocio.computadoraPorIpYTipo(this.pc.getDireccionIp(),"Estudiante");
+           pc = reservacionNegocio.computadoraPorIpYTipo(this.pc.getDireccionIp(),"Estudiante");
            pc.setEstado(false);
+           
             reservacionNegocio.editarComputadora(pc);
         } catch (NegocioException ex) {
             Logger.getLogger(frmConfirmarReserva.class.getName()).log(Level.SEVERE, null, ex);
@@ -263,7 +264,6 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         try {
 
             Long idHorarioEspecial = this.obtenerHorarioEspecial();
-            System.out.println("id horario: " + idHorarioEspecial);
             
             EstudianteDTO estudiante = new EstudianteDTO();
             ComputadoraDTO pc = new ComputadoraDTO();
@@ -271,6 +271,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
 
             estudiante.setId(this.estudiante.getId());
             pc.setId(this.pc.getId());
+            pc.setTipo("Estudiante");
             horario.setId(idHorarioEspecial);
 
             ReservaDTO reserva = new ReservaDTO(

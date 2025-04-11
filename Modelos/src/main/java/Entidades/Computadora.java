@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -41,6 +41,9 @@ public class Computadora implements Serializable {
     
     @Column(name="tipo", length=20, nullable=false)
     private String tipo;
+    
+    @Column(name="etiqueta", length=20, nullable=true)
+    private String etiqueta;
 
     @ManyToOne
     @JoinColumn(name = "idLaboratorio", nullable=false)
@@ -114,8 +117,28 @@ public class Computadora implements Serializable {
         this.tipo = tipo;
         this.laboratorio = laboratorio;
     }
+
+    public Computadora(int numero, boolean estado, String direccionIp, String tipo, String etiqueta, Laboratorio laboratorio, List<Reserva> reservas, List<Software> softwares) {
+        this.numero = numero;
+        this.estado = estado;
+        this.direccionIp = direccionIp;
+        this.tipo = tipo;
+        this.etiqueta = etiqueta;
+        this.laboratorio = laboratorio;
+        this.reservas = reservas;
+        this.softwares = softwares;
+    }
+
+    public String getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(String etiqueta) {
+        this.etiqueta = etiqueta;
+    }
     
 
+    
     public String getTipo() {
         return tipo;
     }

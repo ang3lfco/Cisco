@@ -16,6 +16,7 @@ import Entidades.Estudiante;
 import Entidades.HorarioEspecial;
 import Entidades.Laboratorio;
 import Entidades.Reserva;
+import Entidades.Software;
 import conversiones.Conversiones;
 import static conversiones.Conversiones.convertirComputadoraDTOAComputadora;
 import excepciones.NegocioException;
@@ -26,9 +27,11 @@ import interfaces.IHorarioEspecialDAO;
 import interfaces.IReservaDAO;
 import interfaces.IReservacionNegocio;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import negocio_computadora.ComputadoraNegocio;
 
 /**
  *
@@ -69,7 +72,7 @@ public class ReservacionNegocio implements IReservacionNegocio {
     public void editarReserva(ReservaDTO reserva) throws NegocioException {
         try {
             Reserva reservaEntidad = this.convertirReservaDTOAEntidad(reserva);
-            
+
             reservaDAO.editarReserva(reservaEntidad);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error. " + e.getMessage());
@@ -98,9 +101,9 @@ public class ReservacionNegocio implements IReservacionNegocio {
     }
 
     @Override
-    public List<SoftwareDTO> softareDeComputadoraDTO(String ip) throws NegocioException {
+    public List<SoftwareDTO> softareDeComputadoraDTO(String ip, String tipo) throws NegocioException {
         try {
-            List<SoftwareDTO> lista = computadoraDAO.consultarSoftwareDeComputadoras(ip);
+            List<SoftwareDTO> lista = computadoraDAO.consultarSoftwareDeComputadoras(ip, tipo);
 
             return lista;
         } catch (PersistenciaException ex) {
@@ -175,7 +178,22 @@ public class ReservacionNegocio implements IReservacionNegocio {
 
         estudiante.setId(dto.getEstudiante().getId());
         computadora.setId(dto.getComputadora().getId());
+
+        String etiqueta = dto.getComputadora().getEtiqueta();
+        System.out.println("Etiqueta: " + etiqueta);
+        computadora.setEtiqueta(etiqueta);
+
         horario.setId(dto.getHorario().getId());
+
+        try {
+            List<SoftwareDTO> softwares = this.computadoraDAO.consultarSoftwareDeComputadoras(
+                    dto.getComputadora().getDireccionIp(),
+                    dto.getComputadora().getTipo());
+
+            computadora.setSoftwares(this.softwaresDTOAEntidad(softwares));
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComputadoraNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         Reserva reservaEntidad = new Reserva(
                 dto.getId(),
@@ -208,7 +226,6 @@ public class ReservacionNegocio implements IReservacionNegocio {
 
     public Computadora convertirComputadoraDTOAComputadora(ComputadoraDTO computadoraDTO) {
         if (computadoraDTO == null) {
-            System.out.println("NULO");
             return null;
         }
         Laboratorio lab = new Laboratorio();
@@ -221,7 +238,26 @@ public class ReservacionNegocio implements IReservacionNegocio {
         computadora.setDireccionIp(computadoraDTO.getDireccionIp());
         computadora.setTipo(computadoraDTO.getTipo());
         computadora.setLaboratorio(lab);
-        
+        computadora.setEtiqueta(computadoraDTO.getEtiqueta());
+
+        try {
+            List<SoftwareDTO> softwares = this.computadoraDAO.consultarSoftwareDeComputadoras(computadora.getDireccionIp(), computadora.getTipo());
+            computadora.setSoftwares(this.softwaresDTOAEntidad(softwares));
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ComputadoraNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return computadora;
+    }
+
+    private List<Software> softwaresDTOAEntidad(List<SoftwareDTO> dtos) {
+        List<Software> entidades = new ArrayList<>();
+
+        for (SoftwareDTO softwares : dtos) {
+            Software software = new Software();
+            software.setId(softwares.getId());
+            entidades.add(software);
+        }
+        return entidades;
     }
 }

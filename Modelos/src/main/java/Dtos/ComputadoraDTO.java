@@ -14,6 +14,7 @@ public class ComputadoraDTO {
     private Long id;
     private int numero;
     private boolean estado;
+    private String etiqueta;
     private String direccionIp;
     private String tipo;
     private LaboratorioDTO laboratorio;
@@ -66,6 +67,25 @@ public class ComputadoraDTO {
         this.laboratorio = laboratorio;
     }
 
+    public ComputadoraDTO(Long id, int numero, boolean estado, String etiqueta, String direccionIp, String tipo, LaboratorioDTO laboratorio) {
+        this.id = id;
+        this.numero = numero;
+        this.estado = estado;
+        this.etiqueta = etiqueta;
+        this.direccionIp = direccionIp;
+        this.tipo = tipo;
+        this.laboratorio = laboratorio;
+    }
+
+    public String getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(String etiqueta) {
+        this.etiqueta = etiqueta;
+    }
+
+    
     public String getTipo() {
         return tipo;
     }

@@ -129,17 +129,19 @@ public class frmComputadora extends javax.swing.JFrame {
         }
     }
 
-    public boolean validarPassword(String contraseña) throws PersistenciaException {
+    public boolean validarPassword(String contrasenha) throws PersistenciaException {
         try {
             ReservaDTO reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
-
-            if (!reserva.getEstudiante().getContraseña().equals(contraseña)) {
+            System.out.println(reserva.getEstudiante().getIdEstudiante());
+            if (!computadoraNegocio.validarContrasenhaEstudiante(contrasenha, reserva.getEstudiante().getIdEstudiante())) {
                 JOptionPane.showMessageDialog(null, "contraseña incorrecta");
 
                 return false;
             }
 
         } catch (PresentacionException ex) {
+            Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
             Logger.getLogger(frmComputadora.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;

@@ -37,6 +37,13 @@ public class SoftwareDTO {
         this.version = version;
     }
 
+    public SoftwareDTO(Long id, String nombre, String version) {
+        this.id = id;
+        this.nombre = nombre;
+        this.version = version;
+    }
+
+    
     public Long getId() {
         return id;
     }

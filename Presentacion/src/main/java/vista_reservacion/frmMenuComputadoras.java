@@ -12,6 +12,7 @@ import excepciones.NegocioException;
 import exceptiones.PresentacionException;
 import interfaces.IReservacionNegocio;
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -37,7 +38,7 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
     IReservacionNegocio reservacionNegocio;
     EstudianteIngresaDTO estudiante;
     int minutos;
-    String tipo = "Reserva";
+    String tipo = "Reservacion";
     /**
      * Creates new form frmMenuComputadoras
      */
@@ -79,17 +80,30 @@ public class frmMenuComputadoras extends javax.swing.JFrame {
         for (int i = 1; i <= computadoras.size(); i++) {
             JButton boton = new JButton(String.valueOf(computadoras.get(i-1).getNumero()));
             // Aquí puedes personalizar el botón (icono, acción, etc.)
+            
 
             int numeroBoton = i;
             ComputadoraDTO equipo = computadoras.get(numeroBoton-1);
-            lblLaboratorio.setText(equipo.getLaboratorio().getNombre());
+            //pintarBotones
+            
+            if (estudiante.getCarrera().equals("Ingenieria en software") || !equipo.getEtiqueta().isEmpty()) {
+                
+                if (equipo.getEtiqueta().equals("Programacion")) {
+                    boton.setBackground(Color.green);
+                }
+            }if (estudiante.getCarrera().equals("mecatronica") || !equipo.getEtiqueta().isEmpty()) {
+                if (equipo.getEtiqueta().equals("Modelado3D")) {
+                    boton.setBackground(Color.green);
+                }
+            }
             
             boton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     minutos = Integer.valueOf(txtTiempo.getText());
-                    frmConfirmarReserva confirmacion = new frmConfirmarReserva(reservacionNegocio,estudiante,equipo,minutos);
                     
+                    frmConfirmarReserva confirmacion = new frmConfirmarReserva(reservacionNegocio,estudiante,equipo,minutos);
+                    System.out.println(equipo.getEtiqueta());
                     confirmacion.setVisible(true);
                     cerrarVentana();
                 }

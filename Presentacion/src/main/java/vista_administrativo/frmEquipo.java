@@ -128,7 +128,7 @@ public class frmEquipo extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txfNumeroEquipo = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox<>();
-        txfIp = new javax.swing.JTextField();
+        txfEtiqueta = new javax.swing.JTextField();
         cmbLaboratorios = new javax.swing.JComboBox<>();
         btnAceptar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -136,6 +136,7 @@ public class frmEquipo extends javax.swing.JFrame {
         lblCerrar = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
         lblExpandir = new javax.swing.JLabel();
+        txfIp1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,8 +149,8 @@ public class frmEquipo extends javax.swing.JFrame {
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Ocupado" }));
         cmbEstado.setEnabled(false);
 
-        txfIp.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        txfIp.setText("Direccion ip del equipo:");
+        txfEtiqueta.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        txfEtiqueta.setText("etiqueta");
 
         cmbLaboratorios.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         cmbLaboratorios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca" }));
@@ -191,6 +192,9 @@ public class frmEquipo extends javax.swing.JFrame {
             }
         });
 
+        txfIp1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        txfIp1.setText("Direccion ip del equipo:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -211,9 +215,10 @@ public class frmEquipo extends javax.swing.JFrame {
                         .addComponent(btnAceptar)
                         .addComponent(txfNumeroEquipo, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txfIp, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txfEtiqueta, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(cmbLaboratorios, javax.swing.GroupLayout.Alignment.LEADING, 0, 228, Short.MAX_VALUE)
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(cmbTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txfIp1, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -230,15 +235,17 @@ public class frmEquipo extends javax.swing.JFrame {
                 .addComponent(txfNumeroEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txfIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(txfIp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(txfEtiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(cmbLaboratorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAceptar)
-                .addGap(30, 30, 30))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,7 +265,8 @@ public class frmEquipo extends javax.swing.JFrame {
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         // TODO add your handling code here:
         try {
-            AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfIp.getText(),cmbTipo.getSelectedItem().toString(), cmbLaboratorios.getSelectedItem().toString());
+            AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfEtiqueta.getText(),cmbTipo.getSelectedItem().toString(), cmbLaboratorios.getSelectedItem().toString());
+            equipo.setEtiqueta(txfEtiqueta.getText());
             adminNegocio.agregarEquipo(equipo);
         } catch (NegocioException ex) {
             Logger.getLogger(frmEquipo.class.getName()).log(Level.SEVERE, null, ex);
@@ -331,7 +339,8 @@ public class frmEquipo extends javax.swing.JFrame {
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
     private javax.swing.JLabel lblMinimizar;
-    private javax.swing.JTextField txfIp;
+    private javax.swing.JTextField txfEtiqueta;
+    private javax.swing.JTextField txfIp1;
     private javax.swing.JTextField txfNumeroEquipo;
     // End of variables declaration//GEN-END:variables
 }
