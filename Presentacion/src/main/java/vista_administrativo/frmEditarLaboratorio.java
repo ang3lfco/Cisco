@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -193,9 +194,12 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
                 dateTimePickerInicio.getTimePicker().getTime(),
                 dateTimePickerInicio.getTimePicker().getTime(),
                 txfContra.getText(),
-                txfInstituto.getText());
+                txfInstituto.getText()
+        );
         
         adminNegocio.editarLaboratorio(laboratorio, laboratorioEditado);
+        JOptionPane.showMessageDialog(null, "Laboratorio editado.");
+        this.dispose();
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     /**

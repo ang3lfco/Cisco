@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import negocio_administrativo.AdministrativoNegocio;
 
 /**
@@ -101,7 +102,6 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
         
         cargarCarreras();
         CargarEstudiante();
-        
     }
     
     private void cargarCarreras() throws NegocioException{
@@ -254,17 +254,14 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
                     break;
                 }
             }
-            
-            
-        } catch (NegocioException ex) {
+        } 
+        catch (NegocioException ex) {
             Logger.getLogger(frmEditarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         // TODO add your handling code here:
-        
-        
         EditarEstudianteDTO estudianteDTO = new EditarEstudianteDTO(
                 txfIdEstudiante.getText(),
                 txfNombre.getText(),
@@ -276,6 +273,8 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
         );
         try {
             adminNegocio.editarEstudiante(estudianteDTO);
+            JOptionPane.showMessageDialog(null, "Estudiante editado.");
+            this.dispose();
         } catch (NegocioException ex) {
             Logger.getLogger(frmEditarEstudiante.class.getName()).log(Level.SEVERE, null, ex);
         }

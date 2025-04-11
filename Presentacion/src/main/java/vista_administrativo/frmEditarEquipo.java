@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -234,6 +235,8 @@ public class frmEditarEquipo extends javax.swing.JFrame {
         // TODO add your handling code here:
         EditarEquipoDTO equipoEditado = new EditarEquipoDTO(Integer.parseInt(txfNumeroEquipo.getText()), txfIp.getText(), cmbTipo.getSelectedItem().toString(), txfLab.getText());
         adminNegocio.editarComputadora(equipo, equipoEditado);
+        JOptionPane.showMessageDialog(null, "Equipo editado.");
+        this.dispose();
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     private void txfLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfLabActionPerformed
