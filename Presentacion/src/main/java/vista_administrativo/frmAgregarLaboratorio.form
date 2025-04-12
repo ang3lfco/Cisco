@@ -55,15 +55,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dateTimePicker2" min="-2" max="-2" attributes="0"/>
-                          <Component id="dateTimePicker1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="dateTimePicker2" max="32767" attributes="0"/>
+                          <Component id="dateTimePicker1" max="32767" attributes="0"/>
                           <Component id="txfNombre" alignment="0" min="-2" pref="166" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txfIdInstituto" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txfContraseña" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="txfIdInstituto" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="pwfContraseña" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -88,9 +86,9 @@
                   <Component id="dateTimePicker1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="dateTimePicker2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="txfContraseña" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="pwfContraseña" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txfIdInstituto" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Component id="btnAgregar" min="-2" max="-2" attributes="0"/>
@@ -111,14 +109,6 @@
         <Component class="com.github.lgooddatepicker.components.DateTimePicker" name="dateTimePicker1">
         </Component>
         <Component class="com.github.lgooddatepicker.components.DateTimePicker" name="dateTimePicker2">
-        </Component>
-        <Component class="javax.swing.JTextField" name="txfContrase&#xf1;a">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI Black" size="12" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="contrase&#xf1;a"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txfIdInstituto">
           <Properties>
@@ -168,13 +158,18 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar laboratorio"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Black" size="14" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Agregar laboratorio"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="pwfContrase&#xf1;a">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
           </Properties>
         </Component>
       </SubComponents>

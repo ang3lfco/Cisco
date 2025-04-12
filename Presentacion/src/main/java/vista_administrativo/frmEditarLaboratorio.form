@@ -63,15 +63,13 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txfInstituto" min="-2" pref="228" max="-2" attributes="0"/>
-                              <Component id="txfContra" min="-2" pref="228" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                  <Component id="dateTimePickerFin" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="dateTimePickerInicio" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="txfNombreLab1" alignment="0" min="-2" pref="228" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txfInstituto" max="32767" attributes="0"/>
+                              <Component id="dateTimePickerFin" alignment="0" max="32767" attributes="0"/>
+                              <Component id="dateTimePickerInicio" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txfNombreLab1" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="pwfContraseña" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -96,9 +94,9 @@
                   <Component id="dateTimePickerInicio" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="dateTimePickerFin" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="txfContra" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Component id="pwfContraseña" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txfInstituto" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="35" max="32767" attributes="0"/>
                   <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
@@ -153,14 +151,6 @@
             <Property name="text" type="java.lang.String" value="Nombre laboratorio"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txfContra">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI Black" size="14" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblCerrar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -190,6 +180,11 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblExpandirMouseClicked"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="pwfContrase&#xf1;a">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -103,7 +103,6 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         txfApellidoPaterno = new javax.swing.JTextField();
         txfApellidoMaterno = new javax.swing.JTextField();
-        txfContraseña = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
         txfIdEstudiante = new javax.swing.JTextField();
         txfNombre = new javax.swing.JTextField();
@@ -111,6 +110,7 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
         lblMinimizar = new javax.swing.JLabel();
         lblExpandir = new javax.swing.JLabel();
         cmbCarreras = new javax.swing.JComboBox<>();
+        pwfContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,6 +155,8 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
 
         cmbCarreras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        pwfContraseña.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,15 +171,14 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnEditar)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txfIdEstudiante)
-                        .addComponent(txfNombre)
-                        .addComponent(txfApellidoPaterno)
-                        .addComponent(txfApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                        .addComponent(txfContraseña)
-                        .addComponent(cmbCarreras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txfIdEstudiante, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfApellidoPaterno, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfApellidoMaterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(cmbCarreras, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pwfContraseña, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -197,7 +198,7 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txfApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pwfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbCarreras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
@@ -242,13 +243,15 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
     
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         // TODO add your handling code here:
+        char[] password = pwfContraseña.getPassword();
+        String contraseña = new String(password);
         EditarEstudianteDTO estudianteDTO = new EditarEstudianteDTO(
                 txfIdEstudiante.getText(),
                 txfNombre.getText(),
                 txfApellidoPaterno.getText(),
                 txfApellidoMaterno.getText(),
                 "Activo",
-                txfContraseña.getText(),
+                contraseña,
                 cmbCarreras.getSelectedItem().toString()
         );
         try {
@@ -322,9 +325,9 @@ public class frmEditarEstudiante extends javax.swing.JFrame {
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
     private javax.swing.JLabel lblMinimizar;
+    private javax.swing.JPasswordField pwfContraseña;
     private javax.swing.JTextField txfApellidoMaterno;
     private javax.swing.JTextField txfApellidoPaterno;
-    private javax.swing.JTextField txfContraseña;
     private javax.swing.JTextField txfIdEstudiante;
     private javax.swing.JTextField txfNombre;
     // End of variables declaration//GEN-END:variables

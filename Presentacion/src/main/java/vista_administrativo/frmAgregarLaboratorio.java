@@ -87,13 +87,13 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
         txfNombre = new javax.swing.JTextField();
         dateTimePicker1 = new com.github.lgooddatepicker.components.DateTimePicker();
         dateTimePicker2 = new com.github.lgooddatepicker.components.DateTimePicker();
-        txfContraseña = new javax.swing.JTextField();
         txfIdInstituto = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         lblExpandir = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
         lblCerrar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        pwfContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,9 +101,6 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
 
         txfNombre.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         txfNombre.setText("Nombre laboratorio");
-
-        txfContraseña.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        txfContraseña.setText("contraseña");
 
         txfIdInstituto.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         txfIdInstituto.setText("instituto");
@@ -136,9 +133,11 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Agregar laboratorio");
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Agregar laboratorio");
+
+        pwfContraseña.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,14 +154,13 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(dateTimePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(dateTimePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dateTimePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txfIdInstituto, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfContraseña, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel1))
+                        .addComponent(txfIdInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
+                        .addComponent(pwfContraseña))
                     .addComponent(btnAgregar))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -182,9 +180,9 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
                 .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dateTimePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(txfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
+                .addComponent(pwfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txfIdInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(btnAgregar)
@@ -207,7 +205,9 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
         // TODO add your handling code here:
-        AgregarLaboratorioDTO laboratorioDTO = new AgregarLaboratorioDTO(txfNombre.getText(), dateTimePicker1.timePicker.getTime(), dateTimePicker2.timePicker.getTime(), txfContraseña.getText(), Long.parseLong(txfIdInstituto.getText()));
+        char[] password = pwfContraseña.getPassword();
+        String contraseña = new String(password);
+        AgregarLaboratorioDTO laboratorioDTO = new AgregarLaboratorioDTO(txfNombre.getText(), dateTimePicker1.timePicker.getTime(), dateTimePicker2.timePicker.getTime(), contraseña, Long.parseLong(txfIdInstituto.getText()));
         try {
             adminNegocio.agregarLaboratorio(laboratorioDTO);
             JOptionPane.showMessageDialog(null, "Laboratorio agregado.");
@@ -281,7 +281,7 @@ public class frmAgregarLaboratorio extends javax.swing.JFrame {
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
     private javax.swing.JLabel lblMinimizar;
-    private javax.swing.JTextField txfContraseña;
+    private javax.swing.JPasswordField pwfContraseña;
     private javax.swing.JTextField txfIdInstituto;
     private javax.swing.JTextField txfNombre;
     // End of variables declaration//GEN-END:variables

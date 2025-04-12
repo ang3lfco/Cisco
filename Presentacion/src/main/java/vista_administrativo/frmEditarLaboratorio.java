@@ -78,7 +78,7 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
 
     public void llenarDatos() {
         txfNombreLab1.setText(laboratorio.getNombre());
-        txfContra.setText(laboratorio.getContraseña());
+        pwfContraseña.setText(laboratorio.getContraseña());
         txfInstituto.setText(laboratorio.getInstituto());
         
         dateTimePickerInicio.setDateTimeStrict(LocalDateTime.of(LocalDate.now(), laboratorio.getHoraInicio()));
@@ -100,10 +100,10 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
         dateTimePickerInicio = new com.github.lgooddatepicker.components.DateTimePicker();
         dateTimePickerFin = new com.github.lgooddatepicker.components.DateTimePicker();
         txfNombreLab1 = new javax.swing.JTextField();
-        txfContra = new javax.swing.JTextField();
         lblCerrar = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
         lblExpandir = new javax.swing.JLabel();
+        pwfContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,9 +128,6 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
         txfNombreLab1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         txfNombreLab1.setText("Nombre laboratorio");
 
-        txfContra.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        txfContra.setText("Contraseña");
-
         lblCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cerrar.png"))); // NOI18N
         lblCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -152,6 +149,8 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
             }
         });
 
+        pwfContraseña.setText("jPasswordField1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -171,14 +170,13 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
                         .addComponent(btnAceptar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txfContra, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(dateTimePickerFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dateTimePickerInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txfNombreLab1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txfInstituto)
+                            .addComponent(dateTimePickerFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateTimePickerInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txfNombreLab1)
+                            .addComponent(jLabel1)
+                            .addComponent(pwfContraseña))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -197,9 +195,9 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
                 .addComponent(dateTimePickerInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(dateTimePickerFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txfContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
+                .addComponent(pwfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txfInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(btnAceptar)
@@ -224,10 +222,12 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         // TODO add your handling code here:
+        char[] password = pwfContraseña.getPassword();
+        String contraseña = new String(password);
         EditarLaboratoriosDTO laboratorioEditado = new EditarLaboratoriosDTO(txfNombreLab1.getText(),
                 dateTimePickerInicio.getTimePicker().getTime(),
                 dateTimePickerInicio.getTimePicker().getTime(),
-                txfContra.getText(),
+                contraseña,
                 txfInstituto.getText()
         );
         
@@ -300,7 +300,7 @@ public class frmEditarLaboratorio extends javax.swing.JFrame {
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
     private javax.swing.JLabel lblMinimizar;
-    private javax.swing.JTextField txfContra;
+    private javax.swing.JPasswordField pwfContraseña;
     private javax.swing.JTextField txfInstituto;
     private javax.swing.JTextField txfNombreLab1;
     // End of variables declaration//GEN-END:variables

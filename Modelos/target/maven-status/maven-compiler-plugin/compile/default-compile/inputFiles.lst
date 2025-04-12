@@ -1,6 +1,7 @@
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\com\mycompany\modelos\Modelos.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\com\mycompany\modelos\Pruebas.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\AgregarBloqueoDTO.java
+C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\AgregarCarreraDTO.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\AgregarComputadoraDTO.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\AgregarEstudianteDTO.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\AgregarHorarioEspecialDTO.java
@@ -26,6 +27,7 @@ C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\HorarioEspecialDTO.ja
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\InstitutoDTO.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\LaboratorioDTO.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\LaboratoriosTablaDTO.java
+C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\minutosUsadosPorEstudianteDTO.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\ReservaDTO.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Dtos\SoftwareDTO.java
 C:\Users\ang3lfco\Desktop\Cisco\Modelos\src\main\java\Entidades\Bloqueo.java

@@ -31,8 +31,10 @@ Dtos\AgregarInstalacionDTO.class
 Dtos\AgregarLaboratorioDTO.class
 Dtos\AgregarComputadoraDTO.class
 Entidades\Carrera.class
+Dtos\AgregarCarreraDTO.class
 Dtos\AgregarHorarioEspecialDTO.class
 Dtos\ConsultarEstudianteDTO.class
+Dtos\minutosUsadosPorEstudianteDTO.class
 Dtos\AgregarSoftwareDTO.class
 Entidades\HorarioEspecial.class
 Entidades\Software.class
