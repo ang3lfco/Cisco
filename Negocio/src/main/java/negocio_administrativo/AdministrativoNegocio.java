@@ -147,6 +147,19 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
     }
     
     @Override
+    public void agregarCarrera(String nombre, int timepoDiario){
+        try {
+        Carrera carrera = new Carrera();
+        carrera.setNombre(nombre);
+        carrera.setTiempoDiario(timepoDiario);
+        
+            carreraDAO.agregar(carrera);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(AdministrativoNegocio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
     public List<ConsultarEstudianteDTO> getEstudiantes() throws NegocioException {
         try{
             List<Estudiante> estudiantes = estudianteDAO.getEstudiantes();

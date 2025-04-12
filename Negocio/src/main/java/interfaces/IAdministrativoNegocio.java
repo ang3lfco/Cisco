@@ -56,4 +56,5 @@ public interface IAdministrativoNegocio {
     List<ConsultarLaboratorioDTO> getListaLaboratorios() throws NegocioException;
     List<ConsultarSoftwareDTO> getListaSoftwares() throws NegocioException;
     List<ConsultarCarreraDTO> getListaCarreras() throws NegocioException;
+    void agregarCarrera(String nombre, int timepoDiario);
 }

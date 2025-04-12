@@ -4,13 +4,10 @@
  */
 package vista_administrativo;
 
-import Dtos.AgregarComputadoraDTO;
-import Dtos.ConsultarLaboratorioDTO;
 import componentes.RoundedPanel;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
 import java.awt.Color;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -18,49 +15,51 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author ang3lfco
+ * @author ReneEzequiel23
  */
-public class frmEquipo extends javax.swing.JFrame {
+public class frmAgregarCarrera extends javax.swing.JFrame {
+
     private IAdministrativoNegocio adminNegocio;
     private int xMouse, yMouse;
-    
+
     /**
-     * Creates new form frmAgregarEquipo
+     * Creates new form frmAgregarCarrera
      */
-    public frmEquipo(IAdministrativoNegocio adminNegocio) throws NegocioException {
+    public frmAgregarCarrera(IAdministrativoNegocio adminNegocio) {
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
         initComponents();
+
         this.adminNegocio = adminNegocio;
-        
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+
         // Panel redondo
-        RoundedPanel mainPanel = new RoundedPanel(50, new Color(15,86,137));
+        RoundedPanel mainPanel = new RoundedPanel(50, new Color(15, 86, 137));
         mainPanel.setOpaque(false);
         setContentPane(mainPanel);
-        
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(layout);
-        
+
         // Ajustar márgenes para evitar que los componentes cubran los bordes redondeados
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0) // Márgenes izquierdos
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
-                    .addGap(0)) // Márgenes derechos
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(0) // Márgenes izquierdos
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                                .addGap(0)) // Márgenes derechos
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0) // Márgenes superiores
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                    .addGap(0)) // Márgenes inferiores
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(0) // Márgenes superiores
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                                .addGap(0)) // Márgenes inferiores
         );
 
         jPanel1.setOpaque(false);
-        
+
         // Movimiento del Frame
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -76,19 +75,9 @@ public class frmEquipo extends javax.swing.JFrame {
                 setLocation(evt.getXOnScreen() - xMouse, evt.getYOnScreen() - yMouse);
             }
         });
-        
-        cargarLabs();
+
     }
-    
-    private void cargarLabs() throws NegocioException{
-        List<ConsultarLaboratorioDTO> labs = adminNegocio.getListaLaboratorios();
-        cmbLaboratorios.removeAllItems();
-        for(ConsultarLaboratorioDTO laboratorio : labs){
-            cmbLaboratorios.addItem(laboratorio.getNombre());
-        }
-    }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,50 +88,29 @@ public class frmEquipo extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txfNumeroEquipo = new javax.swing.JTextField();
-        cmbEstado = new javax.swing.JComboBox<>();
-        txfEtiqueta = new javax.swing.JTextField();
-        cmbLaboratorios = new javax.swing.JComboBox<>();
-        btnAceptar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        cmbTipo = new javax.swing.JComboBox<>();
+        btnAgregar = new javax.swing.JButton();
+        txfCarrera = new javax.swing.JTextField();
+        txfTiempo = new javax.swing.JTextField();
         lblCerrar = new javax.swing.JLabel();
         lblMinimizar = new javax.swing.JLabel();
         lblExpandir = new javax.swing.JLabel();
-        txfIp1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(15, 86, 137));
 
-        txfNumeroEquipo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        txfNumeroEquipo.setText("Numero de Equipo");
-
-        cmbEstado.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "Ocupado" }));
-        cmbEstado.setEnabled(false);
-
-        txfEtiqueta.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        txfEtiqueta.setText("etiqueta");
-
-        cmbLaboratorios.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        cmbLaboratorios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cisco", "Biblioteca" }));
-
-        btnAceptar.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        btnAceptar.setForeground(new java.awt.Color(15, 86, 137));
-        btnAceptar.setText("Aceptar");
-        btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAgregar.setText("Agregar");
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAceptarMouseClicked(evt);
+                btnAgregarMouseClicked(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Agregar equipo");
+        txfCarrera.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        txfCarrera.setText("Nombre carrera");
 
-        cmbTipo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estudiante", "Reservacion" }));
+        txfTiempo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        txfTiempo.setText("Minutos limite");
 
         lblCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cerrar.png"))); // NOI18N
         lblCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,9 +133,6 @@ public class frmEquipo extends javax.swing.JFrame {
             }
         });
 
-        txfIp1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        txfIp1.setText("Direccion ip del equipo:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,46 +144,30 @@ public class frmEquipo extends javax.swing.JFrame {
                 .addComponent(lblMinimizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCerrar)
-                .addGap(19, 19, 19))
+                .addGap(17, 17, 17))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnAceptar)
-                        .addComponent(txfNumeroEquipo, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cmbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txfEtiqueta, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cmbLaboratorios, javax.swing.GroupLayout.Alignment.LEADING, 0, 228, Short.MAX_VALUE)
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txfIp1, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnAgregar)
+                    .addComponent(txfCarrera, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(txfTiempo, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblMinimizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblExpandir))
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txfNumeroEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txfIp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(txfEtiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cmbLaboratorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAceptar)
-                .addGap(14, 14, 14))
+                .addGap(50, 50, 50)
+                .addComponent(txfCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txfTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(btnAgregar)
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,18 +184,24 @@ public class frmEquipo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
-        // TODO add your handling code here:
-        AgregarComputadoraDTO equipo = new AgregarComputadoraDTO(Integer.parseInt(txfNumeroEquipo.getText()), true, txfIp1.getText(),cmbTipo.getSelectedItem().toString(), cmbLaboratorios.getSelectedItem().toString());
-        equipo.setEtiqueta(txfEtiqueta.getText());
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        // TODO add your handling code here
+        String nombre = txfCarrera.getText();
+        int tiempo = Integer.valueOf(txfTiempo.getText());
+        adminNegocio.agregarCarrera(nombre, tiempo);
+
+        JOptionPane.showMessageDialog(null, "Carrera agregada.");
+
+        this.dispose();
+
+        frmAgregarEstudiante agregarEstudiante;
         try {
-            adminNegocio.agregarEquipo(equipo);
-            JOptionPane.showMessageDialog(null, "Computadora agregada.");
-            this.dispose();
+            agregarEstudiante = new frmAgregarEstudiante(adminNegocio);
+            agregarEstudiante.setVisible(true);
         } catch (NegocioException ex) {
-            Logger.getLogger(frmEquipo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnAceptarMouseClicked
+    }//GEN-LAST:event_btnAgregarMouseClicked
 
     private void lblCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseClicked
         // TODO add your handling code here:
@@ -260,14 +215,13 @@ public class frmEquipo extends javax.swing.JFrame {
 
     private void lblExpandirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExpandirMouseClicked
         // TODO add your handling code here:
-        if (this.getExtendedState() == JFrame.MAXIMIZED_BOTH){
+        if (this.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
             this.setExtendedState(JFrame.NORMAL);
-        }
-        else{
+        } else {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
     }//GEN-LAST:event_lblExpandirMouseClicked
-
+//
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -285,37 +239,31 @@ public class frmEquipo extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(frmAgregarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(frmAgregarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(frmAgregarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(frmEquipo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(frmAgregarCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
-//        //</editor-fold>
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new frmEquipo().setVisible(true);
+//                new frmAgregarCarrera().setVisible(true);
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
-    private javax.swing.JComboBox<String> cmbEstado;
-    private javax.swing.JComboBox<String> cmbLaboratorios;
-    private javax.swing.JComboBox<String> cmbTipo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblExpandir;
     private javax.swing.JLabel lblMinimizar;
-    private javax.swing.JTextField txfEtiqueta;
-    private javax.swing.JTextField txfIp1;
-    private javax.swing.JTextField txfNumeroEquipo;
+    private javax.swing.JTextField txfCarrera;
+    private javax.swing.JTextField txfTiempo;
     // End of variables declaration//GEN-END:variables
 }

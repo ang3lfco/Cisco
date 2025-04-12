@@ -93,7 +93,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         try {
             pc = reservacionNegocio.computadoraPorIpYTipo(this.pc.getDireccionIp(), "Estudiante");
             he = new HorarioEspecialDTO(LocalDate.now(), pc.getLaboratorio().getHoraInicio(),
-                    pc.getLaboratorio().getHoraInicio(), pc.getLaboratorio());
+                    pc.getLaboratorio().getHoraFin(), pc.getLaboratorio());
 
             reservacionNegocio.agregarHorarioEspecial(he);
             
