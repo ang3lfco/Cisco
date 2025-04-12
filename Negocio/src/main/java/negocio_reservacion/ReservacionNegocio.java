@@ -169,7 +169,7 @@ public class ReservacionNegocio implements IReservacionNegocio {
     public boolean estudianteEstaBloqueado(String id) throws NegocioException{
         try {
             if (bloqueoDAO.consultarUltimoBloqueoDeEstudiante(id) == null) {
-                return true;
+                return false;
             }
             if (bloqueoDAO.consultarUltimoBloqueoDeEstudiante(id).getFechaHoraDesbloqueo() == null) {
                 return true;
@@ -227,6 +227,17 @@ public class ReservacionNegocio implements IReservacionNegocio {
         );
 
         return reservaEntidad;
+    }
+    
+    @Override
+    public int minutosUsadosPorUsuarios(String id, LocalDate fecha){
+        if (reservaDAO.minutosUsadosPorEstudiante(id, fecha) == null) {
+            return 0;
+        }
+            
+        int minutos = reservaDAO.minutosUsadosPorEstudiante(id, fecha).getMinutos();
+        
+        return minutos;
     }
 
     private HorarioEspecial convertirHorarioDTOAEntidad(HorarioEspecialDTO dto) {

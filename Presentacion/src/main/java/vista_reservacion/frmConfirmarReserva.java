@@ -49,7 +49,7 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         alumnoLabel.setText(estudiante.getNombre() + " "
                 + estudiante.getApellidoPaterno() + " " + estudiante.getApellidoMaterno());
 
-        cantidadMinutosLabel.setText(Integer.toString(estudiante.getTiempoDiario()));
+        cantidadMinutosLabel.setText(Integer.toString(minutos));
 
         fechaLabel.setText(LocalDate.now().toString());
 
@@ -205,25 +205,22 @@ public class frmConfirmarReserva extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(fechaLabel)
-                .addGap(56, 56, 56))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNumeroEquipo)
                     .addComponent(numeroEquipoLabel)
                     .addComponent(btnAnterior)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(alumnoLabel)
                     .addComponent(horaFinalLabel)
                     .addComponent(numeroEquipoLabel2)
                     .addComponent(cantidadMinutosLabel)
                     .addComponent(numeroEquipoLabel1)
-                    .addComponent(btnAceptar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(53, 53, 53))
+                    .addComponent(alumnoLabel)
+                    .addComponent(fechaLabel)
+                    .addComponent(btnAceptar))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

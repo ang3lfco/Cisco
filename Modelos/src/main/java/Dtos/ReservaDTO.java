@@ -65,6 +65,16 @@ public class ReservaDTO {
         this.horario = horario;
     }
 
+    public ReservaDTO(Long id, LocalTime horaInicio, int minutosSeleccionados, int minutosUsados, ComputadoraDTO computadora, EstudianteDTO estudiante) {
+        this.id = id;
+        this.horaInicio = horaInicio;
+        this.minutosSeleccionados = minutosSeleccionados;
+        this.minutosUsados = minutosUsados;
+        this.computadora = computadora;
+        this.estudiante = estudiante;
+    }
+
+    
     
     public int getMinutosSeleccionados() {
         return minutosSeleccionados;

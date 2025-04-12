@@ -5,8 +5,10 @@
 package interfaces;
 
 import Dtos.ReservaDTO;
+import Dtos.minutosUsadosPorEstudianteDTO;
 import Entidades.Reserva;
 import excepciones.PersistenciaException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,4 +21,5 @@ public interface IReservaDAO {
     void editarReserva(Reserva reserva) throws PersistenciaException;
     List<ReservaDTO> consultarReservas() throws PersistenciaException;
     ReservaDTO consultarReserva(String ip) throws PersistenciaException;
+    minutosUsadosPorEstudianteDTO minutosUsadosPorEstudiante(String id, LocalDate fecha);
 }

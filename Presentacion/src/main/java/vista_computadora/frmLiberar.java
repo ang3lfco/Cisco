@@ -45,14 +45,13 @@ public class frmLiberar extends javax.swing.JFrame {
         try {
             if (computadoraNegocio.reservaPorComputadora(this.obtenerIpDelEquipo()) != null) {
                 reserva = this.obtenerReserva(this.obtenerIpDelEquipo());
-
                 lblEquipo.setText("equipo: " + reserva.getComputadora().getNumero());
 
                 lblNombre.setText(reserva.getEstudiante().getNombre() + " " + reserva.getEstudiante().getApellidoPaterno());
                 minutos = Duration.between(reserva.getHoraInicio(), LocalTime.now().plusMinutes(reserva.getMinutosSeleccionados())).toMinutes();
                 tiempo = minutos;
 
-                lblTiempo.setText(tiempo + " min");
+                lblTiempo.setText(tiempo-1 + " min");
 
             }
 
@@ -92,8 +91,8 @@ public class frmLiberar extends javax.swing.JFrame {
 
         Timer timer = new Timer(delay, (ActionEvent e) -> {
             tiempo = tiempo - 1;
-            lblTiempo.setText(tiempo + " min");
-            if (tiempo < 0) {
+            lblTiempo.setText(tiempo-1 + " min");
+            if (tiempo <= 0) {
                 this.actualizarEstadoEsquipo();
                 actualizarReserva();
                 this.dispose();
