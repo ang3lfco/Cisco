@@ -4,16 +4,21 @@
  */
 package com.mycompany.persistencia;
 
+import Dtos.ReporteDTO;
 import Entidades.Carrera;
 import Entidades.Estudiante;
 import daos.ConexionBD;
 import daos.EstudianteDAO;
+import daos.ReporteDAO;
 import daos.ReservaDAO;
 import excepciones.PersistenciaException;
 import interfaces.IConexionBD;
 import interfaces.IEstudianteDAO;
+import interfaces.IReporteDAO;
 import interfaces.IReservaDAO;
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -26,6 +31,9 @@ public class Prueba2 {
 
     public static void main(String[] args) throws PersistenciaException {
         IConexionBD conexionBD = new ConexionBD();
+        IReporteDAO reporte = new ReporteDAO(conexionBD);
+        
+        List<ReporteDTO> reportes = reporte.consultarReservas(LocalDate.of(2025, Month.APRIL, 1), LocalDate.now());
         IEstudianteDAO estudianteDAO = new EstudianteDAO(conexionBD);
 
 //        EntityManager em = conexionBD.obtenerEntityManager();
@@ -36,8 +44,10 @@ public class Prueba2 {
 //        System.out.println(e.toString());
 //        conexionBD.cerrarEntityManagerFactory();
         IReservaDAO rDAO = new ReservaDAO(conexionBD);
+       
         
-        System.out.println(rDAO.consultarReserva("192.168.0.14").getHoraInicio());
-
+        for (int i = 0; i < reportes.size(); i++) {
+            System.out.println(reportes.get(i));
+        }
     }
 }

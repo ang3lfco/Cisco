@@ -20,9 +20,11 @@ import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EditarLaboratoriosDTO;
 import Dtos.EstudianteTablaDTO;
+import Dtos.HorarioEspecialDTO;
 import Dtos.InstitutoDTO;
 import Dtos.LaboratoriosTablaDTO;
 import excepciones.NegocioException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -57,4 +59,6 @@ public interface IAdministrativoNegocio {
     List<ConsultarSoftwareDTO> getListaSoftwares() throws NegocioException;
     List<ConsultarCarreraDTO> getListaCarreras() throws NegocioException;
     void agregarCarrera(String nombre, int timepoDiario);
+    HorarioEspecialDTO buscarHorarioEspecialPorDia(LocalDate hoy) throws NegocioException;
+    void generarReporte(LocalDate inicio, LocalDate fin);
 }

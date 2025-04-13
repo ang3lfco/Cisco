@@ -20,9 +20,11 @@ import Dtos.EditarEquipoDTO;
 import Dtos.EditarEstudianteDTO;
 import Dtos.EditarLaboratoriosDTO;
 import Dtos.EstudianteTablaDTO;
+import Dtos.HorarioEspecialDTO;
 import Dtos.InstitutoDTO;
 import Dtos.LaboratorioDTO;
 import Dtos.LaboratoriosTablaDTO;
+import Dtos.ReporteDTO;
 import Entidades.Bloqueo;
 import Entidades.Carrera;
 import Entidades.Computadora;
@@ -43,11 +45,14 @@ import interfaces.IEstudianteDAO;
 import interfaces.IHorarioEspecialDAO;
 import interfaces.IInstitutoDAO;
 import interfaces.ILaboratorioDAO;
+import interfaces.IReporteDAO;
 import interfaces.ISoftwareDAO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import reportes.ReporteLaboratorio;
 
 /**
  *
@@ -62,6 +67,7 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
     private IHorarioEspecialDAO horarioEspecialDAO;
     private ICarreraDAO carreraDAO;
     private IInstitutoDAO institutoDAO;
+    private IReporteDAO reporteDAO;
     
     public AdministrativoNegocio(IComputadoraDAO computadoraDAO, ILaboratorioDAO laboratorioDAO, ISoftwareDAO softwareDAO, IBloqueoDAO bloqueoDAO, IEstudianteDAO estudianteDAO, IHorarioEspecialDAO horarioEspecialDAO, ICarreraDAO carreraDAO, IInstitutoDAO institutoDAO){
         this.computadoraDAO = computadoraDAO;
@@ -73,6 +79,20 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         this.carreraDAO = carreraDAO;
         this.institutoDAO = institutoDAO;
     }
+
+    public AdministrativoNegocio(IComputadoraDAO computadoraDAO, ILaboratorioDAO laboratorioDAO, ISoftwareDAO softwareDAO, IBloqueoDAO bloqueoDAO, IEstudianteDAO estudianteDAO, IHorarioEspecialDAO horarioEspecialDAO, ICarreraDAO carreraDAO, IInstitutoDAO institutoDAO, IReporteDAO reporteDAO) {
+        this.computadoraDAO = computadoraDAO;
+        this.laboratorioDAO = laboratorioDAO;
+        this.softwareDAO = softwareDAO;
+        this.bloqueoDAO = bloqueoDAO;
+        this.estudianteDAO = estudianteDAO;
+        this.horarioEspecialDAO = horarioEspecialDAO;
+        this.carreraDAO = carreraDAO;
+        this.institutoDAO = institutoDAO;
+        this.reporteDAO = reporteDAO;
+    }
+    
+    
     
     @Override
     public void agregarEquipo(AgregarComputadoraDTO computadoraDTO) throws NegocioException{
@@ -445,6 +465,38 @@ public class AdministrativoNegocio implements IAdministrativoNegocio{
         }
         catch(PersistenciaException e){
             throw new NegocioException("Error. " + e.getMessage());
+        }
+    }
+    
+    public HorarioEspecialDTO buscarHorarioEspecialPorDia(LocalDate hoy) throws NegocioException {
+        try {
+            if (horarioEspecialDAO.buscarHorarioPorDia(hoy) == null) {
+                return null;
+            }
+
+            HorarioEspecialDTO he = horarioEspecialDAO.buscarHorarioPorDia(hoy);
+            return he;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
+        }
+    }
+    
+    private List<ReporteDTO> reporteLaboratorio(LocalDate inicio, LocalDate fin) throws NegocioException{
+        try {
+            List<ReporteDTO> lista = reporteDAO.consultarReservas(inicio, fin);
+            return lista;
+        } catch (PersistenciaException ex) {
+            throw new NegocioException("Error. " + ex.getMessage());
+        }
+    } 
+    
+    public void generarReporte(LocalDate inicio, LocalDate fin){
+        try {
+            ReporteLaboratorio reporte = new ReporteLaboratorio();
+            List<ReporteDTO> lista = this.reporteLaboratorio(inicio, fin);
+            reporte.Reporte(inicio, fin, lista);
+        } catch (NegocioException ex) {
+            Logger.getLogger(AdministrativoNegocio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

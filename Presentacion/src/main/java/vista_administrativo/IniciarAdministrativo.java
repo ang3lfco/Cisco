@@ -12,6 +12,7 @@ import daos.EstudianteDAO;
 import daos.HorarioEspecialDAO;
 import daos.InstitutoDAO;
 import daos.LaboratorioDAO;
+import daos.ReporteDAO;
 import daos.SoftwareDAO;
 import excepciones.NegocioException;
 import interfaces.IAdministrativoNegocio;
@@ -23,6 +24,7 @@ import interfaces.IEstudianteDAO;
 import interfaces.IHorarioEspecialDAO;
 import interfaces.IInstitutoDAO;
 import interfaces.ILaboratorioDAO;
+import interfaces.IReporteDAO;
 import interfaces.ISoftwareDAO;
 import negocio_administrativo.AdministrativoNegocio;
 
@@ -42,8 +44,10 @@ public class IniciarAdministrativo {
         IHorarioEspecialDAO horarioEspecialDAO = new HorarioEspecialDAO(conexion);
         ICarreraDAO carreraDAO = new CarreraDAO(conexion);
         IInstitutoDAO institutoDAO = new InstitutoDAO(conexion);
+        IReporteDAO reporteDAO = new ReporteDAO(conexion);
+        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO, carreraDAO, institutoDAO,reporteDAO);
         
-        adminNegocio = new AdministrativoNegocio(computadoraDAO, laboratorioDAO, softwareDAO, bloqueoDAO, estudianteDAO, horarioEspecialDAO, carreraDAO, institutoDAO);
+        
         frmCredenciales iniciar = new frmCredenciales(adminNegocio);
         iniciar.setVisible(true);
     }
